@@ -47,7 +47,7 @@ static double integrate(IntegrandFunction F, double low, double high) {
 }
 
 /**
- * numerically integrate the value of the flux factory chi
+ * numerically integrate the value of the flux factor chi
  *
  * The integration of the form factor into the flux factor can
  * be done analytically with a tool like mathematica, but when
@@ -105,24 +105,14 @@ static double flux_factor_chi_numerical(G4double A, G4double Z, double tmin, dou
   return integrate(integrand,log(tmin),log(tmax));
 }
 
-G4DarkBreMModel::G4DarkBreMModel(const std::string& method_name, double threshold,
-    double epsilon, const std::string& library_path, bool muons, int aprime_lhe_id, 
-    bool use_full_ww, bool load_library)
+G4DarkBreMModel::G4DarkBreMModel(ScalingMethod scaling_method, XsecMethod xsec_method,
+    double threshold, double epsilon, const std::string& library_path, 
+    bool muons, int aprime_lhe_id, bool load_library)
     : PrototypeModel(muons), maxIterations_{10000}, 
       threshold_{std::max(threshold, 2.*G4APrime::APrime()->GetPDGMass()/CLHEP::GeV)},
-      epsilon_{epsilon}, aprime_lhe_id_{aprime_lhe_id}, use_full_ww_{use_full_ww},
-      method_(DarkBremMethod::Undefined), method_name_{method_name}, 
+      epsilon_{epsilon}, aprime_lhe_id_{aprime_lhe_id},
+      scaling_method_{scaling_method}, xsec_method_{xsec_method},
       library_path_{library_path} {
-  if (method_name_ == "forward_only") {
-    method_ = DarkBremMethod::ForwardOnly;
-  } else if (method_name_ == "cm_scaling") {
-    method_ = DarkBremMethod::CMScaling;
-  } else if (method_name_ == "undefined") {
-    method_ = DarkBremMethod::Undefined;
-  } else {
-    throw std::runtime_error("Invalid dark brem interpretaion/scaling method '"+method_name_+"'.");
-  }
-
   if (load_library) SetMadGraphDataLibrary(library_path_);
 }
 
@@ -130,7 +120,24 @@ void G4DarkBreMModel::PrintInfo() const {
   G4cout << " Dark Brem Vertex Library Model" << G4endl;
   G4cout << "   Threshold [GeV]: " << threshold_ << G4endl;
   G4cout << "   Epsilon:         " << epsilon_ << G4endl;
-  G4cout << "   Scaling Method:  " << method_name_ << G4endl;
+  G4cout << "   Scaling Method:  ";
+  if (scaling_method_ == ScalingMethod::ForwardOnly) {
+    G4cout << "ForwardOnly";
+  } else if (scaling_method_ == ScalingMethod::CMScaling) {
+    G4cout << "CMScaling";
+  } else {
+    G4cout << "Undefined";
+  }
+  G4cout << G4endl;
+  G4cout << "   Xsec Method:     ";
+  if (xsec_method_ == XsecMethod::Full) {
+    G4cout << "Full";
+  } else if (xsec_method_ == XsecMethod::Improved) {
+    G4cout << "Improved";
+  } else {
+    G4cout << "HyperImproved";
+  }
+  G4cout << G4endl;
   G4cout << "   Vertex Library:  " << library_path_ << G4endl;
 }
 
@@ -155,151 +162,155 @@ G4double G4DarkBreMModel::ComputeCrossSectionPerAtom(
   double lepton_e = lepton_ke/GeV + lepton_mass;
   double lepton_e_sq = lepton_e*lepton_e;
 
-  /*
-   * "Hyper-Improved" WW
-   *
-   * assume theta = 0, and x = 1 for form factor integration
-   * i.e. now chi is a constant pulled out of the integration
-   */
-  double chi_hiww = flux_factor_chi_numerical(A,Z,MA2*MA2/(4*lepton_e_sq),MA2+lepton_mass_sq);
-
-  /*
-   * Differential cross section with respect to x and theta
-   *
-   * Equation (16) from Appendix A of https://arxiv.org/pdf/2101.12192.pdf
-   *
-   * This `auto` represents a lambda-expression function, inheriting many
-   * pre-calculated constants (like lepton_e and chi) while also calculating
-   * the variables dependent on the integration variables. The return value
-   * of this function is a double since it is calculated by arithmetic
-   * operations on doubles.
-   */
-  auto diff_cross = [&](double x, double theta) {
-    if (x*lepton_e < threshold_) return 0.;
-
-    double theta_sq = theta*theta;
-    double x_sq = x*x;
-
-    double utilde = -x*lepton_e_sq*theta_sq - MA2*(1.-x)/x - lepton_mass_sq*x;
-    double utilde_sq = utilde*utilde;
-
-    /*
-     * WW
-     *
-     * Since muons are so much more massive than electrons, we keep 
-     * the form factor integration limits dependent on x and theta
-     */
-
-    // non-zero theta and non-zero m_l
-    double tmin = utilde_sq/(4.0*lepton_e_sq*(1.0-x)*(1.0-x));
-    // maximum t kinematically limited to the incident lepton energy
-    double tmax = lepton_e_sq;
-
-    /*
-     * The chi integrand limits given by
-     *
-     * Eqs (3.20) and (A6) of
-     * https://journals.aps.org/prd/pdf/10.1103/PhysRevD.8.3109
-     * OR
-     * Eqs (3.2) and (3.6) of 
-     * https://journals.aps.org/rmp/pdf/10.1103/RevModPhys.46.815
-     *
-     * to be
-     *
-     * tmax = m^2(1+l)^2
-     * tmin = m^2 tmax / (2*E*x*(1-x))^2
-     *
-     * where
-     *
-     *  l = E^2x^2theta^2/m^2
-     *  m is mass of dark photon
-     *  E is the incident lepton energy
-     * 
-     * were investigated in an attempt to control the numerical integration
-     * of chi in the hopes that cutting the integral away from odd places
-     * would be able to avoid the funky business. This was not successful,
-     * but we are leaving them here in case a typo is found in the future
-     * or the search is chosen to resume.
-    double el = lepton_e_sq*x_sq*theta_sq/MA2;
-    double tmax = MA2*pow(1 + el,2);
-    double tmin = MA2*tmax / pow(2*lepton_e*x*(1-x),2);
-     */
-  
-    // require 0 < tmin < tmax to procede
-    if (tmin < 0) return 0.;
-    if (tmax < tmin) return 0.;
-  
-    /*
-     * numerically integrate to calculate chi ourselves
-     * this _has not_ been well behaved due to the extreme values
-     * of t that must be handled
-     */
-    double chi = flux_factor_chi_numerical(A,Z, tmin, tmax);
-    
-    /*
-     * Amplitude squared is taken from 
-     * Equation (17) from Appendix A of https://arxiv.org/pdf/2101.12192.pdf
-     * with X = V
-     */
-    double factor1 = 2.0*(2.0 - 2.*x + x_sq)/(1. - x);
-    double factor2 = 4.0*(MA2 + 2.0*lepton_mass_sq)/utilde_sq;
-    double factor3 = utilde*x + MA2*(1. - x) + lepton_mass_sq*x_sq;
-    double amplitude_sq = factor1 + factor2*factor3;
-
-    return 2.*pow(epsilon_,2.)*pow(alphaEW,3.)
-             *sqrt(x_sq*lepton_e_sq - MA2)*lepton_e*(1.-x)
-             *(chi/utilde_sq)*amplitude_sq*sin(theta);
-  };
-
   // deduce integral bounds
   double xmin = 0;
   double xmax = 1 - std::max(lepton_mass,MA) / lepton_e;
 
-  /*
-   * max recoil angle of A'
-   *
-   * The wide angle A' are produced at a negligible rate
-   * so we enforce a hard-coded cut-off to stay within
-   * the small-angle regime.
-   *
-   * We choose the same cutoff as DMG4.
-   */
-  double theta_max{0.3};
-
-  /*
-   * Integrand for integral over x
-   *
-   * For muons, we want to include the variation over theta from the chi
-   * integral, so we calculate the x-integrand by numerically integrating
-   * over theta in the differential cross section defined above.
-   *
-   * For electrons, we are using the Improved WW method where the theta
-   * integral has already been done analytically and we can use the
-   * numerical Chi (including both inelastic and elastic form factors)
-   * calculated above.  
-   *
-   * This is the final lambda expression used here. Its one argument is a double
-   * and it returns a double.
-   */
-  auto theta_integral = [&](double x) {
-    if (use_full_ww_) {
-      auto theta_integrand = [&](double theta) {
-        return diff_cross(x, theta);
-      };
-      // integrand, min, max, max_depth, tolerance, error, pL1
-      return integrate(theta_integrand, 0., theta_max);
-    } else {
+  double integrated_xsec{-1};
+  if (xsec_method_ == XsecMethod::Full) {
+    /*
+     * max recoil angle of A'
+     *
+     * The wide angle A' are produced at a negligible rate
+     * so we enforce a hard-coded cut-off to stay within
+     * the small-angle regime.
+     *
+     * We choose the same cutoff as DMG4.
+     */
+    double theta_max{0.3};
+    
+    /*
+     * Differential cross section with respect to x and theta
+     *
+     * Equation (16) from Appendix A of https://arxiv.org/pdf/2101.12192.pdf
+     *
+     * This `auto` represents a lambda-expression function, inheriting many
+     * pre-calculated constants (like lepton_e and chi) while also calculating
+     * the variables dependent on the integration variables. The return value
+     * of this function is a double since it is calculated by arithmetic
+     * operations on doubles.
+     */
+    auto diff_cross = [&](double x, double theta) {
       if (x*lepton_e < threshold_) return 0.;
-      double beta = sqrt(1 - MA2/lepton_e_sq),
-             nume = 1. - x + x*x/3.,
-             deno = MA2*(1-x)/x + lepton_mass_sq;
-      return 4*pow(epsilon_,2)*pow(alphaEW,3)*chi_hiww*beta*nume/deno;
-    }
-  };
+  
+      double theta_sq = theta*theta;
+      double x_sq = x*x;
+  
+      double utilde = -x*lepton_e_sq*theta_sq - MA2*(1.-x)/x - lepton_mass_sq*x;
+      double utilde_sq = utilde*utilde;
+  
+      // non-zero theta and non-zero m_l
+      double tmin = utilde_sq/(4.0*lepton_e_sq*(1.0-x)*(1.0-x));
+      // maximum t kinematically limited to the incident lepton energy
+      double tmax = lepton_e_sq;
+  
+      /*
+       * The chi integrand limits given by
+       *
+       * Eqs (3.20) and (A6) of
+       * https://journals.aps.org/prd/pdf/10.1103/PhysRevD.8.3109
+       * OR
+       * Eqs (3.2) and (3.6) of 
+       * https://journals.aps.org/rmp/pdf/10.1103/RevModPhys.46.815
+       *
+       * to be
+       *
+       * tmax = m^2(1+l)^2
+       * tmin = m^2 tmax / (2*E*x*(1-x))^2
+       *
+       * where
+       *
+       *  l = E^2x^2theta^2/m^2
+       *  m is mass of dark photon
+       *  E is the incident lepton energy
+       * 
+       * were investigated in an attempt to control the numerical integration
+       * of chi in the hopes that cutting the integral away from odd places
+       * would be able to avoid the funky business. This was not successful,
+       * but we are leaving them here in case a typo is found in the future
+       * or the search is chosen to resume.
+      double el = lepton_e_sq*x_sq*theta_sq/MA2;
+      double tmax = MA2*pow(1 + el,2);
+      double tmin = MA2*tmax / pow(2*lepton_e*x*(1-x),2);
+       */
+    
+      // require 0 < tmin < tmax to procede
+      if (tmin < 0) return 0.;
+      if (tmax < tmin) return 0.;
+    
+      /*
+       * numerically integrate to calculate chi ourselves
+       * this _has not_ been well behaved due to the extreme values
+       * of t that must be handled
+       */
+      double chi = flux_factor_chi_numerical(A,Z, tmin, tmax);
+      
+      /*
+       * Amplitude squared is taken from 
+       * Equation (17) from Appendix A of https://arxiv.org/pdf/2101.12192.pdf
+       * with X = V
+       */
+      double factor1 = 2.0*(2.0 - 2.*x + x_sq)/(1. - x);
+      double factor2 = 4.0*(MA2 + 2.0*lepton_mass_sq)/utilde_sq;
+      double factor3 = utilde*x + MA2*(1. - x) + lepton_mass_sq*x_sq;
+      double amplitude_sq = factor1 + factor2*factor3;
+  
+      return 2.*pow(epsilon_,2.)*pow(alphaEW,3.)
+               *sqrt(x_sq*lepton_e_sq - MA2)*lepton_e*(1.-x)
+               *(chi/utilde_sq)*amplitude_sq*sin(theta);
+    };
 
-  double integrated_xsec = integrate(theta_integral, xmin, xmax);
+    integrated_xsec = integrate(
+        [&](double x) {
+          auto theta_integrand = [&](double theta) {
+            return diff_cross(x, theta);
+          };
+          return integrate(theta_integrand, 0., theta_max);
+        }, xmin, xmax);
+  } else if (xsec_method_ == XsecMethod::Improved) {
+    /*
+     * do the theta integral analytically by neglecting
+     * all theta terms in the integrand.
+     */
+    integrated_xsec = integrate(
+        [&](double x) {
+          if (x*lepton_e < threshold_) return 0.;
+          double utilde = -MA2*(1.-x)/x -lepton_mass_sq*x;
+          double utilde_sq = utilde*utilde;
+          // non-zero theta and non-zero m_l
+          double tmin = utilde_sq/(4.0*lepton_e_sq*(1.0-x)*(1.0-x));
+          // maximum t kinematically limited to the incident lepton energy
+          double tmax = lepton_e_sq;
+          // require 0 < tmin < tmax to procede
+          if (tmin < 0) return 0.;
+          if (tmax < tmin) return 0.;
+          double chi = flux_factor_chi_numerical(A,Z,tmin,tmax);
+          double beta = sqrt(1 - MA2/lepton_e_sq),
+                 nume = 1. - x + x*x/3.,
+                 deno = MA2*(1-x)/x + lepton_mass_sq;
+          return 4*pow(epsilon_,2)*pow(alphaEW,3)*chi*beta*nume/deno;
+        }, xmin, xmax);
+  } else if (xsec_method_ == XsecMethod::HyperImproved) {
+    /**
+     * calculate chi once at x=1, theta=0 and then use it
+     * everywhere in the integration over dsigma/dx
+     */
+    double chi_hiww = flux_factor_chi_numerical(A,Z,
+        MA2*MA2/(4*lepton_e_sq),MA2+lepton_mass_sq);
 
-  G4double GeVtoPb = 3.894E08;
+    integrated_xsec = integrate(
+        [&](double x) {
+          if (x*lepton_e < threshold_) return 0.;
+          double beta = sqrt(1 - MA2/lepton_e_sq),
+                 nume = 1. - x + x*x/3.,
+                 deno = MA2*(1-x)/x + lepton_mass_sq;
+          return 4*pow(epsilon_,2)*pow(alphaEW,3)*chi_hiww*beta*nume/deno;
+        }, xmin, xmax);
+  } else {
+    throw std::runtime_error("Unrecognized XsecMethod, should be set using the enum class.");
+  }
+
+  static const G4double GeVtoPb = 3.894E08;
 
   /*
    * The integrated_xsec should be the correct value, we are just
@@ -321,7 +332,7 @@ G4ThreeVector G4DarkBreMModel::scale(double incident_energy, double lepton_mass)
                 + lepton_mass;
   double Pt = data.lepton.perp();
   double P = sqrt(EAcc * EAcc - lepton_mass * lepton_mass);
-  if (method_ == DarkBremMethod::ForwardOnly) {
+  if (scaling_method_ == ScalingMethod::ForwardOnly) {
     unsigned int i = 0;
     while (Pt * Pt + lepton_mass * lepton_mass > EAcc * EAcc) {
       // Skip events until the transverse energy is less than the total energy.
@@ -344,7 +355,7 @@ G4ThreeVector G4DarkBreMModel::scale(double incident_energy, double lepton_mass)
         break;
       }
     }
-  } else if (method_ == DarkBremMethod::CMScaling) {
+  } else if (scaling_method_ == ScalingMethod::CMScaling) {
     CLHEP::HepLorentzVector el(data.lepton.px(), data.lepton.py(), data.lepton.pz(),
                                data.lepton.e());
     double ediff = data.E - incident_energy;
@@ -360,10 +371,12 @@ G4ThreeVector G4DarkBreMModel::scale(double incident_energy, double lepton_mass)
     EAcc = el.e();
     Pt = el.perp();
     P = el.vect().mag();
-  } else if (method_ == DarkBremMethod::Undefined) {
+  } else if (scaling_method_ == ScalingMethod::Undefined) {
     EAcc = data.lepton.e();
     P = sqrt(EAcc * EAcc - lepton_mass * lepton_mass);
     Pt = data.lepton.perp();
+  } else {
+    throw std::runtime_error("Unrecognized ScalingMethod, should be set by using the enum class.");
   }
 
   // outgoing lepton momentum

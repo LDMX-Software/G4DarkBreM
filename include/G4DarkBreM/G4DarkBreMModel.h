@@ -35,17 +35,73 @@ namespace g4db {
 class G4DarkBreMModel : public PrototypeModel {
  public:
   /**
+   * @enum ScalingMethod 
+   *
+   * Possible methods to use the dark brem events from the imported library
+   * inside of this model.
+   */
+  enum class ScalingMethod {
+    /// Use actual lepton energy and get pT from LHE 
+    /// (such that \f$p_T^2+m_l^2 < E_{acc}^2\f$)
+    ForwardOnly = 1,
+    /// Boost LHE vertex momenta to the actual lepton energy
+    CMScaling = 2,
+    /// Use LHE vertex as is
+    Undefined = 3
+  };
+
+  /**
+   * @enum XsecMethod
+   *
+   * Possible methods for calculating the xsec using the WW
+   * approximation technique
+   */
+  enum class XsecMethod {
+    /**
+     * use the full WW approximation
+     *
+     * This is the 2D integration of a differential cross section including
+     * evaluating the flux factor chi numerically at each sampled x and theta.
+     * This effectively means we perform a 3D numerical integration when
+     * using this method.
+     *
+     * It is slow but, especially for the muon case, very faithful to the
+     * sampled MadGraph total cross section.
+     */
+    Full = 1,
+
+    /**
+     * assume theta=0 in the integrand
+     *
+     * This reduces one of the dimensions of the numerical integration by
+     * assuming theta=0 within the integrand. This allows the theta integration
+     * to be done analytically and so we only have a numerical integration over
+     * x and t
+     */
+    Improved = 2,
+
+    /**
+     * only calculate the flux factor once
+     *
+     * This simplifies the numerical integration even further by calculating
+     * the flux factor chi only at x=1, theta=0 and then using that value
+     * everywhere in the integration of the differential cross section over
+     * x.
+     */
+    HyperImproved = 3
+  };
+
+  /**
    * Set the parameters for this model.
    *
-   * @param[in] method_name converted to an enum through a hard-coded switch statement.
+   * @param[in] sm method on how to scale the events in the library
+   * @param[in] xm method on calculating the total cross section
    * @param[in] threshold minimum energy lepton needs to have to dark brem [GeV]
    * @param[in] epsilon dark photon mixing strength
    * @param[in] library_path directory in which MG library is stored
    * @param[in] muons true if using muons, false for electrons
    * @param[in] aprime_lhe_id PDG ID number for the dark photon in the LHE files 
    * being loaded for the library. Only used if parsing LHE files.
-   * @param[in] use_full_ww determine if we should slow down and do the full
-   * numerical integral of the WW approximation
    * @param[in] load_library only used in cross section executable where it is known
    *            that the library will not be used during program run
    *
@@ -54,10 +110,9 @@ class G4DarkBreMModel : public PrototypeModel {
    *
    * The library path is immediately passed to SetMadGraphDataLibrary.
    */
-  G4DarkBreMModel(const std::string& method_name, double threshold, 
+  G4DarkBreMModel(ScalingMethod sm, XsecMethod xm, double threshold, 
       double epsilon, const std::string& library_path, bool muons, 
-      int aprime_lhe_id = 622, bool use_full_ww = true, 
-      bool load_library = true);
+      int aprime_lhe_id = 622, bool load_library = true);
 
   /**
    * Destructor
@@ -309,45 +364,15 @@ class G4DarkBreMModel : public PrototypeModel {
    */
   int aprime_lhe_id_;
 
-  /**
-   * If we should use the "full" WW (true) or the "fast" WW (false).
-   *
-   * ## Full
-   * This is the 2D integration of a differential cross section including
-   * evaluating the flux factor chi numerically at each sampled x and theta.
-   * This effectively means we perform a 3D numerical integration when
-   * using this method.
-   *
-   * ## Fast
-   * This is a "Hyper-Improved" WW where the flux factor chi is evaluated
-   * once at x=1 and theta=0 and then pulled out of the integral over the
-   * cross section. This alows the differential cross section to be 
-   * analytically integrated over theta and so only two 1D numerical integrations
-   * need to be performed.
+  /** 
+   * method to scale events for this model
    */
-  bool use_full_ww_;
+  ScalingMethod scaling_method_;
 
   /**
-   * @enum DarkBremMethod
-   *
-   * Possible methods to use the dark brem vertices from the imported library
-   * inside of this model.
+   * method for calculating total cross section
    */
-  enum DarkBremMethod {
-    /// Use actual lepton energy and get pT from LHE 
-    /// (such that \f$p_T^2+m_l^2 < E_{acc}^2\f$)
-    ForwardOnly = 1,
-    /// Boost LHE vertex momenta to the actual lepton energy
-    CMScaling = 2,
-    /// Use LHE vertex as is
-    Undefined = 3
-  };
-
-  /** method for this model
-   *
-   * Configurable with 'method'
-   */
-  DarkBremMethod method_{DarkBremMethod::Undefined};
+  XsecMethod xsec_method_;
 
   /**
    * Name of method for persisting into the RunHeader
