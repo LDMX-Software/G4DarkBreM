@@ -84,8 +84,13 @@ static double flux_factor_chi_numerical(G4double A, G4double Z, double tmin, dou
    * can inherit their values from the environment. 
    * The return value is a double since it is calculated
    * by simple arithmetic operations on doubles.
+   *
+   * The integrand is so sharply peaked at t close to tmin,
+   * it is very helpful to do the integration in the variable
+   * u = ln(t) rather than t itself.
    */
-  auto integrand = [&](double t) {
+  auto integrand = [&](double lnt) {
+    double t = exp(lnt);
     double ael_factor = 1./(ael_inv2 + t),
            del_factor = 1./(1+t/del),
            ain_factor = 1./(ain_inv2 + t),
@@ -94,27 +99,10 @@ static double flux_factor_chi_numerical(G4double A, G4double Z, double tmin, dou
     
     return (pow(ael_factor*del_factor*Z, 2)
             + Z*pow(ain_factor*nucl*din_factor*din_factor*din_factor*din_factor, 2)
-           )*(t-tmin);
+           )*(t-tmin)*t;
   };
 
-  return integrate(integrand,tmin,tmax);
-}
-
-/**
- * analytic flux factor chi integrated and simplified by DMG4 authors
- *
- * This only includes the elastic form factor term
- */
-static double flux_factor_chi_analytic(G4double A, G4double Z, double tmin, double tmax) {
-  static const double mel = 0.000511;
-  const double a_el = 111.*pow(Z,-1./3)/mel,
-               d_el = 0.164*pow(A,-2./3);
-  double ta = 1.0/(a_el*a_el);
-  double td = d_el;
-  return -Z*Z*((td*td*(
-              ((ta - td)*(ta + td + 2.0*tmax)*(tmax - tmin))/((ta + tmax)*(td + tmax)) 
-              + (ta + td + 2.0*tmin)*(log(ta + tmax) - log(td + tmax) - log(ta + tmin) + log(td + tmin))
-             ))/((ta-td)*(ta-td)*(ta-td)));
+  return integrate(integrand,log(tmin),log(tmax));
 }
 
 G4DarkBreMModel::G4DarkBreMModel(const std::string& method_name, double threshold,
@@ -219,7 +207,7 @@ G4double G4DarkBreMModel::ComputeCrossSectionPerAtom(
      * to be
      *
      * tmax = m^2(1+l)^2
-     * tmin = tmax / (2*E*x*(1-x))^2
+     * tmin = m^2 tmax / (2*E*x*(1-x))^2
      *
      * where
      *
@@ -234,7 +222,7 @@ G4double G4DarkBreMModel::ComputeCrossSectionPerAtom(
      * or the search is chosen to resume.
     double el = lepton_e_sq*x_sq*theta_sq/MA2;
     double tmax = MA2*pow(1 + el,2);
-    double tmin = tmax / pow(2*lepton_e*x*(1-x),2);
+    double tmin = MA2*tmax / pow(2*lepton_e*x*(1-x),2);
      */
   
     // require 0 < tmin < tmax to procede
@@ -245,18 +233,8 @@ G4double G4DarkBreMModel::ComputeCrossSectionPerAtom(
      * numerically integrate to calculate chi ourselves
      * this _has not_ been well behaved due to the extreme values
      * of t that must be handled
+     */
     double chi = flux_factor_chi_numerical(A,Z, tmin, tmax);
-     */
-  
-    /*
-     * use analytic elastic-only chi derived for DMG4
-     * and double-checked with Mathematica
-     *
-     * The inelastic integral contains some 4000 terms
-     * according to Mathematica so it is expensive to
-     * compute and only an O(few) percent change.
-     */
-    double chi_analytic_elastic_only = flux_factor_chi_analytic(A,Z,tmin,tmax);
     
     /*
      * Amplitude squared is taken from 
