@@ -29,6 +29,7 @@ void usage() {
     "  --energy     : python-like arange for input energies in GeV (stop, start stop, start stop step)\n"
     "                 default start is 0 and default step is 0.1 GeV\n"
     "  --target     : define target material with two parameters (atomic units): Z A\n"
+    "  --full-ww    : use the 'full' WW approximation, ignored for muons\n"
     << std::flush;
 }
 
@@ -46,6 +47,7 @@ int main(int argc, char* argv[]) try {
   double target_Z{74.};
   double target_A{183.84};
   bool muons{false};
+  bool full_ww{false};
   for (int i_arg{1}; i_arg < argc; ++i_arg) {
     std::string arg{argv[i_arg]};
     if (arg == "-h" or arg == "--help") {
@@ -53,6 +55,8 @@ int main(int argc, char* argv[]) try {
       return 0;
     } else if (arg == "--muons") {
       muons = true;
+    } else if (arg == "--full-ww") {
+      full_ww = true;
     } else if (arg == "-o" or arg == "--output") {
       if (i_arg+1 >= argc) {
         std::cerr << arg << " requires an argument after it" << std::endl;
@@ -117,14 +121,23 @@ int main(int argc, char* argv[]) try {
     << "Max Energy [MeV]  : " << max_energy     << "\n"
     << "Energy Step [MeV] : " << energy_step    << "\n"
     << "Lepton            : " << (muons ? "Muons" : "Electrons") << "\n"
+    << "Full WW           : " << ((muons or full_ww) ? "Yes" : "No") << "\n"
     << "Target A [amu]    : " << target_A << "\n"
     << "Target Z [amu]    : " << target_Z << "\n"
     << std::flush;
 
   // the process accesses the A' mass from the G4 particle
   G4APrime::Initialize(ap_mass*GeV);
-  auto model = std::make_shared<g4db::G4DarkBreMModel>("forward_only",
-        0.0, 1.0, "NOT NEEDED", muons, 622, false);
+  auto model = std::make_shared<g4db::G4DarkBreMModel>(
+        "forward_only", // method name
+        0.0, // threshold for non-zero xsec
+        1.0, // epsilon
+        "NOT NEEDED", // path to dark brem event library
+        muons, // lepton is a muon (or not)
+        622, // ID of dark photon in event library
+        full_ww, // use full WW or not
+        false // load event library
+        );
   // wrap the created model in the cache so we can use it
   // to hold the xsec table and write out the CSV later
   g4db::ElementXsecCache cache(model);

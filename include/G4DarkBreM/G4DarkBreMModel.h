@@ -44,6 +44,8 @@ class G4DarkBreMModel : public PrototypeModel {
    * @param[in] muons true if using muons, false for electrons
    * @param[in] aprime_lhe_id PDG ID number for the dark photon in the LHE files 
    * being loaded for the library. Only used if parsing LHE files.
+   * @param[in] use_full_ww determine if we should slow down and do the full
+   * numerical integral of the WW approximation
    * @param[in] load_library only used in cross section executable where it is known
    *            that the library will not be used during program run
    *
@@ -54,7 +56,8 @@ class G4DarkBreMModel : public PrototypeModel {
    */
   G4DarkBreMModel(const std::string& method_name, double threshold, 
       double epsilon, const std::string& library_path, bool muons, 
-      int aprime_lhe_id = 622, bool load_library = true);
+      int aprime_lhe_id = 622, bool use_full_ww = true, 
+      bool load_library = true);
 
   /**
    * Destructor
@@ -305,6 +308,24 @@ class G4DarkBreMModel : public PrototypeModel {
    * library is being loaded from an already-constructed CSV.
    */
   int aprime_lhe_id_;
+
+  /**
+   * If we should use the "full" WW (true) or the "fast" WW (false).
+   *
+   * ## Full
+   * This is the 2D integration of a differential cross section including
+   * evaluating the flux factor chi numerically at each sampled x and theta.
+   * This effectively means we perform a 3D numerical integration when
+   * using this method.
+   *
+   * ## Fast
+   * This is a "Hyper-Improved" WW where the flux factor chi is evaluated
+   * once at x=1 and theta=0 and then pulled out of the integral over the
+   * cross section. This alows the differential cross section to be 
+   * analytically integrated over theta and so only two 1D numerical integrations
+   * need to be performed.
+   */
+  bool use_full_ww_;
 
   /**
    * @enum DarkBremMethod

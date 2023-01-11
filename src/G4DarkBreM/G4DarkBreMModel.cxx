@@ -107,10 +107,10 @@ static double flux_factor_chi_numerical(G4double A, G4double Z, double tmin, dou
 
 G4DarkBreMModel::G4DarkBreMModel(const std::string& method_name, double threshold,
     double epsilon, const std::string& library_path, bool muons, int aprime_lhe_id, 
-    bool load_library)
+    bool use_full_ww, bool load_library)
     : PrototypeModel(muons), maxIterations_{10000}, 
       threshold_{std::max(threshold, 2.*G4APrime::APrime()->GetPDGMass()/CLHEP::GeV)},
-      epsilon_{epsilon}, aprime_lhe_id_{aprime_lhe_id}, 
+      epsilon_{epsilon}, aprime_lhe_id_{aprime_lhe_id}, use_full_ww_{use_full_ww},
       method_(DarkBremMethod::Undefined), method_name_{method_name}, 
       library_path_{library_path} {
   if (method_name_ == "forward_only") {
@@ -282,7 +282,7 @@ G4double G4DarkBreMModel::ComputeCrossSectionPerAtom(
    * and it returns a double.
    */
   auto theta_integral = [&](double x) {
-    if (muons_) {
+    if (use_full_ww_) {
       auto theta_integrand = [&](double theta) {
         return diff_cross(x, theta);
       };
