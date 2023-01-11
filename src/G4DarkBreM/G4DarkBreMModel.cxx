@@ -40,7 +40,11 @@ namespace g4db {
  * to other methods. We have followed the examples in the docs
  * where we use max_depth to 5 and relative error to 1e-9.
  */
-using int_method = boost::math::quadrature::gauss_kronrod<double, 61>;
+template<typename IntegrandFunction>
+static double integrate(IntegrandFunction F, double low, double high) {
+  using int_method = boost::math::quadrature::gauss_kronrod<double, 61>;
+  return int_method::integrate(F, low, high, 5, 1e-9);
+}
 
 /**
  * numerically integrate the value of the flux factory chi
@@ -89,12 +93,11 @@ static double flux_factor_chi_numerical(G4double A, G4double Z, double tmin, dou
            nucl = (1 + t*bin);
     
     return (pow(ael_factor*del_factor*Z, 2)
-            +
-            Z*pow(ain_factor*nucl*din_factor*din_factor*din_factor*din_factor, 2)
+            + Z*pow(ain_factor*nucl*din_factor*din_factor*din_factor*din_factor, 2)
            )*(t-tmin);
   };
 
-  return int_method::integrate(integrand,tmin,tmax,5,1e-9);
+  return integrate(integrand,tmin,tmax);
 }
 
 /**
@@ -267,16 +270,12 @@ G4double G4DarkBreMModel::ComputeCrossSectionPerAtom(
 
     return 2.*pow(epsilon_,2.)*pow(alphaEW,3.)
              *sqrt(x_sq*lepton_e_sq - MA2)*lepton_e*(1.-x)
-             *(chi_analytic_elastic_only/utilde_sq)*amplitude_sq*sin(theta);
+             *(chi/utilde_sq)*amplitude_sq*sin(theta);
   };
 
   // deduce integral bounds
   double xmin = 0;
-  double xmax = 1;
-  if ((lepton_mass / lepton_e) > (MA / lepton_e))
-    xmax = 1 - lepton_mass / lepton_e;
-  else
-    xmax = 1 - MA / lepton_e;
+  double xmax = 1 - std::max(lepton_mass,MA) / lepton_e;
 
   /*
    * max recoil angle of A'
@@ -310,7 +309,7 @@ G4double G4DarkBreMModel::ComputeCrossSectionPerAtom(
         return diff_cross(x, theta);
       };
       // integrand, min, max, max_depth, tolerance, error, pL1
-      return int_method::integrate(theta_integrand, 0., theta_max, 5, 1e-9);
+      return integrate(theta_integrand, 0., theta_max);
     } else {
       if (x*lepton_e < threshold_) return 0.;
       double beta = sqrt(1 - MA2/lepton_e_sq),
@@ -320,8 +319,7 @@ G4double G4DarkBreMModel::ComputeCrossSectionPerAtom(
     }
   };
 
-  double error;
-  double integrated_xsec = int_method::integrate(theta_integral, xmin, xmax, 5, 1e-9, &error);
+  double integrated_xsec = integrate(theta_integral, xmin, xmax);
 
   G4double GeVtoPb = 3.894E08;
 
