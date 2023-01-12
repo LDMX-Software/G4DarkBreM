@@ -33,6 +33,9 @@ void usage() {
     << std::flush;
 }
 
+/**
+ * The names for the different xsec_methods that are acceptable on the command line
+ */
 static const std::map<std::string, g4db::G4DarkBreMModel::XsecMethod> xsec_methods = {
   {"fullww", g4db::G4DarkBreMModel::XsecMethod::Full },
   {"hiww"  , g4db::G4DarkBreMModel::XsecMethod::HyperImproved },

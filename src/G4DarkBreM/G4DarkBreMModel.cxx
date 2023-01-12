@@ -1,3 +1,8 @@
+/**
+ * @file G4DarkBreMModel.cxx
+ * @brief Source file for dark brem model with some
+ * static functions that are helpful to be documented
+ */
 
 #include "G4DarkBreM/G4DarkBreMModel.h"
 #include "G4DarkBreM/G4APrime.h"
@@ -39,6 +44,11 @@ namespace g4db {
  * depth low and the desired relative error high compared
  * to other methods. We have followed the examples in the docs
  * where we use max_depth to 5 and relative error to 1e-9.
+ *
+ * @tparam IntegrandFunction function type whose signature is `double(*)(double)`.
+ * @param[in] F function to integrate
+ * @param[in] low lower limit of integration
+ * @param[in] high upper limit of integration
  */
 template<typename IntegrandFunction>
 static double integrate(IntegrandFunction F, double low, double high) {
@@ -57,6 +67,29 @@ static double integrate(IntegrandFunction F, double low, double high) {
  *
  * The form factors are copied from Appendix A (Eq A18 and A19) of
  * https://journals.aps.org/prd/pdf/10.1103/PhysRevD.80.075018
+ *
+ * Here, the equations are listed for reference.
+ * \f{equation}{
+ * \chi(x,\theta) = \int^{t_{max}}_{t_{min}} dt \left( \frac{Z^2a^4t^2}{(1+a^2t)^2(1+t/d)^2}+\frac{Za_p^4t^2}{(1+a_p^2t)^2(1+t/0.71)^8}\left(1+\frac{t(\mu_p^2-1)}{4m_p^2}\right)^2\right)\frac{t-t_{min}}{t^2}
+ * \f}
+ * where
+ * \f{equation}{
+ * a = \frac{111.0}{m_e Z^{1/3}}
+ * \quad
+ * a_p = \frac{773.0}{m_e Z^{2/3}}
+ * \quad
+ * d = \frac{0.164}{A^{2/3}}
+ * \f}
+ * - \f$m_e\f$ is the mass of the electron in GeV
+ * - \f$m_p = 0.938\f$ is the mass of the proton in GeV
+ * - \f$\mu_p = 2.79\f$ is the proton \f$\mu\f$
+ * - \f$A\f$ is the atomic mass of the target nucleus in amu
+ * - \f$Z\f$ is the atomic number of the target nucleus
+ *
+ * @param[in] A atomic mass of the target nucleus in amu
+ * @param[in] Z atomic number of target nucleus
+ * @param[in] tmin lower limit of integration over t
+ * @param[in] tmax upper limit of integration over t
  */
 static double flux_factor_chi_numerical(G4double A, G4double Z, double tmin, double tmax) {
   /*
@@ -78,7 +111,7 @@ static double flux_factor_chi_numerical(G4double A, G4double Z, double tmin, dou
    * because we aren't teetering on the edge of division by zero
    *
    * The `auto` used in the integrand definition represents a _function_ 
-   * whose return value is a `double` and which has a single input `t`. 
+   * whose return value is a `double` and which has a single input `lnt`. 
    * This lambda expression saves us the time of having to re-calculate 
    * the form factor constants that do not depend on `t` because it 
    * can inherit their values from the environment. 
@@ -291,9 +324,12 @@ G4double G4DarkBreMModel::ComputeCrossSectionPerAtom(
           return 4*pow(epsilon_,2)*pow(alphaEW,3)*chi*beta*nume/deno;
         }, xmin, xmax);
   } else if (xsec_method_ == XsecMethod::HyperImproved) {
-    /**
+    /*
      * calculate chi once at x=1, theta=0 and then use it
      * everywhere in the integration over dsigma/dx
+     *
+     * cut off the integration earlier than the lepton energy squared
+     * so that this overestimate isn't too much of an overestimate.
      */
     double chi_hiww = flux_factor_chi_numerical(A,Z,
         MA2*MA2/(4*lepton_e_sq),MA2+lepton_mass_sq);

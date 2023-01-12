@@ -48,7 +48,6 @@ class G4DarkBremsstrahlung : public G4VDiscreteProcess {
    * to the electron table (and vis-versa).
    *
    * @param[in] the_model model to use for dark brem simulation
-   * @param[in] muons true if muons are dark bremming, false for electrons
    * @param[in] only_one_per_event true if de-activating process after first dark brem
    * @param[in] global_bias bias xsec globally by this factor
    * @param[in] cache_xsec true if we should cache xsecs at the MeV level of precision
@@ -58,7 +57,7 @@ class G4DarkBremsstrahlung : public G4VDiscreteProcess {
    */
   G4DarkBremsstrahlung(std::shared_ptr<g4db::PrototypeModel> the_model,
       bool only_one_per_event = false, double global_bias = 1., 
-      bool cache_xsec = true, int verbose_leve = 0, int subtype = 63);
+      bool cache_xsec = true, int verbose_level = 0, int subtype = 63);
 
   /**
    * Destructor
