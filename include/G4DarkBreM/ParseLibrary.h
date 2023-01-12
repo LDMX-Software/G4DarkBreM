@@ -32,6 +32,7 @@ struct OutgoingKinematics {
  * parse the input library and return the in-memory kinematics library
  *
  * @param[in] path path to library to parse
+ * @param[in] aprime_lhe_id the ID number for the A' (aka dark photon) in the library being parsed
  * @param[in,out] lib map of incident energy keys to set of outgoing kinematics
  */
 void parseLibrary(const std::string& path, int aprime_lhe_id, std::map<double, std::vector<OutgoingKinematics>>& lib);

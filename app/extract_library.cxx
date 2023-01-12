@@ -1,5 +1,5 @@
 /** 
- * @file extract-library.cxx
+ * @file extract_library.cxx
  * definition of g4db-extract-library executable
  */
 

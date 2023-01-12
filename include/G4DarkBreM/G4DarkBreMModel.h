@@ -18,19 +18,9 @@ namespace g4db {
  *
  * This is where all the heavy lifting in terms of calculating cross sections
  * and actually having a lepton do a dark brem occurs. This model depends
- * on several configurable parameters.
- *
- * - library_path : the full path to the directory containing the LHE dark brem
- *   vertices that will be read in to make the vertex library
- * - epsilon : strength of the dark photon - photon mixing
- * - threshold : minimum energy in GeV for the lepton to have a non-zero
- *   cross section for going dark brem
- * - method : scaling method to use to scale the dark brem vertices from
- *   the library to the actual lepton energy when a dark brem occurs
- * - whether we are dark bremming of muons or electrons
- *
- * The required parameter is a vertex library generated in MadGraph
- * (library_path).
+ * on several configurable parameters which should be studied for your specific
+ * use case in order to better tune this model to your lepton/incident energy/
+ * target material situation.
  */
 class G4DarkBreMModel : public PrototypeModel {
  public:
@@ -54,7 +44,30 @@ class G4DarkBreMModel : public PrototypeModel {
    * @enum XsecMethod
    *
    * Possible methods for calculating the xsec using the WW
-   * approximation technique
+   * approximation technique.
+   *
+   * @see flux_factor_chi_numerical for how the flux factor is calculated
+   * Here, we refer to the flux factor as \f$\chi(x,\theta)\f$.
+   * @see integrate for how the numerical integrations are performed
+   *
+   * As the methods are related, they share many variable definitions.
+   *
+   * \f{equation}{
+   * \tilde{u} = -xE_0^2\theta^2 - m_A^2\frac{1-x}{x} - m_\ell^2x
+   * \f}
+   *
+   * - \f$x_{max} = 1 - \max(m_A,m_\ell)/E_0\f$ is the upper limit on the x integration
+   * - \f$E_0\f$ is the incoming lepton's energy in GeV
+   * - \f$m_\ell\f$ is the lepton's mass in GeV
+   * - \f$m_A\f$ is the dark photon's mass in GeV
+   * - \f$\alpha_{EW} = 1/137\f$ is the fine-structure constant
+   * - \f$\epsilon\f$ is the dark photon mixsing strength with the standard photon
+   * - \f$pb/GeV = 3.894\times10^8\f$ is the conversion from GeV to pico-barns
+   *
+   * The integrand limits for \f$\chi\f$ are calculated as
+   * \f{equation}{
+   * t_{min} = \left(\frac{\tilde{u}}{2E_0(1-x)}\right)^2 \qquad t_{max} = E_0^2
+   * \f}
    */
   enum class XsecMethod {
     /**
@@ -65,18 +78,35 @@ class G4DarkBreMModel : public PrototypeModel {
      * This effectively means we perform a 3D numerical integration when
      * using this method.
      *
-     * It is slow but, especially for the muon case, very faithful to the
-     * sampled MadGraph total cross section.
+     * It is slow but very faithful to the sampled MadGraph total cross section
+     * for high (> 200 GeV) incident energies.
+     *
+     * \f{equation}{
+     * \sigma = \frac{pb}{GeV} \int_0^{x_{max}} \int_0^{0.3} \frac{d\sigma}{dx d\theta} d\theta~dx
+     * \f}
+     * \f{equation}{
+     * \frac{d\sigma}{dx~d\cos\theta} = 2 \alpha_{EW}^3\epsilon^2 \sqrt{x^2E_0^2 - m_A^2}E_0(1-x) 
+     *     \frac{\chi(x,\theta)}{\tilde{u}^2} \mathcal{A}^2
+     * \f}
+     * \f{equation}{
+     * \mathcal{A}^2 = 2\frac{2-2x+x^2}{1-x}+\frac{4(m_A^2+2m_\ell^2)}{\tilde{u}^2}(\tilde{u}x + m_A^2(1-x) + m_\ell^2x^2)
+     * \f}
      */
     Full = 1,
 
     /**
-     * assume theta=0 in the integrand
+     * assume \f$\theta=0\f$ in the integrand
      *
-     * This reduces one of the dimensions of the numerical integration by
-     * assuming theta=0 within the integrand. This allows the theta integration
-     * to be done analytically and so we only have a numerical integration over
-     * x and t
+     * This reduces one of the dimensions of the numerical integration,
+     * allowing the theta integration to be done analytically and 
+     * so we only have a numerical integration over x and t
+     *
+     * \f{equation}{
+     * \sigma = \frac{pb}{GeV} \int_0^{x_{max}} \chi(x,\theta=0) \frac{d\sigma}{dx} dx
+     * \f}
+     * \f{equation}{
+     * \frac{d\sigma}{dx}(x) = 4 \alpha_{EW}^3\epsilon^2 \sqrt{1-\frac{m_A^2}{E_0^2}}\frac{1-x+x^2/3}{m_A^2(1-x)/x+m_\ell^2x}
+     * \f}
      */
     Improved = 2,
 
@@ -84,9 +114,19 @@ class G4DarkBreMModel : public PrototypeModel {
      * only calculate the flux factor once
      *
      * This simplifies the numerical integration even further by calculating
-     * the flux factor chi only at x=1, theta=0 and then using that value
+     * the flux factor chi only at \f$(x=1, \theta=0)\f$ and then using that value
      * everywhere in the integration of the differential cross section over
      * x.
+     *
+     * \f{equation}{
+     * \sigma = \frac{pb}{GeV} \chi(x=1,\theta=0) \int_0^{x_{max}} \frac{d\sigma}{dx} dx
+     * \f}
+     *
+     * where \f$d\sigma/dx\f$ is the same as Improved.
+     * Since this uses the maximum value of \f$\chi\f$ for all values of \f$\chi\f$,
+     * we modify the upper limit of integration to avoid making this overestimate too
+     * much of an overestimate. Instead of \f$t_{max}=E_0^2\f$ we use
+     * \f$t_{max}=m_A^2+m_\ell^2\f$.
      */
     HyperImproved = 3
   };
@@ -127,80 +167,12 @@ class G4DarkBreMModel : public PrototypeModel {
   /**
    * Calculates the cross section per atom in GEANT4 internal units.
    *
-   * The estimate for the total cross section given the material and the lepton's energy is done using an
-   * implementation of the WW approximation using Boost's Math Quadrature library to numerically calculate 
-   * the integrals. The actual formulas are listed here for reference.
+   * The estimate for the total cross section given the material and the 
+   * lepton's energy is done using an implementation of the WW approximation 
+   * using Boost's Math Quadrature library to numerically calculate 
+   * the integrals. 
    *
-   * Since muons and electrons have such different masses, different approaches were required to create an 
-   * approximation that both follows the trend produced by MG/ME and is sufficiently quick.
-   *
-   * ## Electrons
-   * Because the electron mass is small, it typically suffices to calculate the effective photon flux \f$\chi\f$ 
-   * once rather than modeling its functional dependence on the \f$\aprime\f$ energy and angle, as in the "full" 
-   * WW approximation used below for muons. With electron's low mass, the Improved WW approximation can be used:
-   * \f{equation}{
-   * \sigma = \frac{pb}{GeV} \chi \int_0^{\min(1-m_e/E_0,1-m_A/E_0)} \frac{d\sigma}{dx}(x)dx
-   * \f}
-   * where
-   * \f{equation}{
-   * \chi = \int^{m_A^2}_{m_A^4/(4E_0^2)} dt \left( \frac{Z^2a^4t^2}{(1+a^2t)^2(1+t/d)^2}+\frac{Za_p^4t^2}{(1+a_p^2t)^2(1+t/0.71)^8}\left(1+\frac{t(\mu_p^2-1)}{4m_p^2}\right)^2\right)\frac{t-m_A^4/(4E_0^2)}{t^2}
-   * \f}
-   * \f{equation}{
-   * a = \frac{111.0}{m_e Z^{1/3}}
-   * \quad
-   * a_p = \frac{773.0}{m_e Z^{2/3}}
-   * \quad
-   * d = \frac{0.164}{A^{2/3}}
-   * \f}
-   * \f{equation}{
-   * \frac{d\sigma}{dx}(x) = 4 \alpha_{EW}^3\epsilon^2 \sqrt{1-\frac{m_A^2}{E_0^2}}\frac{1-x+x^2/3}{m_A^2(1-x)/x+m_e^2x}
-   * \f}
-   *
-   * - \f$E_0\f$ is the incoming electrons's energy in GeV
-   * - \f$m_e\f$ is the mass of the electron in GeV
-   * - \f$m_A\f$ is the mass of the dark photon in GeV
-   * - \f$m_p = 0.938\f$ is the mass of the proton in GeV
-   * - \f$\mu_p = 2.79\f$ is the proton \f$\mu\f$
-   * - \f$A\f$ is the atomic mass of the target nucleus in amu
-   * - \f$Z\f$ is the atomic number of the target nucleus
-   * - \f$\alpha_{EW} = 1/137\f$ is the fine-structure constant
-   * - \f$\epsilon\f$ is the dark photon mixing strength the the SM photon
-   * - \f$pb/GeV = 3.894\times10^8\f$ is a conversion factor from GeV to pico-barns.
-   * 
-   * ## Muons 
-   * The muon's greater mass motivated the use of the "full" WW but including the numerical evaluation of 
-   * \f$\chi\f$ at each point in phase space proved to be too costly. 
-   * Instead, we use an analytic integration of only elastic form-factor component:
-   * 
-   * \f{equation}{
-   * \sigma = \frac{pb}{GeV} \int_0^{0.3} \int_0^{\min(1-m_\mu/E_0,1-m_A/E_0)} \frac{d\sigma}{dxd\theta}~dx~d\theta
-   * \f}
-   * 
-   * where
-   * 
-   * \f{equation}{
-   * \frac{d\sigma}{dx~d\cos\theta} = 2 \alpha_{EW}^3\epsilon^2 \sqrt{x^2E_0^2 - m_A^2}E_0(1-x)
-   *     \frac{\chi(x,\theta)}{\tilde{u}^2} \mathcal{A}^2
-   * \f}
-   *
-   * and
-   *
-   * \f{equation}{
-   * \chi(x,\theta) = - \frac{Z^2(a^{-2}+d+2t_{max})}{(a^{-2}-d)^3}\left(
-   *     \frac{(a^{-2}-d)(t_{max}-t_{min})}{(a^{-2}+t_{max})(d+t_{max})}
-   *     + \log\left(\frac{(a^{-2}+t_{max})(d+t_{min})}{(a^{-2}+t_{min})(d+t_{max})}\right)
-   *     \right)
-   * \f}
-   * \f{equation}{
-   * \mathcal{A}^2 = 2\frac{2-2x+x^2}{1-x}+\frac{4(m_A^2+2m_\mu^2)}{\tilde{u}^2}(\tilde{u}x + m_A^2(1-x) + m_\mu^2x^2)
-   * \f}
-   * \f{equation}{
-   * \tilde{u} = -xE_0^2\theta^2 - m_A^2\frac{1-x}{x} - m_\mu^2x
-   * \f}
-   * \f{equation}{
-   * t_{min} = \left(\frac{\tilde{u}}{2E_0(1-x)}\right)^2 \qquad t_{max} = E_0^2
-   * \f}
-   * and \f$m_\mu\f$ is the mass of the muon in GeV, and the other symbols are the same as the electron case.
+   * @see XsecMethod for the different methods of calculating the cross section.
    *
    * @param lepton_ke kinetic energy of incoming particle
    * @param atomicZ atomic number of atom
