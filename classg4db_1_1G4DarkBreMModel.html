@@ -34,7 +34,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">G4DarkBreM
-   &#160;<span id="projectnumber">v1.1.2</span>
+   &#160;<span id="projectnumber">v1.2.0</span>
    </div>
    <div id="projectbrief">Geant4 Dark Bremmstrahlung from MadGraph</div>
   </td>
@@ -92,8 +92,8 @@ $(document).ready(function(){initNavTree('classg4db_1_1G4DarkBreMModel.html','')
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-types">Private Types</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classg4db_1_1G4DarkBreMModel-members.html">List of all members</a>  </div>
@@ -116,11 +116,24 @@ Collaboration diagram for g4db::G4DarkBreMModel:</div>
 </div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a011b206417fc234c5f8c726be0c54faa"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faa">ScalingMethod</a> { <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faaabaf091bcacd081bc1e0c1fc65d43e09b">ScalingMethod::ForwardOnly</a> = 1, 
+<a class="el" href="classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faaa109faf01533226d9e0f6dca82500baf2">ScalingMethod::CMScaling</a> = 2, 
+<a class="el" href="classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faaaec0fc0100c4fc1ce4eea230c3dc10360">ScalingMethod::Undefined</a> = 3
+ }</td></tr>
+<tr class="separator:a011b206417fc234c5f8c726be0c54faa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bde7a6a38770c17ae3056a7a3e587af"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587af">XsecMethod</a> { <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afabbd47109890259c0127154db1af26c75">XsecMethod::Full</a> = 1, 
+<a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afae17310830c72d17857bf7df1ddf80dfe">XsecMethod::Improved</a> = 2, 
+<a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afae723f214b18bf2adabfe484d4c65517d">XsecMethod::HyperImproved</a> = 3
+ }</td></tr>
+<tr class="separator:a8bde7a6a38770c17ae3056a7a3e587af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4beb46bd907cd9e9df7006be7edac8c1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a4beb46bd907cd9e9df7006be7edac8c1">G4DarkBreMModel</a> (const std::string &amp;method_name, double threshold, double epsilon, const std::string &amp;library_path, bool muons, int aprime_lhe_id=622, bool load_library=true)</td></tr>
-<tr class="memdesc:a4beb46bd907cd9e9df7006be7edac8c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the parameters for this model.  <a href="classg4db_1_1G4DarkBreMModel.html#a4beb46bd907cd9e9df7006be7edac8c1">More...</a><br /></td></tr>
-<tr class="separator:a4beb46bd907cd9e9df7006be7edac8c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28e68e5cfca0d3d5656f80890a25d63e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a28e68e5cfca0d3d5656f80890a25d63e">G4DarkBreMModel</a> (<a class="el" href="classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faa">ScalingMethod</a> sm, <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587af">XsecMethod</a> xm, double threshold, double epsilon, const std::string &amp;library_path, bool muons, int aprime_lhe_id=622, bool load_library=true)</td></tr>
+<tr class="memdesc:a28e68e5cfca0d3d5656f80890a25d63e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the parameters for this model.  <a href="classg4db_1_1G4DarkBreMModel.html#a28e68e5cfca0d3d5656f80890a25d63e">More...</a><br /></td></tr>
+<tr class="separator:a28e68e5cfca0d3d5656f80890a25d63e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2ef7fbd9b88c050c8d04a226d906f81"><td class="memItemLeft" align="right" valign="top"><a id="ab2ef7fbd9b88c050c8d04a226d906f81"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#ab2ef7fbd9b88c050c8d04a226d906f81">~G4DarkBreMModel</a> ()=default</td></tr>
 <tr class="memdesc:ab2ef7fbd9b88c050c8d04a226d906f81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
@@ -156,14 +169,6 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memdesc:a6eb0ae8e1eeab01ac45f6a469919e422 inherit pub_methods_classg4db_1_1PrototypeModel"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if we are bremming off muons.  <a href="classg4db_1_1PrototypeModel.html#a6eb0ae8e1eeab01ac45f6a469919e422">More...</a><br /></td></tr>
 <tr class="separator:a6eb0ae8e1eeab01ac45f6a469919e422 inherit pub_methods_classg4db_1_1PrototypeModel"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-types"></a>
-Private Types</h2></td></tr>
-<tr class="memitem:a8433941bea20f62c3a0d96d2e8bd29b0"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0">DarkBremMethod</a> { <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0a29b453f0114ded1e0261b2b407a93838">ForwardOnly</a> = 1, 
-<a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0a96d45cec44ea79b215379dbb96661027">CMScaling</a> = 2, 
-<a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0a584703226d49f23eecd0937a21c7142d">Undefined</a> = 3
- }</td></tr>
-<tr class="separator:a8433941bea20f62c3a0d96d2e8bd29b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a5a6f5c8034689f581fd0c71f00e92edf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a5a6f5c8034689f581fd0c71f00e92edf">SetMadGraphDataLibrary</a> (const std::string &amp;path)</td></tr>
@@ -190,9 +195,14 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a36d578e5138bdba7aa44827555e0b09d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a36d578e5138bdba7aa44827555e0b09d">aprime_lhe_id_</a></td></tr>
 <tr class="memdesc:a36d578e5138bdba7aa44827555e0b09d"><td class="mdescLeft">&#160;</td><td class="mdescRight">PDG ID number for the A' (dark photon) as written in the LHE files being loaded as the dark brem event library.  <a href="classg4db_1_1G4DarkBreMModel.html#a36d578e5138bdba7aa44827555e0b09d">More...</a><br /></td></tr>
 <tr class="separator:a36d578e5138bdba7aa44827555e0b09d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa805cbf21910370dc076d6806c89cc86"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0">DarkBremMethod</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#aa805cbf21910370dc076d6806c89cc86">method_</a> {DarkBremMethod::Undefined}</td></tr>
-<tr class="memdesc:aa805cbf21910370dc076d6806c89cc86"><td class="mdescLeft">&#160;</td><td class="mdescRight">method for this model  <a href="classg4db_1_1G4DarkBreMModel.html#aa805cbf21910370dc076d6806c89cc86">More...</a><br /></td></tr>
-<tr class="separator:aa805cbf21910370dc076d6806c89cc86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affa7c9e1679f3e9b59a17aac12299137"><td class="memItemLeft" align="right" valign="top"><a id="affa7c9e1679f3e9b59a17aac12299137"></a>
+<a class="el" href="classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faa">ScalingMethod</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#affa7c9e1679f3e9b59a17aac12299137">scaling_method_</a></td></tr>
+<tr class="memdesc:affa7c9e1679f3e9b59a17aac12299137"><td class="mdescLeft">&#160;</td><td class="mdescRight">method to scale events for this model <br /></td></tr>
+<tr class="separator:affa7c9e1679f3e9b59a17aac12299137"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e687dc02358e48f90db39f1a180754d"><td class="memItemLeft" align="right" valign="top"><a id="a5e687dc02358e48f90db39f1a180754d"></a>
+<a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587af">XsecMethod</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a5e687dc02358e48f90db39f1a180754d">xsec_method_</a></td></tr>
+<tr class="memdesc:a5e687dc02358e48f90db39f1a180754d"><td class="mdescLeft">&#160;</td><td class="mdescRight">method for calculating total cross section <br /></td></tr>
+<tr class="separator:a5e687dc02358e48f90db39f1a180754d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d97e48c82feb83feae73a44bd1eb326"><td class="memItemLeft" align="right" valign="top"><a id="a2d97e48c82feb83feae73a44bd1eb326"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a2d97e48c82feb83feae73a44bd1eb326">method_name_</a></td></tr>
 <tr class="memdesc:a2d97e48c82feb83feae73a44bd1eb326"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of method for persisting into the RunHeader. <br /></td></tr>
@@ -225,18 +235,10 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Geant4 implementation of the model for a particle undergoing a dark brem where we use an imported event library to decide the outgoing kinematics.</p>
-<p>This is where all the heavy lifting in terms of calculating cross sections and actually having a lepton do a dark brem occurs. This model depends on several configurable parameters.</p>
-<ul>
-<li>library_path : the full path to the directory containing the LHE dark brem vertices that will be read in to make the vertex library</li>
-<li>epsilon : strength of the dark photon - photon mixing</li>
-<li>threshold : minimum energy in GeV for the lepton to have a non-zero cross section for going dark brem</li>
-<li>method : scaling method to use to scale the dark brem vertices from the library to the actual lepton energy when a dark brem occurs</li>
-<li>whether we are dark bremming of muons or electrons</li>
-</ul>
-<p>The required parameter is a vertex library generated in MadGraph (library_path). </p>
+<p>This is where all the heavy lifting in terms of calculating cross sections and actually having a lepton do a dark brem occurs. This model depends on several configurable parameters which should be studied for your specific use case in order to better tune this model to your lepton/incident energy/ target material situation. </p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a8433941bea20f62c3a0d96d2e8bd29b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8433941bea20f62c3a0d96d2e8bd29b0">&#9670;&nbsp;</a></span>DarkBremMethod</h2>
+<a id="a011b206417fc234c5f8c726be0c54faa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a011b206417fc234c5f8c726be0c54faa">&#9670;&nbsp;</a></span>ScalingMethod</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -245,30 +247,103 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0">g4db::G4DarkBreMModel::DarkBremMethod</a></td>
+          <td class="memname">enum <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faa">g4db::G4DarkBreMModel::ScalingMethod</a></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Possible methods to use the dark brem vertices from the imported library inside of this model. </p>
+<p>Possible methods to use the dark brem events from the imported library inside of this model. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8433941bea20f62c3a0d96d2e8bd29b0a29b453f0114ded1e0261b2b407a93838"></a>ForwardOnly&#160;</td><td class="fielddoc"><p>Use actual lepton energy and get pT from LHE (such that \(p_T^2+m_l^2 &lt; E_{acc}^2\)) </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a011b206417fc234c5f8c726be0c54faaabaf091bcacd081bc1e0c1fc65d43e09b"></a>ForwardOnly&#160;</td><td class="fielddoc"><p>Use actual lepton energy and get pT from LHE (such that \(p_T^2+m_l^2 &lt; E_{acc}^2\)) </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8433941bea20f62c3a0d96d2e8bd29b0a96d45cec44ea79b215379dbb96661027"></a>CMScaling&#160;</td><td class="fielddoc"><p>Boost LHE vertex momenta to the actual lepton energy. </p>
+<tr><td class="fieldname"><a id="a011b206417fc234c5f8c726be0c54faaa109faf01533226d9e0f6dca82500baf2"></a>CMScaling&#160;</td><td class="fielddoc"><p>Boost LHE vertex momenta to the actual lepton energy. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8433941bea20f62c3a0d96d2e8bd29b0a584703226d49f23eecd0937a21c7142d"></a>Undefined&#160;</td><td class="fielddoc"><p>Use LHE vertex as is. </p>
+<tr><td class="fieldname"><a id="a011b206417fc234c5f8c726be0c54faaaec0fc0100c4fc1ce4eea230c3dc10360"></a>Undefined&#160;</td><td class="fielddoc"><p>Use LHE vertex as is. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a8bde7a6a38770c17ae3056a7a3e587af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bde7a6a38770c17ae3056a7a3e587af">&#9670;&nbsp;</a></span>XsecMethod</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587af">g4db::G4DarkBreMModel::XsecMethod</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Possible methods for calculating the xsec using the WW approximation technique.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceg4db.html#abeae992b175580d08a51d8ea7d1a8c45" title="numerically integrate the value of the flux factor chi">flux_factor_chi_numerical</a> for how the flux factor is calculated Here, we refer to the flux factor as \(\chi(x,\theta)\). </dd>
+<dd>
+<a class="el" href="namespaceg4db.html#a6c0369bb92bc1335f0b5d7b99dbd1fe0" title="The integration method we will be using for our numerical integrals.">integrate</a> for how the numerical integrations are performed</dd></dl>
+<p>As the methods are related, they share many variable definitions.</p>
+<p class="formulaDsp">
+\begin{equation} \tilde{u} = -xE_0^2\theta^2 - m_A^2\frac{1-x}{x} - m_\ell^2x \end{equation}
+</p>
+<ul>
+<li>\(x_{max} = 1 - \max(m_A,m_\ell)/E_0\) is the upper limit on the x integration</li>
+<li>\(E_0\) is the incoming lepton's energy in GeV</li>
+<li>\(m_\ell\) is the lepton's mass in GeV</li>
+<li>\(m_A\) is the dark photon's mass in GeV</li>
+<li>\(\alpha_{EW} = 1/137\) is the fine-structure constant</li>
+<li>\(\epsilon\) is the dark photon mixsing strength with the standard photon</li>
+<li>\(pb/GeV = 3.894\times10^8\) is the conversion from GeV to pico-barns</li>
+</ul>
+<p>The integrand limits for \(\chi\) are calculated as </p><p class="formulaDsp">
+\begin{equation} t_{min} = \left(\frac{\tilde{u}}{2E_0(1-x)}\right)^2 \qquad t_{max} = E_0^2 \end{equation}
+</p>
+ <table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8bde7a6a38770c17ae3056a7a3e587afabbd47109890259c0127154db1af26c75"></a>Full&#160;</td><td class="fielddoc"><p>use the full WW approximation </p>
+<p>This is the 2D integration of a differential cross section including evaluating the flux factor chi numerically at each sampled x and theta. This effectively means we perform a 3D numerical integration when using this method.</p>
+<p>It is slow but very faithful to the sampled MadGraph total cross section for high (&gt; 200 GeV) incident energies.</p>
+<p class="formulaDsp">
+\begin{equation} \sigma = \frac{pb}{GeV} \int_0^{x_{max}} \int_0^{0.3} \frac{d\sigma}{dx d\theta} d\theta~dx \end{equation}
+</p>
+ <p class="formulaDsp">
+\begin{equation} \frac{d\sigma}{dx~d\cos\theta} = 2 \alpha_{EW}^3\epsilon^2 \sqrt{x^2E_0^2 - m_A^2}E_0(1-x) \frac{\chi(x,\theta)}{\tilde{u}^2} \mathcal{A}^2 \end{equation}
+</p>
+ <p class="formulaDsp">
+\begin{equation} \mathcal{A}^2 = 2\frac{2-2x+x^2}{1-x}+\frac{4(m_A^2+2m_\ell^2)}{\tilde{u}^2}(\tilde{u}x + m_A^2(1-x) + m_\ell^2x^2) \end{equation}
+</p>
+ </td></tr>
+<tr><td class="fieldname"><a id="a8bde7a6a38770c17ae3056a7a3e587afae17310830c72d17857bf7df1ddf80dfe"></a>Improved&#160;</td><td class="fielddoc"><p>assume \(\theta=0\) in the integrand </p>
+<p>This reduces one of the dimensions of the numerical integration, allowing the theta integration to be done analytically and so we only have a numerical integration over x and t</p>
+<p class="formulaDsp">
+\begin{equation} \sigma = \frac{pb}{GeV} \int_0^{x_{max}} \chi(x,\theta=0) \frac{d\sigma}{dx} dx \end{equation}
+</p>
+ <p class="formulaDsp">
+\begin{equation} \frac{d\sigma}{dx}(x) = 4 \alpha_{EW}^3\epsilon^2 \sqrt{1-\frac{m_A^2}{E_0^2}}\frac{1-x+x^2/3}{m_A^2(1-x)/x+m_\ell^2x} \end{equation}
+</p>
+ </td></tr>
+<tr><td class="fieldname"><a id="a8bde7a6a38770c17ae3056a7a3e587afae723f214b18bf2adabfe484d4c65517d"></a>HyperImproved&#160;</td><td class="fielddoc"><p>only calculate the flux factor once </p>
+<p>This simplifies the numerical integration even further by calculating the flux factor chi only at \((x=1, \theta=0)\) and then using that value everywhere in the integration of the differential cross section over x.</p>
+<p class="formulaDsp">
+\begin{equation} \sigma = \frac{pb}{GeV} \chi(x=1,\theta=0) \int_0^{x_{max}} \frac{d\sigma}{dx} dx \end{equation}
+</p>
+<p>where \(d\sigma/dx\) is the same as Improved. Since this uses the maximum value of \(\chi\) for all values of \(\chi\), we modify the upper limit of integration to avoid making this overestimate too much of an overestimate. Instead of \(t_{max}=E_0^2\) we use \(t_{max}=m_A^2+m_\ell^2\). </p>
 </td></tr>
 </table>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4beb46bd907cd9e9df7006be7edac8c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4beb46bd907cd9e9df7006be7edac8c1">&#9670;&nbsp;</a></span>G4DarkBreMModel()</h2>
+<a id="a28e68e5cfca0d3d5656f80890a25d63e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28e68e5cfca0d3d5656f80890a25d63e">&#9670;&nbsp;</a></span>G4DarkBreMModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -276,8 +351,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
         <tr>
           <td class="memname">g4db::G4DarkBreMModel::G4DarkBreMModel </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>method_name</em>, </td>
+          <td class="paramtype"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faa">ScalingMethod</a>&#160;</td>
+          <td class="paramname"><em>sm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587af">XsecMethod</a>&#160;</td>
+          <td class="paramname"><em>xm</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -326,7 +407,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <p>Set the parameters for this model. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">method_name</td><td>converted to an enum through a hard-coded switch statement. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sm</td><td>method on how to scale the events in the library </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">xm</td><td>method on calculating the total cross section </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">threshold</td><td>minimum energy lepton needs to have to dark brem [GeV] </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">epsilon</td><td>dark photon mixing strength </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">library_path</td><td>directory in which MG library is stored </td></tr>
@@ -383,58 +465,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 </div><div class="memdoc">
 
 <p>Calculates the cross section per atom in GEANT4 internal units. </p>
-<p>The estimate for the total cross section given the material and the lepton's energy is done using an implementation of the WW approximation using Boost's Math Quadrature library to numerically calculate the integrals. The actual formulas are listed here for reference.</p>
-<p>Since muons and electrons have such different masses, different approaches were required to create an approximation that both follows the trend produced by MG/ME and is sufficiently quick.</p>
-<h2><a class="anchor" id="autotoc_md3"></a>
-Electrons</h2>
-<p>Because the electron mass is small, it typically suffices to calculate the effective photon flux \(\chi\) once rather than modeling its functional dependence on the \(\aprime\) energy and angle, as in the "full" WW approximation used below for muons. With electron's low mass, the Improved WW approximation can be used: </p><p class="formulaDsp">
-\begin{equation} \sigma = \frac{pb}{GeV} \chi \int_0^{\min(1-m_e/E_0,1-m_A/E_0)} \frac{d\sigma}{dx}(x)dx \end{equation}
-</p>
-<p> where </p><p class="formulaDsp">
-\begin{equation} \chi = \int^{m_A^2}_{m_A^4/(4E_0^2)} dt \left( \frac{Z^2a^4t^2}{(1+a^2t)^2(1+t/d)^2}+\frac{Za_p^4t^2}{(1+a_p^2t)^2(1+t/0.71)^8}\left(1+\frac{t(\mu_p^2-1)}{4m_p^2}\right)^2\right)\frac{t-m_A^4/(4E_0^2)}{t^2} \end{equation}
-</p>
- <p class="formulaDsp">
-\begin{equation} a = \frac{111.0}{m_e Z^{1/3}} \quad a_p = \frac{773.0}{m_e Z^{2/3}} \quad d = \frac{0.164}{A^{2/3}} \end{equation}
-</p>
- <p class="formulaDsp">
-\begin{equation} \frac{d\sigma}{dx}(x) = 4 \alpha_{EW}^3\epsilon^2 \sqrt{1-\frac{m_A^2}{E_0^2}}\frac{1-x+x^2/3}{m_A^2(1-x)/x+m_e^2x} \end{equation}
-</p>
-<ul>
-<li>\(E_0\) is the incoming electrons's energy in GeV</li>
-<li>\(m_e\) is the mass of the electron in GeV</li>
-<li>\(m_A\) is the mass of the dark photon in GeV</li>
-<li>\(m_p = 0.938\) is the mass of the proton in GeV</li>
-<li>\(\mu_p = 2.79\) is the proton \(\mu\)</li>
-<li>\(A\) is the atomic mass of the target nucleus in amu</li>
-<li>\(Z\) is the atomic number of the target nucleus</li>
-<li>\(\alpha_{EW} = 1/137\) is the fine-structure constant</li>
-<li>\(\epsilon\) is the dark photon mixing strength the the SM photon</li>
-<li>\(pb/GeV = 3.894\times10^8\) is a conversion factor from GeV to pico-barns.</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md4"></a>
-Muons</h2>
-<p>The muon's greater mass motivated the use of the "full" WW but including the numerical evaluation of \(\chi\) at each point in phase space proved to be too costly. Instead, we use an analytic integration of only elastic form-factor component:</p>
-<p class="formulaDsp">
-\begin{equation} \sigma = \frac{pb}{GeV} \int_0^{0.3} \int_0^{\min(1-m_\mu/E_0,1-m_A/E_0)} \frac{d\sigma}{dxd\theta}~dx~d\theta \end{equation}
-</p>
-<p>where</p>
-<p class="formulaDsp">
-\begin{equation} \frac{d\sigma}{dx~d\cos\theta} = 2 \alpha_{EW}^3\epsilon^2 \sqrt{x^2E_0^2 - m_A^2}E_0(1-x) \frac{\chi(x,\theta)}{\tilde{u}^2} \mathcal{A}^2 \end{equation}
-</p>
-<p>and</p>
-<p class="formulaDsp">
-\begin{equation} \chi(x,\theta) = - \frac{Z^2(a^{-2}+d+2t_{max})}{(a^{-2}-d)^3}\left( \frac{(a^{-2}-d)(t_{max}-t_{min})}{(a^{-2}+t_{max})(d+t_{max})} + \log\left(\frac{(a^{-2}+t_{max})(d+t_{min})}{(a^{-2}+t_{min})(d+t_{max})}\right) \right) \end{equation}
-</p>
- <p class="formulaDsp">
-\begin{equation} \mathcal{A}^2 = 2\frac{2-2x+x^2}{1-x}+\frac{4(m_A^2+2m_\mu^2)}{\tilde{u}^2}(\tilde{u}x + m_A^2(1-x) + m_\mu^2x^2) \end{equation}
-</p>
- <p class="formulaDsp">
-\begin{equation} \tilde{u} = -xE_0^2\theta^2 - m_A^2\frac{1-x}{x} - m_\mu^2x \end{equation}
-</p>
- <p class="formulaDsp">
-\begin{equation} t_{min} = \left(\frac{\tilde{u}}{2E_0(1-x)}\right)^2 \qquad t_{max} = E_0^2 \end{equation}
-</p>
-<p> and \(m_\mu\) is the mass of the muon in GeV, and the other symbols are the same as the electron case.</p>
+<p>The estimate for the total cross section given the material and the lepton's energy is done using an implementation of the WW approximation using Boost's Math Quadrature library to numerically calculate the integrals.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587af">XsecMethod</a> for the different methods of calculating the cross section.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lepton_ke</td><td>kinetic energy of incoming particle </td></tr>
@@ -602,12 +634,12 @@ Muons</h2>
 <dl class="section note"><dt>Note</dt><dd>The vector returned is relative to the incident lepton as if it came in along the z-axis.</dd></dl>
 <p>Gets an energy fraction and transverse momentum ( \(p_T\)) from the loaded library of MadGraph events using the entry in the library with the nearest incident energy above the actual input incident energy.</p>
 <p>The scaling of this energy fraction and \(p_T\) to the actual lepton energy depends on the input method. In all cases, the azimuthal angle is chosen uniformly between 0 and \(2\pi\).</p>
-<h2><a class="anchor" id="autotoc_md5"></a>
+<h2><a class="anchor" id="autotoc_md3"></a>
 Forward Only</h2>
 <p>Scales the energy so that the fraction of kinetic energy is constant, keeping the \(p_T\) constant.</p>
 <p>If the \(p_T\) is larger than the new energy, that event is skipped, and a new one is taken from the file. If the loaded library does not fully represent the range of incident energies being seen by the simulation, this will occur frequently.</p>
 <p>With only the kinetic energy fraction and \(p_T\), the sign of the longitudinal momentum \(p_z\) is undetermined. This method simply chooses the \(p_z\) of the recoil lepton to always be positive.</p>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md4"></a>
 CM Scaling</h2>
 <p>Scale MadGraph vertex to actual energy of lepton using Lorentz boosts.</p>
 <p>The scaling is done via two boosts.</p><ol type="1">
@@ -615,7 +647,7 @@ CM Scaling</h2>
 <li>Boost into approximately) the incident lepton energy frame by constructing a "new" CoM frame using the actual CoM frame's transverse momentum and lowering the \(p_z\) and energy of the CoM by the difference between the input incident energy and the sampled incident energy.</li>
 </ol>
 <p>After these boosts, the energy of the recoil and its \(p_T\) are extracted.</p>
-<h2><a class="anchor" id="autotoc_md7"></a>
+<h2><a class="anchor" id="autotoc_md5"></a>
 Undefined</h2>
 <p>Don't scale the MadGraph vertex to the actual energy of the lepton.</p>
 <p>We simply copy the read-in recoil energy's energy, momentum, and \(p_T\).</p>
@@ -818,31 +850,6 @@ Undefined</h2>
 
 </div>
 </div>
-<a id="aa805cbf21910370dc076d6806c89cc86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa805cbf21910370dc076d6806c89cc86">&#9670;&nbsp;</a></span>method_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0">DarkBremMethod</a> g4db::G4DarkBreMModel::method_ {DarkBremMethod::Undefined}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>method for this model </p>
-<p>Configurable with 'method' </p>
-
-</div>
-</div>
 <a id="a007e7af570949793604ada78c23508b5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a007e7af570949793604ada78c23508b5">&#9670;&nbsp;</a></span>threshold_</h2>
 
@@ -870,7 +877,7 @@ Undefined</h2>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>include/G4DarkBreM/<a class="el" href="G4DarkBreMModel_8h_source.html">G4DarkBreMModel.h</a></li>
-<li>src/G4DarkBreM/G4DarkBreMModel.cxx</li>
+<li>src/G4DarkBreM/<a class="el" href="G4DarkBreMModel_8cxx.html">G4DarkBreMModel.cxx</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

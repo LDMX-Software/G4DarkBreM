@@ -26,17 +26,16 @@ var NAVTREE =
     [ "Installation", "index.html#autotoc_md1", null ],
     [ "Validation", "index.html#autotoc_md2", null ],
     [ "g4db executables", "md_app_README.html", [
-      [ "g4db-scale", "md_app_README.html#autotoc_md9", null ],
-      [ "g4db-xsec-calc", "md_app_README.html#autotoc_md10", null ],
-      [ "g4db-simulate", "md_app_README.html#autotoc_md11", null ],
-      [ "g4db-extract-library", "md_app_README.html#autotoc_md12", null ]
+      [ "g4db-scale", "md_app_README.html#autotoc_md7", null ],
+      [ "g4db-xsec-calc", "md_app_README.html#autotoc_md8", null ],
+      [ "g4db-simulate", "md_app_README.html#autotoc_md9", null ],
+      [ "g4db-extract-library", "md_app_README.html#autotoc_md10", null ]
     ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ],
-        [ "Typedefs", "namespacemembers_type.html", null ]
+        [ "Functions", "namespacemembers_func.html", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
@@ -49,7 +48,6 @@ var NAVTREE =
         [ "Variables", "functions_vars.html", null ],
         [ "Typedefs", "functions_type.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
-        [ "Enumerator", "functions_eval.html", null ],
         [ "Related Functions", "functions_rela.html", null ]
       ] ]
     ] ],
@@ -57,7 +55,8 @@ var NAVTREE =
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ]
+        [ "Functions", "globals_func.html", null ],
+        [ "Variables", "globals_vars.html", null ]
       ] ]
     ] ]
   ] ]

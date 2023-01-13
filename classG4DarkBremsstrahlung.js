@@ -1,6 +1,6 @@
 var classG4DarkBremsstrahlung =
 [
-    [ "G4DarkBremsstrahlung", "classG4DarkBremsstrahlung.html#a379d07ede230c76e2e9fd8052b3be6e6", null ],
+    [ "G4DarkBremsstrahlung", "classG4DarkBremsstrahlung.html#a69201ae758988d703b9d018c06fc09f0", null ],
     [ "~G4DarkBremsstrahlung", "classG4DarkBremsstrahlung.html#a7e21edafc6f4e408a8c24ba91ce037cb", null ],
     [ "G4DarkBremsstrahlung", "classG4DarkBremsstrahlung.html#a1f79becdbaa6cdceeb461959fc469ec0", null ],
     [ "getCache", "classG4DarkBremsstrahlung.html#a852d75481d749fc385688dd334468fb7", null ],
