@@ -273,8 +273,6 @@ G4double G4DarkBreMModel::ComputeCrossSectionPerAtom(
     
       /*
        * numerically integrate to calculate chi ourselves
-       * this _has not_ been well behaved due to the extreme values
-       * of t that must be handled
        */
       double chi = flux_factor_chi_numerical(A,Z, tmin, tmax);
       
