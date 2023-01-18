@@ -34,7 +34,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">G4DarkBreM
-   &#160;<span id="projectnumber">v1.2.1</span>
+   &#160;<span id="projectnumber">v1.2.0</span>
    </div>
    <div id="projectbrief">Geant4 Dark Bremmstrahlung from MadGraph</div>
   </td>
@@ -119,9 +119,9 @@ Collaboration diagram for G4DarkBremsstrahlung:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a69201ae758988d703b9d018c06fc09f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#a69201ae758988d703b9d018c06fc09f0">G4DarkBremsstrahlung</a> (std::shared_ptr&lt; <a class="el" href="classg4db_1_1PrototypeModel.html">g4db::PrototypeModel</a> &gt; the_model, bool only_one_per_event=false, double global_bias=1., bool cache_xsec=true, int verbose_level=0, int subtype=63)</td></tr>
-<tr class="memdesc:a69201ae758988d703b9d018c06fc09f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="classG4DarkBremsstrahlung.html#a69201ae758988d703b9d018c06fc09f0">More...</a><br /></td></tr>
-<tr class="separator:a69201ae758988d703b9d018c06fc09f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a379d07ede230c76e2e9fd8052b3be6e6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#a379d07ede230c76e2e9fd8052b3be6e6">G4DarkBremsstrahlung</a> (std::shared_ptr&lt; <a class="el" href="classg4db_1_1PrototypeModel.html">g4db::PrototypeModel</a> &gt; the_model, bool only_one_per_event=false, double global_bias=1., bool cache_xsec=true, int verbose_leve=0, int subtype=63)</td></tr>
+<tr class="memdesc:a379d07ede230c76e2e9fd8052b3be6e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="classG4DarkBremsstrahlung.html#a379d07ede230c76e2e9fd8052b3be6e6">More...</a><br /></td></tr>
+<tr class="separator:a379d07ede230c76e2e9fd8052b3be6e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e21edafc6f4e408a8c24ba91ce037cb"><td class="memItemLeft" align="right" valign="top"><a id="a7e21edafc6f4e408a8c24ba91ce037cb"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#a7e21edafc6f4e408a8c24ba91ce037cb">~G4DarkBremsstrahlung</a> ()=default</td></tr>
 <tr class="memdesc:a7e21edafc6f4e408a8c24ba91ce037cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
@@ -187,8 +187,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that represents the dark brem process. A muon or electron is allowed to brem a dark photon </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a69201ae758988d703b9d018c06fc09f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69201ae758988d703b9d018c06fc09f0">&#9670;&nbsp;</a></span>G4DarkBremsstrahlung()</h2>
+<a id="a379d07ede230c76e2e9fd8052b3be6e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a379d07ede230c76e2e9fd8052b3be6e6">&#9670;&nbsp;</a></span>G4DarkBremsstrahlung()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -221,7 +221,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>verbose_level</em> = <code>0</code>, </td>
+          <td class="paramname"><em>verbose_leve</em> = <code>0</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -253,11 +253,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">the_model</td><td>model to use for dark brem simulation </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">muons</td><td>true if muons are dark bremming, false for electrons </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">only_one_per_event</td><td>true if de-activating process after first dark brem </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">global_bias</td><td>bias xsec globally by this factor </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">cache_xsec</td><td>true if we should cache xsecs at the MeV level of precision </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">verbose_level</td><td>level of verbosity to print for this process and model </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">subtype</td><td>subtype for this process distinct from other EM processes in use (detail below) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">subtype</td><td>subtype for this process distinct from other EM processes in use(detail below) </td></tr>
   </table>
   </dd>
 </dl>

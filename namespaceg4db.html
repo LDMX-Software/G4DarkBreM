@@ -34,7 +34,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">G4DarkBreM
-   &#160;<span id="projectnumber">v1.2.1</span>
+   &#160;<span id="projectnumber">v1.2.0</span>
    </div>
    <div id="projectbrief">Geant4 Dark Bremmstrahlung from MadGraph</div>
   </td>
@@ -94,6 +94,7 @@ $(document).ready(function(){initNavTree('namespaceg4db.html',''); initResizable
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">g4db Namespace Reference</div>  </div>
@@ -126,15 +127,20 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract class representing a model for dark brem.  <a href="classg4db_1_1PrototypeModel.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a169bb225816931421aed2897ef16d217"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceg4db.html#a169bb225816931421aed2897ef16d217">int_method</a> = boost::math::quadrature::gauss_kronrod&lt; double, 61 &gt;</td></tr>
+<tr class="memdesc:a169bb225816931421aed2897ef16d217"><td class="mdescLeft">&#160;</td><td class="mdescRight">The integration method we will be using for our numerical integrals.  <a href="namespaceg4db.html#a169bb225816931421aed2897ef16d217">More...</a><br /></td></tr>
+<tr class="separator:a169bb225816931421aed2897ef16d217"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6c0369bb92bc1335f0b5d7b99dbd1fe0"><td class="memTemplParams" colspan="2">template&lt;typename IntegrandFunction &gt; </td></tr>
-<tr class="memitem:a6c0369bb92bc1335f0b5d7b99dbd1fe0"><td class="memTemplItemLeft" align="right" valign="top">static double&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceg4db.html#a6c0369bb92bc1335f0b5d7b99dbd1fe0">integrate</a> (IntegrandFunction F, double low, double high)</td></tr>
-<tr class="memdesc:a6c0369bb92bc1335f0b5d7b99dbd1fe0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The integration method we will be using for our numerical integrals.  <a href="namespaceg4db.html#a6c0369bb92bc1335f0b5d7b99dbd1fe0">More...</a><br /></td></tr>
-<tr class="separator:a6c0369bb92bc1335f0b5d7b99dbd1fe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abeae992b175580d08a51d8ea7d1a8c45"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceg4db.html#abeae992b175580d08a51d8ea7d1a8c45">flux_factor_chi_numerical</a> (G4double A, G4double Z, double tmin, double tmax)</td></tr>
-<tr class="memdesc:abeae992b175580d08a51d8ea7d1a8c45"><td class="mdescLeft">&#160;</td><td class="mdescRight">numerically integrate the value of the flux factor chi  <a href="namespaceg4db.html#abeae992b175580d08a51d8ea7d1a8c45">More...</a><br /></td></tr>
+<tr class="memdesc:abeae992b175580d08a51d8ea7d1a8c45"><td class="mdescLeft">&#160;</td><td class="mdescRight">numerically integrate the value of the flux factory chi  <a href="namespaceg4db.html#abeae992b175580d08a51d8ea7d1a8c45">More...</a><br /></td></tr>
 <tr class="separator:abeae992b175580d08a51d8ea7d1a8c45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae24726cacae758ce0f1ae84825957f5"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceg4db.html#aae24726cacae758ce0f1ae84825957f5">flux_factor_chi_analytic</a> (G4double A, G4double Z, double tmin, double tmax)</td></tr>
+<tr class="memdesc:aae24726cacae758ce0f1ae84825957f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">analytic flux factor chi integrated and simplified by DMG4 authors  <a href="namespaceg4db.html#aae24726cacae758ce0f1ae84825957f5">More...</a><br /></td></tr>
+<tr class="separator:aae24726cacae758ce0f1ae84825957f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1d8b68fbfacf353705d7b3727f3076d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceg4db.html#aa1d8b68fbfacf353705d7b3727f3076d">hasEnding</a> (const std::string &amp;str, const std::string &amp;end)</td></tr>
 <tr class="memdesc:aa1d8b68fbfacf353705d7b3727f3076d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the input string has the input ending.  <a href="namespaceg4db.html#aa1d8b68fbfacf353705d7b3727f3076d">More...</a><br /></td></tr>
 <tr class="separator:aa1d8b68fbfacf353705d7b3727f3076d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,7 +153,26 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>G4DarkBreM internal namespace. </p>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="a169bb225816931421aed2897ef16d217"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a169bb225816931421aed2897ef16d217">&#9670;&nbsp;</a></span>int_method</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespaceg4db.html#a169bb225816931421aed2897ef16d217">g4db::int_method</a> = typedef boost::math::quadrature::gauss_kronrod&lt;double, 61&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The integration method we will be using for our numerical integrals. </p>
+<p>The Gauss-Kronrod method was chosen due to its ability to limit the number of calls to the function representing the integrand which should help improve performance for us due to the complexity of our integrand. The order of the GK method was chosen after some experimentation, starting at a high value (61) and then lowering it to achieve better performance while checking the accuracy of the results.</p>
+<p>As explained in the <a href="https://www.boost.org/doc/libs/master/libs/math/doc/html/math_toolkit/gauss_kronrod.html">Boost GK Docs</a>, generally the error estimation technique for this method is overly pessimistic, so we can confidently set the maximum depth low and the desired relative error high compared to other methods. We have followed the examples in the docs where we use max_depth to 5 and relative error to 1e-9. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
 <a id="ababb824ea4dcad5a096fe234085fa1b5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ababb824ea4dcad5a096fe234085fa1b5">&#9670;&nbsp;</a></span>dumpLibrary()</h2>
 
@@ -184,6 +209,57 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <p>This function writes out the input library as CSV to the input output stream in the same format as expected by <a class="el" href="namespaceg4db_1_1parse.html#aba8cb24b1a0261829307b5eb82a4fe04" title="parse the input stream as a CSV file, filling the input library">parse::csv</a>.</p>
+
+</div>
+</div>
+<a id="aae24726cacae758ce0f1ae84825957f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae24726cacae758ce0f1ae84825957f5">&#9670;&nbsp;</a></span>flux_factor_chi_analytic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static double g4db::flux_factor_chi_analytic </td>
+          <td>(</td>
+          <td class="paramtype">G4double&#160;</td>
+          <td class="paramname"><em>A</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">G4double&#160;</td>
+          <td class="paramname"><em>Z</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tmin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tmax</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>analytic flux factor chi integrated and simplified by DMG4 authors </p>
+<p>This only includes the elastic form factor term </p>
 
 </div>
 </div>
@@ -233,34 +309,11 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>numerically integrate the value of the flux factor chi </p>
+<p>numerically integrate the value of the flux factory chi </p>
 <p>The integration of the form factor into the flux factor can be done analytically with a tool like mathematica, but when including the inelastic term, it produces such a complicated result that the numerical integration is actually <em>faster</em> than the analytical one.</p>
-<p>The form factors are copied from Appendix A (Eq A18 and A19) of <a href="https://journals.aps.org/prd/pdf/10.1103/PhysRevD.80.075018">https://journals.aps.org/prd/pdf/10.1103/PhysRevD.80.075018</a></p>
-<p>Here, the equations are listed for reference. </p><p class="formulaDsp">
-\begin{equation} \chi(x,\theta) = \int^{t_{max}}_{t_{min}} dt \left( \frac{Z^2a^4t^2}{(1+a^2t)^2(1+t/d)^2}+\frac{Za_p^4t^2}{(1+a_p^2t)^2(1+t/0.71)^8}\left(1+\frac{t(\mu_p^2-1)}{4m_p^2}\right)^2\right)\frac{t-t_{min}}{t^2} \end{equation}
-</p>
-<p> where </p><p class="formulaDsp">
-\begin{equation} a = \frac{111.0}{m_e Z^{1/3}} \quad a_p = \frac{773.0}{m_e Z^{2/3}} \quad d = \frac{0.164}{A^{2/3}} \end{equation}
-</p>
-<ul>
-<li>\(m_e\) is the mass of the electron in GeV</li>
-<li>\(m_p = 0.938\) is the mass of the proton in GeV</li>
-<li>\(\mu_p = 2.79\) is the proton \(\mu\)</li>
-<li>\(A\) is the atomic mass of the target nucleus in amu</li>
-<li>\(Z\) is the atomic number of the target nucleus</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">A</td><td>atomic mass of the target nucleus in amu </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">Z</td><td>atomic number of target nucleus </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">tmin</td><td>lower limit of integration over t </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">tmax</td><td>upper limit of integration over t </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>The form factors are copied from Appendix A (Eq A18 and A19) of <a href="https://journals.aps.org/prd/pdf/10.1103/PhysRevD.80.075018">https://journals.aps.org/prd/pdf/10.1103/PhysRevD.80.075018</a> </p>
 <p>We've manually expanded the integrand to cancel out the 1/t^2 factor from the differential, this helps the numerical integration converge because we aren't teetering on the edge of division by zero</p>
-<p>The <code>auto</code> used in the integrand definition represents a <em>function</em> whose return value is a <code>double</code> and which has a single input <code>lnt</code>. This lambda expression saves us the time of having to re-calculate the form factor constants that do not depend on <code>t</code> because it can inherit their values from the environment. The return value is a double since it is calculated by simple arithmetic operations on doubles.</p>
-<p>The integrand is so sharply peaked at t close to tmin, it is very helpful to do the integration in the variable u = ln(t) rather than t itself.</p>
+<p>The <code>auto</code> used in the integrand definition represents a <em>function</em> whose return value is a <code>double</code> and which has a single input <code>t</code>. This lambda expression saves us the time of having to re-calculate the form factor constants that do not depend on <code>t</code> because it can inherit their values from the environment. The return value is a double since it is calculated by simple arithmetic operations on doubles.</p>
 
 </div>
 </div>
@@ -302,68 +355,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a6c0369bb92bc1335f0b5d7b99dbd1fe0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c0369bb92bc1335f0b5d7b99dbd1fe0">&#9670;&nbsp;</a></span>integrate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename IntegrandFunction &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static double g4db::integrate </td>
-          <td>(</td>
-          <td class="paramtype">IntegrandFunction&#160;</td>
-          <td class="paramname"><em>F</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>low</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>high</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The integration method we will be using for our numerical integrals. </p>
-<p>The Gauss-Kronrod method was chosen due to its ability to limit the number of calls to the function representing the integrand which should help improve performance for us due to the complexity of our integrand. The order of the GK method was chosen after some experimentation, starting at a high value (61) and then lowering it to achieve better performance while checking the accuracy of the results.</p>
-<p>As explained in the <a href="https://www.boost.org/doc/libs/master/libs/math/doc/html/math_toolkit/gauss_kronrod.html">Boost GK Docs</a>, generally the error estimation technique for this method is overly pessimistic, so we can confidently set the maximum depth low and the desired relative error high compared to other methods. We have followed the examples in the docs where we use max_depth to 5 and relative error to 1e-9.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">IntegrandFunction</td><td>function type whose signature is <code>double(*)(double)</code>. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">F</td><td>function to integrate </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">low</td><td>lower limit of integration </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">high</td><td>upper limit of integration </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a id="a401e91aedc5a78635962c88c74872f31"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a401e91aedc5a78635962c88c74872f31">&#9670;&nbsp;</a></span>parseLibrary()</h2>
 
@@ -397,39 +388,9 @@ template&lt;typename IntegrandFunction &gt; </div>
 </div><div class="memdoc">
 
 <p>parse the input library and return the in-memory kinematics library </p>
-<h2><a class="anchor" id="autotoc_md4"></a>
-Library Specification</h2>
-<p>A "library" includes a single file or a directory holding multiple files. No subdirectories are inspected, so the directory must be "flat". Each file in a library can either be a CSV file or an LHE file, both of which can be compressed by gzip if desired.</p>
-<h3><a class="anchor" id="autotoc_md5"></a>
-CSV</h3>
-<p>The CSV file is expected to have a <b>single</b> header line which names the columns. These column names have no requirements (besides the existence of this line).</p>
-<p>The CSV is required to have 9 columns on all non-empty lines of the file. The 9 columns of the CSV all are in MeV and <em>in order</em> are</p><ol type="1">
-<li>The incident lepton energy</li>
-<li>The total energy of the recoil</li>
-<li>The x-component of the recoil momentum</li>
-<li>The y-component of the recoil momentum</li>
-<li>The z-component of the recoil momentum</li>
-<li>The total energy of the A'</li>
-<li>The x-component of the A' momentum</li>
-<li>The y-component of the A' momentum</li>
-<li>The z-component of the A' momentum</li>
-</ol>
-<h3><a class="anchor" id="autotoc_md6"></a>
-LHE</h3>
-<p>The LHE files must have dark brem events in it where "dark brem event" in this context is defined below. </p><div class="fragment"><div class="line">lepton_id -1 &lt;skip&gt; &lt;skip&gt; &lt;skip&gt; &lt;skip&gt; px py pz E m</div>
-<div class="line">&lt;skip-line&gt;</div>
-<div class="line">&lt;skip-line&gt;</div>
-<div class="line">lepton_id 1 &lt;skip&gt; &lt;skip&gt; &lt;skip&gt; &lt;skip&gt; px py pz E m</div>
-<div class="line">&lt;skip-line&gt;</div>
-<div class="line">&lt;skip-line&gt;</div>
-<div class="line">aprime_id 1 &lt;skip&gt; &lt;skip&gt; &lt;skip&gt; &lt;skip&gt; px py pz E m</div>
-</div><!-- fragment --><p>This matches a subcomponent of the LHE scheme written by MadGraph/MadEvent (hence the reason this is the "lhe" parser); however, a lot of information is skipped and additional assumptions are made in order to increase the parsing speed.</p>
-<p>The <code>lepton_id</code> is allowed to be <em>either</em> 11 or 13 <em>everywhere</em>. No consistency checking is done.</p>
-<p>The <code>E</code> from the first line is used as the incident lepton energy. The four-momentum from the middle line is the recoil lepton's four momentum, and the four-momentum from the last line is used in conjuction with the recoil four-momentum to calculate the center of momentum vector.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>path to library to parse </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">aprime_lhe_id</td><td>the ID number for the A' (aka dark photon) in the library being parsed </td></tr>
     <tr><td class="paramdir">[in,out]</td><td class="paramname">lib</td><td>map of incident energy keys to set of outgoing kinematics </td></tr>
   </table>
   </dd>

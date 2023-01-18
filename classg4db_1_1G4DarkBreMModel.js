@@ -1,17 +1,11 @@
 var classg4db_1_1G4DarkBreMModel =
 [
-    [ "ScalingMethod", "classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faa", [
-      [ "ForwardOnly", "classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faaabaf091bcacd081bc1e0c1fc65d43e09b", null ],
-      [ "CMScaling", "classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faaa109faf01533226d9e0f6dca82500baf2", null ],
-      [ "Undefined", "classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faaaec0fc0100c4fc1ce4eea230c3dc10360", null ]
+    [ "DarkBremMethod", "classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0", [
+      [ "ForwardOnly", "classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0a29b453f0114ded1e0261b2b407a93838", null ],
+      [ "CMScaling", "classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0a96d45cec44ea79b215379dbb96661027", null ],
+      [ "Undefined", "classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0a584703226d49f23eecd0937a21c7142d", null ]
     ] ],
-    [ "XsecMethod", "classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587af", [
-      [ "Full", "classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afabbd47109890259c0127154db1af26c75", null ],
-      [ "Improved", "classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afae17310830c72d17857bf7df1ddf80dfe", null ],
-      [ "HyperImproved", "classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afae723f214b18bf2adabfe484d4c65517d", null ],
-      [ "Auto", "classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afa06b9281e396db002010bde1de57262eb", null ]
-    ] ],
-    [ "G4DarkBreMModel", "classg4db_1_1G4DarkBreMModel.html#ad4038fb4f46ba16a2bfb829c5c81ea8c", null ],
+    [ "G4DarkBreMModel", "classg4db_1_1G4DarkBreMModel.html#a4beb46bd907cd9e9df7006be7edac8c1", null ],
     [ "~G4DarkBreMModel", "classg4db_1_1G4DarkBreMModel.html#ab2ef7fbd9b88c050c8d04a226d906f81", null ],
     [ "ComputeCrossSectionPerAtom", "classg4db_1_1G4DarkBreMModel.html#aeb47b4204cc4536334d9ccf9f8cb845f", null ],
     [ "GenerateChange", "classg4db_1_1G4DarkBreMModel.html#af55e733c9b510ed0ced469afce610909", null ],
@@ -27,8 +21,7 @@ var classg4db_1_1G4DarkBreMModel =
     [ "library_path_", "classg4db_1_1G4DarkBreMModel.html#aa87a280a39e044f0053332e442729480", null ],
     [ "madGraphData_", "classg4db_1_1G4DarkBreMModel.html#a466770b569c7cc2952dbff5a1f38de5c", null ],
     [ "maxIterations_", "classg4db_1_1G4DarkBreMModel.html#abaa436c1010f810fd563ff8d20df79ac", null ],
+    [ "method_", "classg4db_1_1G4DarkBreMModel.html#aa805cbf21910370dc076d6806c89cc86", null ],
     [ "method_name_", "classg4db_1_1G4DarkBreMModel.html#a2d97e48c82feb83feae73a44bd1eb326", null ],
-    [ "scaling_method_", "classg4db_1_1G4DarkBreMModel.html#affa7c9e1679f3e9b59a17aac12299137", null ],
-    [ "threshold_", "classg4db_1_1G4DarkBreMModel.html#a007e7af570949793604ada78c23508b5", null ],
-    [ "xsec_method_", "classg4db_1_1G4DarkBreMModel.html#a5e687dc02358e48f90db39f1a180754d", null ]
+    [ "threshold_", "classg4db_1_1G4DarkBreMModel.html#a007e7af570949793604ada78c23508b5", null ]
 ];

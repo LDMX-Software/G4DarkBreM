@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['forwardonly_244',['ForwardOnly',['../classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faaabaf091bcacd081bc1e0c1fc65d43e09b',1,'g4db::G4DarkBreMModel']]],
-  ['full_245',['Full',['../classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afabbd47109890259c0127154db1af26c75',1,'g4db::G4DarkBreMModel']]]
+  ['undefined_231',['Undefined',['../classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0a584703226d49f23eecd0937a21c7142d',1,'g4db::G4DarkBreMModel']]]
 ];

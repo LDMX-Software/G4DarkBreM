@@ -34,7 +34,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">G4DarkBreM
-   &#160;<span id="projectnumber">v1.2.1</span>
+   &#160;<span id="projectnumber">v1.2.0</span>
    </div>
    <div id="projectbrief">Geant4 Dark Bremmstrahlung from MadGraph</div>
   </td>
@@ -129,6 +129,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>centerMomentum
 : <a class="el" href="structg4db_1_1OutgoingKinematics.html#ad19a99672da61c3c8d24f1ce342788ef">g4db::OutgoingKinematics</a>
 </li>
+<li>CMScaling
+: <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0a96d45cec44ea79b215379dbb96661027">g4db::G4DarkBreMModel</a>
+</li>
 <li>ComputeCrossSectionPerAtom()
 : <a class="el" href="classg4db_1_1G4DarkBreMModel.html#aeb47b4204cc4536334d9ccf9f8cb845f">g4db::G4DarkBreMModel</a>
 , <a class="el" href="classg4db_1_1PrototypeModel.html#ae99722026388d768ba95bff9938fdf00">g4db::PrototypeModel</a>
@@ -152,6 +155,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 
 
 <h3><a id="index_d"></a>- d -</h3><ul>
+<li>DarkBremMethod
+: <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0">g4db::G4DarkBreMModel</a>
+</li>
 <li>DarkBremOffMuons()
 : <a class="el" href="classg4db_1_1PrototypeModel.html#a6eb0ae8e1eeab01ac45f6a469919e422">g4db::PrototypeModel</a>
 </li>
@@ -187,6 +193,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 
 
 <h3><a id="index_f"></a>- f -</h3><ul>
+<li>ForwardOnly
+: <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0a29b453f0114ded1e0261b2b407a93838">g4db::G4DarkBreMModel</a>
+</li>
 <li>found()
 : <a class="el" href="classg4db_1_1example_1_1OutgoingKinematics.html#ae5e475b021847235ab9af844b57b0161">g4db::example::OutgoingKinematics</a>
 </li>
@@ -201,10 +210,10 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 : <a class="el" href="classG4APrime.html#ae372cd69bd9ed13c8940c2b3107a95fd">G4APrime</a>
 </li>
 <li>G4DarkBreMModel()
-: <a class="el" href="classg4db_1_1G4DarkBreMModel.html#ad4038fb4f46ba16a2bfb829c5c81ea8c">g4db::G4DarkBreMModel</a>
+: <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a4beb46bd907cd9e9df7006be7edac8c1">g4db::G4DarkBreMModel</a>
 </li>
 <li>G4DarkBremsstrahlung()
-: <a class="el" href="classG4DarkBremsstrahlung.html#a69201ae758988d703b9d018c06fc09f0">G4DarkBremsstrahlung</a>
+: <a class="el" href="classG4DarkBremsstrahlung.html#a379d07ede230c76e2e9fd8052b3be6e6">G4DarkBremsstrahlung</a>
 </li>
 <li>GenerateChange()
 : <a class="el" href="classg4db_1_1G4DarkBreMModel.html#af55e733c9b510ed0ced469afce610909">g4db::G4DarkBreMModel</a>
@@ -292,6 +301,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>maxIterations_
 : <a class="el" href="classg4db_1_1G4DarkBreMModel.html#abaa436c1010f810fd563ff8d20df79ac">g4db::G4DarkBreMModel</a>
 </li>
+<li>method_
+: <a class="el" href="classg4db_1_1G4DarkBreMModel.html#aa805cbf21910370dc076d6806c89cc86">g4db::G4DarkBreMModel</a>
+</li>
 <li>method_name_
 : <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a2d97e48c82feb83feae73a44bd1eb326">g4db::G4DarkBreMModel</a>
 </li>
@@ -363,12 +375,6 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>scale()
 : <a class="el" href="classg4db_1_1G4DarkBreMModel.html#aea0e3784c4faff89fe84a53360f0951b">g4db::G4DarkBreMModel</a>
 </li>
-<li>scaling_method_
-: <a class="el" href="classg4db_1_1G4DarkBreMModel.html#affa7c9e1679f3e9b59a17aac12299137">g4db::G4DarkBreMModel</a>
-</li>
-<li>ScalingMethod
-: <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faa">g4db::G4DarkBreMModel</a>
-</li>
 <li>setAPrime()
 : <a class="el" href="classg4db_1_1example_1_1OutgoingKinematics.html#a9bd47dc07cd183d08a5499683e603cee">g4db::example::OutgoingKinematics</a>
 </li>
@@ -404,19 +410,16 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 </ul>
 
 
-<h3><a id="index_v"></a>- v -</h3><ul>
-<li>verbose_level_
-: <a class="el" href="classg4db_1_1PrototypeModel.html#a730ea81c1402e907fba494da8ac5581b">g4db::PrototypeModel</a>
+<h3><a id="index_u"></a>- u -</h3><ul>
+<li>Undefined
+: <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0a584703226d49f23eecd0937a21c7142d">g4db::G4DarkBreMModel</a>
 </li>
 </ul>
 
 
-<h3><a id="index_x"></a>- x -</h3><ul>
-<li>xsec_method_
-: <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a5e687dc02358e48f90db39f1a180754d">g4db::G4DarkBreMModel</a>
-</li>
-<li>XsecMethod
-: <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587af">g4db::G4DarkBreMModel</a>
+<h3><a id="index_v"></a>- v -</h3><ul>
+<li>verbose_level_
+: <a class="el" href="classg4db_1_1PrototypeModel.html#a730ea81c1402e907fba494da8ac5581b">g4db::PrototypeModel</a>
 </li>
 </ul>
 
