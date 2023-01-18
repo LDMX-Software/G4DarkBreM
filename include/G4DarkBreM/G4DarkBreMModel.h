@@ -128,18 +128,30 @@ class G4DarkBreMModel : public PrototypeModel {
      * much of an overestimate. Instead of \f$t_{max}=E_0^2\f$ we use
      * \f$t_{max}=m_A^2+m_\ell^2\f$.
      */
-    HyperImproved = 3
+    HyperImproved = 3,
+
+    /**
+     * the default cross section calculation
+     *
+     * This requires its own enum variant since it is determined
+     * by the \f$R = m_A/m_\ell\f$ ratio as configured by other parameters.
+     *
+     * If \f$1 < R < 50\f$, Full is used while Improved is used otherwise.
+     * These boarders were determine qualitatively by looking at a series
+     * of cross section plots comparing all of these methods.
+     */
+    Default = 4
   };
 
   /**
    * Set the parameters for this model.
    *
-   * @param[in] sm method on how to scale the events in the library
-   * @param[in] xm method on calculating the total cross section
-   * @param[in] threshold minimum energy lepton needs to have to dark brem [GeV]
-   * @param[in] epsilon dark photon mixing strength
    * @param[in] library_path directory in which MG library is stored
    * @param[in] muons true if using muons, false for electrons
+   * @param[in] threshold minimum energy lepton needs to have to dark brem [GeV]
+   * @param[in] epsilon dark photon mixing strength
+   * @param[in] sm method on how to scale the events in the library
+   * @param[in] xm method on calculating the total cross section
    * @param[in] aprime_lhe_id PDG ID number for the dark photon in the LHE files 
    * being loaded for the library. Only used if parsing LHE files.
    * @param[in] load_library only used in cross section executable where it is known
@@ -150,8 +162,11 @@ class G4DarkBreMModel : public PrototypeModel {
    *
    * The library path is immediately passed to SetMadGraphDataLibrary.
    */
-  G4DarkBreMModel(ScalingMethod sm, XsecMethod xm, double threshold, 
-      double epsilon, const std::string& library_path, bool muons, 
+  G4DarkBreMModel(const std::string& library_path, bool muons,
+      double threshold = 0.0, 
+      double epsilon = 1.0,
+      ScalingMethod sm = ScalingMethod::ForwardOnly, 
+      XsecMethod xm = XsecMethod::Default, 
       int aprime_lhe_id = 622, bool load_library = true);
 
   /**

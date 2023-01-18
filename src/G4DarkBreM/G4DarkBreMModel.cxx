@@ -138,14 +138,31 @@ static double flux_factor_chi_numerical(G4double A, G4double Z, double tmin, dou
   return integrate(integrand,log(tmin),log(tmax));
 }
 
-G4DarkBreMModel::G4DarkBreMModel(ScalingMethod scaling_method, XsecMethod xsec_method,
-    double threshold, double epsilon, const std::string& library_path, 
-    bool muons, int aprime_lhe_id, bool load_library)
+G4DarkBreMModel::G4DarkBreMModel(
+    const std::string& library_path,
+    bool muons,
+    double threshold,
+    double epsilon,
+    ScalingMethod scaling_method, 
+    XsecMethod xsec_method,
+    int aprime_lhe_id,
+    bool load_library)
     : PrototypeModel(muons), maxIterations_{10000}, 
       threshold_{std::max(threshold, 2.*G4APrime::APrime()->GetPDGMass()/CLHEP::GeV)},
       epsilon_{epsilon}, aprime_lhe_id_{aprime_lhe_id},
       scaling_method_{scaling_method}, xsec_method_{xsec_method},
       library_path_{library_path} {
+  if (xsec_method_ == XsecMethod::Default) {
+    static const double MA = G4APrime::APrime()->GetPDGMass() / GeV;
+    const double lepton_mass{
+      (muons_ ? G4MuonMinus::MuonMinus()->GetPDGMass() : G4Electron::Electron()->GetPDGMass()) / GeV};
+    double mass_ratio = MA/lepton_mass;
+    if (1.0 < mass_ratio and mass_ratio < 50.0) {
+      xsec_method_ = XsecMethod::Full;
+    } else {
+      xsec_method_ = XsecMethod::Improved;
+    }
+  }
   if (load_library) SetMadGraphDataLibrary(library_path_);
 }
 
