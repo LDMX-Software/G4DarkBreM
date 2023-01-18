@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['cmscaling_229',['CMScaling',['../classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0a96d45cec44ea79b215379dbb96661027',1,'g4db::G4DarkBreMModel']]]
+  ['cmscaling_240',['CMScaling',['../classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faaa109faf01533226d9e0f6dca82500baf2',1,'g4db::G4DarkBreMModel']]]
 ];

@@ -2,7 +2,7 @@ var searchData=
 [
   ['cache_5fxsec_5f_7',['cache_xsec_',['../classG4DarkBremsstrahlung.html#a4cea6b7ac951681575884e5365cf6302',1,'G4DarkBremsstrahlung']]],
   ['centermomentum_8',['centerMomentum',['../structg4db_1_1OutgoingKinematics.html#ad19a99672da61c3c8d24f1ce342788ef',1,'g4db::OutgoingKinematics']]],
-  ['cmscaling_9',['CMScaling',['../classg4db_1_1G4DarkBreMModel.html#a8433941bea20f62c3a0d96d2e8bd29b0a96d45cec44ea79b215379dbb96661027',1,'g4db::G4DarkBreMModel']]],
+  ['cmscaling_9',['CMScaling',['../classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faaa109faf01533226d9e0f6dca82500baf2',1,'g4db::G4DarkBreMModel']]],
   ['computecrosssectionperatom_10',['ComputeCrossSectionPerAtom',['../classg4db_1_1G4DarkBreMModel.html#aeb47b4204cc4536334d9ccf9f8cb845f',1,'g4db::G4DarkBreMModel::ComputeCrossSectionPerAtom()'],['../classg4db_1_1PrototypeModel.html#ae99722026388d768ba95bff9938fdf00',1,'g4db::PrototypeModel::ComputeCrossSectionPerAtom()']]],
   ['computekey_11',['computeKey',['../classg4db_1_1ElementXsecCache.html#a89eb15bedae10c7dfd5ed573b4fedd98',1,'g4db::ElementXsecCache']]],
   ['construct_12',['Construct',['../classg4db_1_1example_1_1Hunk.html#a19bddfcff11c6c5eec8935174e925709',1,'g4db::example::Hunk']]],
