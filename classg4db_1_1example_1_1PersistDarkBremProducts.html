@@ -148,7 +148,7 @@ long unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="e
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>event action used to store the <a class="el" href="classg4db_1_1example_1_1OutgoingKinematics.html" title="The event information we care about for studying the model.">OutgoingKinematics</a> <em>if</em> a dark brem occurred </p>
 <p>This uses <a class="el" href="classg4db_1_1example_1_1OutgoingKinematics.html#a153d5265a98b4d27253ed7c8cc9e3b9b" title="Write out the two four-momenta in CSV format to the input stream.">OutgoingKinematics::stream</a> to write out the CSV where data will be stored.</p>
-<dl class="section note"><dt>Note</dt><dd>The stream method at the CSV header row written here need to match for the CSV to make sense.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The <a class="el" href="classg4db_1_1example_1_1OutgoingKinematics.html#a153d5265a98b4d27253ed7c8cc9e3b9b" title="Write out the two four-momenta in CSV format to the input stream.">OutgoingKinematics::stream</a> method and the CSV header row written here need to match for the CSV to make sense.</dd></dl>
 <p>We don't do any caching, just trusting the std::ofstream to handle the caching, only flushing when necessary and when destructed.</p>
 <p>We also print out the number of events that successfully had a dark brem compared to the number of events requested. This is helpful for the user so that they know (1) there is not a problem and (2) potential tuning of the bias factor. </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>

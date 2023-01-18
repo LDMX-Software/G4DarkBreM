@@ -153,6 +153,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>basic physics constructor which simply creates the A' and the dark brem </p>
+<p>We follow the Geant4 model where we construct the particle and then the process. <a class="el" href="classg4db_1_1example_1_1APrimePhysics.html#a05cc1bd5006eb1c2ce880c5503e5f41f" title="Insert A-prime into the Geant4 particle table.">APrimePhysics::ConstructParticle</a> configures the <a class="el" href="classG4APrime.html" title="Formal class representing the A&#39; (a dark photon)">G4APrime</a> and <a class="el" href="classg4db_1_1example_1_1APrimePhysics.html#a78179a929b44e99e6931efded7fcfa1b" title="Construct and configure the dark brem process.">APrimePhysics::ConstructProcess</a> configures <a class="el" href="classG4DarkBremsstrahlung.html">G4DarkBremsstrahlung</a>. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a05cc1bd5006eb1c2ce880c5503e5f41f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a05cc1bd5006eb1c2ce880c5503e5f41f">&#9670;&nbsp;</a></span>ConstructParticle()</h2>
@@ -178,9 +179,8 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 </div><div class="memdoc">
 
 <p>Insert A-prime into the Geant4 particle table. </p>
-<p>For now we flag it as stable.</p>
-<p>We also define its mass here by passing the A' mass parameter. Future calls to <a class="el" href="classG4APrime.html#a1836c6a175d89e8244410f7a1ddd99ce" title="Accessor for APrime definition.">G4APrime::APrime</a> can provide no arguments.</p>
-<p>Geant4 registers all instances derived from G4ParticleDefinition and deletes them at the end of the run. </p>
+<p>We define its mass here using <a class="el" href="classG4APrime.html#adb10dbe58988db0e95fa1ace25d0fb54" title="Initialize the APrime particle with the passed configuration.">G4APrime::Initialize</a>. Future calls to <a class="el" href="classG4APrime.html#a1836c6a175d89e8244410f7a1ddd99ce" title="Accessor for APrime definition.">G4APrime::APrime</a> for the rest of the run will use that mass.</p>
+<p>Geant4 registers all instances derived from G4ParticleDefinition and deletes them at the end of the run so we do not need to cleanup the constructed particle definition. </p>
 
 </div>
 </div>
@@ -209,7 +209,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cl
 
 <p>Construct and configure the dark brem process. </p>
 <p>We own the process and clean it up when the physics constructor is cleaned up by Geant4 after registration.</p>
-<p>Lots of configuration variables here are hard-coded for this simple example simulation, users of G4DarkBreM are encouraged to try out the different options to see what works best for their situation. </p>
+<p>Besides the required configuration parameters (the path to the dark brem library and whether or not we are dark-bremming off muons), we leave the rest of the sim parameters to their default values. Look at <a class="el" href="classg4db_1_1G4DarkBreMModel.html#ad4038fb4f46ba16a2bfb829c5c81ea8c" title="Set the parameters for this model.">G4DarkBreMModel::G4DarkBreMModel</a> for the default value definitions to see if your situation requires changing any of them. </p>
 
 </div>
 </div>
