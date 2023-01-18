@@ -145,6 +145,7 @@ G4DarkBreMModel::G4DarkBreMModel(
     double epsilon,
     ScalingMethod scaling_method, 
     XsecMethod xsec_method,
+    double max_R_for_full,
     int aprime_lhe_id,
     bool load_library)
     : PrototypeModel(muons), maxIterations_{10000}, 
@@ -152,12 +153,14 @@ G4DarkBreMModel::G4DarkBreMModel(
       epsilon_{epsilon}, aprime_lhe_id_{aprime_lhe_id},
       scaling_method_{scaling_method}, xsec_method_{xsec_method},
       library_path_{library_path} {
-  if (xsec_method_ == XsecMethod::Default) {
+  if (xsec_method_ == XsecMethod::Auto) {
     static const double MA = G4APrime::APrime()->GetPDGMass() / GeV;
-    const double lepton_mass{
-      (muons_ ? G4MuonMinus::MuonMinus()->GetPDGMass() : G4Electron::Electron()->GetPDGMass()) / GeV};
+    const double lepton_mass{(muons_ 
+       ? G4MuonMinus::MuonMinus()->GetPDGMass() 
+       : G4Electron::Electron()->GetPDGMass()
+      ) / GeV};
     double mass_ratio = MA/lepton_mass;
-    if (1.0 < mass_ratio and mass_ratio < 50.0) {
+    if (mass_ratio < max_R_for_full) {
       xsec_method_ = XsecMethod::Full;
     } else {
       xsec_method_ = XsecMethod::Improved;
