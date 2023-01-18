@@ -151,12 +151,11 @@ int main(int argc, char* argv[]) try {
   // the process accesses the A' mass from the G4 particle
   G4APrime::Initialize(ap_mass*GeV);
   auto model = std::make_shared<g4db::G4DarkBreMModel>(
-        g4db::G4DarkBreMModel::ScalingMethod::Undefined, // scaling method
-        xsec_methods.at(method), // xsec calculation method
+        "LIBRARY NOT NEEDED", muons,
         0.0, // threshold for non-zero xsec
         1.0, // epsilon
-        "NOT NEEDED", // path to dark brem event library
-        muons, // lepton is a muon (or not)
+        g4db::G4DarkBreMModel::ScalingMethod::Undefined, // scaling method
+        xsec_methods.at(method), // xsec calculation method
         622, // ID of dark photon in event library
         false // load event library
         );
