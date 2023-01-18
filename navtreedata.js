@@ -24,13 +24,15 @@ var NAVTREE =
 [
   [ "G4DarkBreM", "index.html", [
     [ "Installation", "index.html#autotoc_md1", null ],
-    [ "Validation", "index.html#autotoc_md2", null ],
+    [ "Usage", "index.html#autotoc_md2", null ],
+    [ "Validation", "index.html#autotoc_md3", null ],
     [ "g4db executables", "md_app_README.html", [
-      [ "g4db-scale", "md_app_README.html#autotoc_md7", null ],
-      [ "g4db-xsec-calc", "md_app_README.html#autotoc_md8", null ],
-      [ "g4db-simulate", "md_app_README.html#autotoc_md9", null ],
-      [ "g4db-extract-library", "md_app_README.html#autotoc_md10", null ]
+      [ "g4db-scale", "md_app_README.html#autotoc_md8", null ],
+      [ "g4db-xsec-calc", "md_app_README.html#autotoc_md9", null ],
+      [ "g4db-simulate", "md_app_README.html#autotoc_md10", null ],
+      [ "g4db-extract-library", "md_app_README.html#autotoc_md11", null ]
     ] ],
+    [ "Configuration of Simulation", "md_docs_configuration.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [

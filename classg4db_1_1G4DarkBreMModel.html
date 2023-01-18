@@ -34,7 +34,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">G4DarkBreM
-   &#160;<span id="projectnumber">v1.2.0</span>
+   &#160;<span id="projectnumber">v1.2.1</span>
    </div>
    <div id="projectbrief">Geant4 Dark Bremmstrahlung from MadGraph</div>
   </td>
@@ -125,15 +125,16 @@ Public Types</h2></td></tr>
 <tr class="separator:a011b206417fc234c5f8c726be0c54faa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bde7a6a38770c17ae3056a7a3e587af"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587af">XsecMethod</a> { <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afabbd47109890259c0127154db1af26c75">XsecMethod::Full</a> = 1, 
 <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afae17310830c72d17857bf7df1ddf80dfe">XsecMethod::Improved</a> = 2, 
-<a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afae723f214b18bf2adabfe484d4c65517d">XsecMethod::HyperImproved</a> = 3
+<a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afae723f214b18bf2adabfe484d4c65517d">XsecMethod::HyperImproved</a> = 3, 
+<a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afa06b9281e396db002010bde1de57262eb">XsecMethod::Auto</a> = 4
  }</td></tr>
 <tr class="separator:a8bde7a6a38770c17ae3056a7a3e587af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a28e68e5cfca0d3d5656f80890a25d63e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a28e68e5cfca0d3d5656f80890a25d63e">G4DarkBreMModel</a> (<a class="el" href="classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faa">ScalingMethod</a> sm, <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587af">XsecMethod</a> xm, double threshold, double epsilon, const std::string &amp;library_path, bool muons, int aprime_lhe_id=622, bool load_library=true)</td></tr>
-<tr class="memdesc:a28e68e5cfca0d3d5656f80890a25d63e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the parameters for this model.  <a href="classg4db_1_1G4DarkBreMModel.html#a28e68e5cfca0d3d5656f80890a25d63e">More...</a><br /></td></tr>
-<tr class="separator:a28e68e5cfca0d3d5656f80890a25d63e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4038fb4f46ba16a2bfb829c5c81ea8c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#ad4038fb4f46ba16a2bfb829c5c81ea8c">G4DarkBreMModel</a> (const std::string &amp;library_path, bool muons, double threshold=0.0, double epsilon=1.0, <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faa">ScalingMethod</a> sm=<a class="el" href="classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faaabaf091bcacd081bc1e0c1fc65d43e09b">ScalingMethod::ForwardOnly</a>, <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587af">XsecMethod</a> xm=<a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afa06b9281e396db002010bde1de57262eb">XsecMethod::Auto</a>, double max_R_for_full=50.0, int aprime_lhe_id=622, bool load_library=true)</td></tr>
+<tr class="memdesc:ad4038fb4f46ba16a2bfb829c5c81ea8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the parameters for this model.  <a href="classg4db_1_1G4DarkBreMModel.html#ad4038fb4f46ba16a2bfb829c5c81ea8c">More...</a><br /></td></tr>
+<tr class="separator:ad4038fb4f46ba16a2bfb829c5c81ea8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2ef7fbd9b88c050c8d04a226d906f81"><td class="memItemLeft" align="right" valign="top"><a id="ab2ef7fbd9b88c050c8d04a226d906f81"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#ab2ef7fbd9b88c050c8d04a226d906f81">~G4DarkBreMModel</a> ()=default</td></tr>
 <tr class="memdesc:ab2ef7fbd9b88c050c8d04a226d906f81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
@@ -259,10 +260,19 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <p>Possible methods to use the dark brem events from the imported library inside of this model. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a011b206417fc234c5f8c726be0c54faaabaf091bcacd081bc1e0c1fc65d43e09b"></a>ForwardOnly&#160;</td><td class="fielddoc"><p>Use actual lepton energy and get pT from LHE (such that \(p_T^2+m_l^2 &lt; E_{acc}^2\)) </p>
+<p>Scales the energy so that the fraction of kinetic energy is constant, keeping the \(p_T\) constant.</p>
+<p>If the \(p_T\) is larger than the new energy, that event is skipped, and a new one is taken from the file. If the loaded library does not fully represent the range of incident energies being seen by the simulation, this will occur frequently.</p>
+<p>With only the kinetic energy fraction and \(p_T\), the sign of the longitudinal momentum \(p_z\) is undetermined. This method simply chooses the \(p_z\) of the recoil lepton to always be positive. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a011b206417fc234c5f8c726be0c54faaa109faf01533226d9e0f6dca82500baf2"></a>CMScaling&#160;</td><td class="fielddoc"><p>Boost LHE vertex momenta to the actual lepton energy. </p>
+<p>The scaling is done via two boosts.</p><ol type="1">
+<li>Boost out of the center-of-momentum (CoM) frame read in along with the MadGraph event library.</li>
+<li>Boost into approximately) the incident lepton energy frame by constructing a "new" CoM frame using the actual CoM frame's transverse momentum and lowering the \(p_z\) and energy of the CoM by the difference between the input incident energy and the sampled incident energy.</li>
+</ol>
+<p>After these boosts, the energy of the recoil and its \(p_T\) are extracted. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a011b206417fc234c5f8c726be0c54faaaec0fc0100c4fc1ce4eea230c3dc10360"></a>Undefined&#160;</td><td class="fielddoc"><p>Use LHE vertex as is. </p>
+<p>We simply copy the read-in recoil energy's energy, momentum, and \(p_T\). </p>
 </td></tr>
 </table>
 
@@ -337,13 +347,18 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 </p>
 <p>where \(d\sigma/dx\) is the same as Improved. Since this uses the maximum value of \(\chi\) for all values of \(\chi\), we modify the upper limit of integration to avoid making this overestimate too much of an overestimate. Instead of \(t_{max}=E_0^2\) we use \(t_{max}=m_A^2+m_\ell^2\). </p>
 </td></tr>
+<tr><td class="fieldname"><a id="a8bde7a6a38770c17ae3056a7a3e587afa06b9281e396db002010bde1de57262eb"></a>Auto&#160;</td><td class="fielddoc"><p>the default cross section calculation </p>
+<p>This requires its own enum variant since it is determined by the \(R = m_A/m_\ell\) ratio as configured by other parameters.</p>
+<p>If \(R &lt; R_{max}\), Full is used while Improved is used otherwise. These boarders were determine qualitatively by looking at a series of cross section plots comparing all of these methods.</p>
+<p>The parameter \(R_{max}\) is configurable in <a class="el" href="classg4db_1_1G4DarkBreMModel.html#ad4038fb4f46ba16a2bfb829c5c81ea8c" title="Set the parameters for this model.">G4DarkBreMModel::G4DarkBreMModel</a> as max_R_for_full. </p>
+</td></tr>
 </table>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a28e68e5cfca0d3d5656f80890a25d63e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28e68e5cfca0d3d5656f80890a25d63e">&#9670;&nbsp;</a></span>G4DarkBreMModel()</h2>
+<a id="ad4038fb4f46ba16a2bfb829c5c81ea8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4038fb4f46ba16a2bfb829c5c81ea8c">&#9670;&nbsp;</a></span>G4DarkBreMModel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -351,30 +366,6 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
         <tr>
           <td class="memname">g4db::G4DarkBreMModel::G4DarkBreMModel </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faa">ScalingMethod</a>&#160;</td>
-          <td class="paramname"><em>sm</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587af">XsecMethod</a>&#160;</td>
-          <td class="paramname"><em>xm</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>threshold</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>epsilon</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>library_path</em>, </td>
         </tr>
@@ -383,6 +374,36 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
           <td></td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>muons</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>threshold</em> = <code>0.0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>epsilon</em> = <code>1.0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faa">ScalingMethod</a>&#160;</td>
+          <td class="paramname"><em>sm</em> = <code><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faaabaf091bcacd081bc1e0c1fc65d43e09b">ScalingMethod::ForwardOnly</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587af">XsecMethod</a>&#160;</td>
+          <td class="paramname"><em>xm</em> = <code><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afa06b9281e396db002010bde1de57262eb">XsecMethod::Auto</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>max_R_for_full</em> = <code>50.0</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -407,19 +428,18 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <p>Set the parameters for this model. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">sm</td><td>method on how to scale the events in the library </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">xm</td><td>method on calculating the total cross section </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">threshold</td><td>minimum energy lepton needs to have to dark brem [GeV] </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">epsilon</td><td>dark photon mixing strength </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">library_path</td><td>directory in which MG library is stored </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">library_path</td><td>full path to MG library The library path is immediately passed to <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a5a6f5c8034689f581fd0c71f00e92edf" title="Set the library of dark brem events to be scaled.">G4DarkBreMModel::SetMadGraphDataLibrary</a> which simply calls <a class="el" href="namespaceg4db.html#a401e91aedc5a78635962c88c74872f31" title="parse the input library and return the in-memory kinematics library">g4db::parseLibrary</a> (where you should look for the specification options of a dark brem library). </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">muons</td><td>true if using muons, false for electrons </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">aprime_lhe_id</td><td>PDG ID number for the dark photon in the LHE files being loaded for the library. Only used if parsing LHE files. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">load_library</td><td>only used in cross section executable where it is known that the library will not be used during program run</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">threshold</td><td>minimum energy lepton needs to have to dark brem [GeV] (overwritten by twice the A' mass if it is less so that it kinematically makes sense). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">epsilon</td><td>dark photon mixing strength </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sm</td><td><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faa">G4DarkBreMModel::ScalingMethod</a> on how to scale the events in the library </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">xm</td><td><a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587af">G4DarkBreMModel::XsecMethod</a> on calculating the total cross section </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">max_R_for_full</td><td>maximum value of R where Full will still be used <b>Only used with</b> <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afa06b9281e396db002010bde1de57262eb" title="the default cross section calculation">G4DarkBreMModel::XsecMethod::Auto</a> (go there for context) </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">aprime_lhe_id</td><td>PDG ID number for the dark photon in the LHE files being loaded for the library. <b>Only used if parsing LHE files.</b> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">load_library</td><td>only used in cross section executable where it is known that the library will not be used during program run </td></tr>
   </table>
   </dd>
 </dl>
-<p>The threshold is set to the maximum of the passed value or twice the A' mass (so that it kinematically makes sense).</p>
-<p>The library path is immediately passed to SetMadGraphDataLibrary. </p>
 
 </div>
 </div>
@@ -633,24 +653,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <p>This is also helpful for testing the scaling procedure in its own executable separate from the Geant4 infrastructure.</p>
 <dl class="section note"><dt>Note</dt><dd>The vector returned is relative to the incident lepton as if it came in along the z-axis.</dd></dl>
 <p>Gets an energy fraction and transverse momentum ( \(p_T\)) from the loaded library of MadGraph events using the entry in the library with the nearest incident energy above the actual input incident energy.</p>
-<p>The scaling of this energy fraction and \(p_T\) to the actual lepton energy depends on the input method. In all cases, the azimuthal angle is chosen uniformly between 0 and \(2\pi\).</p>
-<h2><a class="anchor" id="autotoc_md3"></a>
-Forward Only</h2>
-<p>Scales the energy so that the fraction of kinetic energy is constant, keeping the \(p_T\) constant.</p>
-<p>If the \(p_T\) is larger than the new energy, that event is skipped, and a new one is taken from the file. If the loaded library does not fully represent the range of incident energies being seen by the simulation, this will occur frequently.</p>
-<p>With only the kinetic energy fraction and \(p_T\), the sign of the longitudinal momentum \(p_z\) is undetermined. This method simply chooses the \(p_z\) of the recoil lepton to always be positive.</p>
-<h2><a class="anchor" id="autotoc_md4"></a>
-CM Scaling</h2>
-<p>Scale MadGraph vertex to actual energy of lepton using Lorentz boosts.</p>
-<p>The scaling is done via two boosts.</p><ol type="1">
-<li>Boost out of the center-of-momentum (CoM) frame read in along with the MadGraph event library.</li>
-<li>Boost into approximately) the incident lepton energy frame by constructing a "new" CoM frame using the actual CoM frame's transverse momentum and lowering the \(p_z\) and energy of the CoM by the difference between the input incident energy and the sampled incident energy.</li>
-</ol>
-<p>After these boosts, the energy of the recoil and its \(p_T\) are extracted.</p>
-<h2><a class="anchor" id="autotoc_md5"></a>
-Undefined</h2>
-<p>Don't scale the MadGraph vertex to the actual energy of the lepton.</p>
-<p>We simply copy the read-in recoil energy's energy, momentum, and \(p_T\).</p>
+<p>The scaling of this energy fraction and \(p_T\) to the actual lepton energy depends on the input <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a011b206417fc234c5f8c726be0c54faa">G4DarkBreMModel::ScalingMethod</a>. In all cases, the azimuthal angle is chosen uniformly between 0 and \(2\pi\).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">incident_energy</td><td>incident total energy of the lepton [GeV] </td></tr>
@@ -687,10 +690,11 @@ Undefined</h2>
 </div><div class="memdoc">
 
 <p>Set the library of dark brem events to be scaled. </p>
-<p>This function loads the directory of LHE files passed into our in-memory library of events to be sampled from.</p>
+<p>This function loads the library from the on-disk file (or files).</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespaceg4db.html#a401e91aedc5a78635962c88c74872f31" title="parse the input library and return the in-memory kinematics library">parseLibrary</a> for how libraries are read and what the structure of a dark brem library is</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">path</td><td>path to directory of LHE files </td></tr>
+    <tr><td class="paramname">path</td><td>path to the on-disk library </td></tr>
   </table>
   </dd>
 </dl>

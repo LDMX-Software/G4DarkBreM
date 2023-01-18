@@ -8,9 +8,10 @@ var classg4db_1_1G4DarkBreMModel =
     [ "XsecMethod", "classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587af", [
       [ "Full", "classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afabbd47109890259c0127154db1af26c75", null ],
       [ "Improved", "classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afae17310830c72d17857bf7df1ddf80dfe", null ],
-      [ "HyperImproved", "classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afae723f214b18bf2adabfe484d4c65517d", null ]
+      [ "HyperImproved", "classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afae723f214b18bf2adabfe484d4c65517d", null ],
+      [ "Auto", "classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afa06b9281e396db002010bde1de57262eb", null ]
     ] ],
-    [ "G4DarkBreMModel", "classg4db_1_1G4DarkBreMModel.html#a28e68e5cfca0d3d5656f80890a25d63e", null ],
+    [ "G4DarkBreMModel", "classg4db_1_1G4DarkBreMModel.html#ad4038fb4f46ba16a2bfb829c5c81ea8c", null ],
     [ "~G4DarkBreMModel", "classg4db_1_1G4DarkBreMModel.html#ab2ef7fbd9b88c050c8d04a226d906f81", null ],
     [ "ComputeCrossSectionPerAtom", "classg4db_1_1G4DarkBreMModel.html#aeb47b4204cc4536334d9ccf9f8cb845f", null ],
     [ "GenerateChange", "classg4db_1_1G4DarkBreMModel.html#af55e733c9b510ed0ced469afce610909", null ],

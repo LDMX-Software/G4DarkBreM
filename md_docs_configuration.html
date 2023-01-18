@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.17"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>G4DarkBreM: Member List</title>
+<title>G4DarkBreM: Configuration of Simulation</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -72,7 +72,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('classg4db_1_1example_1_1LeptonBeam.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('md_docs_configuration.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -90,18 +90,20 @@ $(document).ready(function(){initNavTree('classg4db_1_1example_1_1LeptonBeam.htm
 </iframe>
 </div>
 
-<div class="header">
+<div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">g4db::example::LeptonBeam Member List</div>  </div>
+<div class="title">Configuration of Simulation </div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>This is the complete list of members for <a class="el" href="classg4db_1_1example_1_1LeptonBeam.html">g4db::example::LeptonBeam</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="classg4db_1_1example_1_1LeptonBeam.html#a12ab9d55cf1a55b4ef738612841f4435">GeneratePrimaries</a>(G4Event *event) final override</td><td class="entry"><a class="el" href="classg4db_1_1example_1_1LeptonBeam.html">g4db::example::LeptonBeam</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="classg4db_1_1example_1_1LeptonBeam.html#a24938131e2e18c643027a4d896e99ad1">gun_</a></td><td class="entry"><a class="el" href="classg4db_1_1example_1_1LeptonBeam.html">g4db::example::LeptonBeam</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classg4db_1_1example_1_1LeptonBeam.html#a9b6727d2b179db9e1b5015a7dbfb24b4">LeptonBeam</a>(double e, bool muons)</td><td class="entry"><a class="el" href="classg4db_1_1example_1_1LeptonBeam.html">g4db::example::LeptonBeam</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<div class="textblock"><p>The G4DarkBreM package follows Geant4's structure of separating particles from processes and specific models of processes from the process itself. This means configuring the package requires three steps.</p><ol type="1">
+<li>Define the dark photon mass with <a class="el" href="classG4APrime.html#adb10dbe58988db0e95fa1ace25d0fb54" title="Initialize the APrime particle with the passed configuration.">G4APrime::Initialize</a></li>
+<li>Define how the model should behave with <a class="el" href="classg4db_1_1G4DarkBreMModel.html#ad4038fb4f46ba16a2bfb829c5c81ea8c" title="Set the parameters for this model.">g4db::G4DarkBreMModel::G4DarkBreMModel</a></li>
+<li>Define which model the process should use with <a class="el" href="classG4DarkBremsstrahlung.html#a69201ae758988d703b9d018c06fc09f0" title="Constructor.">G4DarkBremsstrahlung::G4DarkBremsstrahlung</a></li>
+</ol>
+<p>Besides definition of the dark photon mass, all of the parameters that change how the dark brem physically behaves are defined within the model. The process contains some functionality (for example, limiting the simulation to only one dark brem interaction per event); however, these parameters are second to the model parameters.</p>
+<p>It is common to do both of these steps within a <code>G4VPhysicsConstructor</code> since that class can be registered with a Geant4 PhysicsList and handled later by Geant4. An example G4VPhysicsConstructor is provded by <a class="el" href="classg4db_1_1example_1_1APrimePhysics.html" title="basic physics constructor which simply creates the A&#39; and the dark brem">g4db::example::APrimePhysics</a>. </p>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

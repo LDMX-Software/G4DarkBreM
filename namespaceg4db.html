@@ -34,7 +34,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">G4DarkBreM
-   &#160;<span id="projectnumber">v1.2.0</span>
+   &#160;<span id="projectnumber">v1.2.1</span>
    </div>
    <div id="projectbrief">Geant4 Dark Bremmstrahlung from MadGraph</div>
   </td>
@@ -397,6 +397,35 @@ template&lt;typename IntegrandFunction &gt; </div>
 </div><div class="memdoc">
 
 <p>parse the input library and return the in-memory kinematics library </p>
+<h2><a class="anchor" id="autotoc_md4"></a>
+Library Specification</h2>
+<p>A "library" includes a single file or a directory holding multiple files. No subdirectories are inspected, so the directory must be "flat". Each file in a library can either be a CSV file or an LHE file, both of which can be compressed by gzip if desired.</p>
+<h3><a class="anchor" id="autotoc_md5"></a>
+CSV</h3>
+<p>The CSV file is expected to have a <b>single</b> header line which names the columns. These column names have no requirements (besides the existence of this line).</p>
+<p>The CSV is required to have 9 columns on all non-empty lines of the file. The 9 columns of the CSV all are in MeV and <em>in order</em> are</p><ol type="1">
+<li>The incident lepton energy</li>
+<li>The total energy of the recoil</li>
+<li>The x-component of the recoil momentum</li>
+<li>The y-component of the recoil momentum</li>
+<li>The z-component of the recoil momentum</li>
+<li>The total energy of the A'</li>
+<li>The x-component of the A' momentum</li>
+<li>The y-component of the A' momentum</li>
+<li>The z-component of the A' momentum</li>
+</ol>
+<h3><a class="anchor" id="autotoc_md6"></a>
+LHE</h3>
+<p>The LHE files must have dark brem events in it where "dark brem event" in this context is defined below. </p><div class="fragment"><div class="line">lepton_id -1 &lt;skip&gt; &lt;skip&gt; &lt;skip&gt; &lt;skip&gt; px py pz E m</div>
+<div class="line">&lt;skip-line&gt;</div>
+<div class="line">&lt;skip-line&gt;</div>
+<div class="line">lepton_id 1 &lt;skip&gt; &lt;skip&gt; &lt;skip&gt; &lt;skip&gt; px py pz E m</div>
+<div class="line">&lt;skip-line&gt;</div>
+<div class="line">&lt;skip-line&gt;</div>
+<div class="line">aprime_id 1 &lt;skip&gt; &lt;skip&gt; &lt;skip&gt; &lt;skip&gt; px py pz E m</div>
+</div><!-- fragment --><p>This matches a subcomponent of the LHE scheme written by MadGraph/MadEvent (hence the reason this is the "lhe" parser); however, a lot of information is skipped and additional assumptions are made in order to increase the parsing speed.</p>
+<p>The <code>lepton_id</code> is allowed to be <em>either</em> 11 or 13 <em>everywhere</em>. No consistency checking is done.</p>
+<p>The <code>E</code> from the first line is used as the incident lepton energy. The four-momentum from the middle line is the recoil lepton's four momentum, and the four-momentum from the last line is used in conjuction with the recoil four-momentum to calculate the center of momentum vector.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">path</td><td>path to library to parse </td></tr>
