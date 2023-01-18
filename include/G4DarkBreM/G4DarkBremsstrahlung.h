@@ -53,7 +53,7 @@ class G4DarkBremsstrahlung : public G4VDiscreteProcess {
    * @param[in] cache_xsec true if we should cache xsecs at the MeV level of precision
    * @param[in] verbose_level level of verbosity to print for this process and model
    * @param[in] subtype subtype for this process distinct from other EM 
-   * processes in use(detail below)
+   * processes in use (detail below)
    */
   G4DarkBremsstrahlung(std::shared_ptr<g4db::PrototypeModel> the_model,
       bool only_one_per_event = false, double global_bias = 1., 

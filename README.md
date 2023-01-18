@@ -43,6 +43,11 @@ This defines the `G4DarkBreM` cmake target which later targets can link to, for 
 target_link_libraries(MySim PUBLIC G4DarkBreM)
 ```
 
+## Usage
+Getting started can be done by looking at [the configuration](docs/configuration.md) page
+and the g4db::example namespace which holds a fully functional (though primitive) Geant4
+simulation example.
+
 ## Validation
 Analysis and validation of G4DarkBreM has been studied in another repository 
 [tomeichlersmith/ldmx-sim-technique](https://github.com/tomeichlersmith/ldmx-sim-technique).

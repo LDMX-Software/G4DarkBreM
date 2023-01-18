@@ -31,12 +31,45 @@ class G4DarkBreMModel : public PrototypeModel {
    * inside of this model.
    */
   enum class ScalingMethod {
-    /// Use actual lepton energy and get pT from LHE 
-    /// (such that \f$p_T^2+m_l^2 < E_{acc}^2\f$)
+    /**
+     * Use actual lepton energy and get pT from LHE 
+     * (such that \f$p_T^2+m_l^2 < E_{acc}^2\f$)
+     *
+     * Scales the energy so that the fraction of kinetic energy is constant,
+     * keeping the \f$p_T\f$ constant. 
+     *
+     * If the \f$p_T\f$ is larger than the new energy, that event
+     * is skipped, and a new one is taken from the file. If the loaded library
+     * does not fully represent the range of incident energies being seen
+     * by the simulation, this will occur frequently.
+     *
+     * With only the kinetic energy fraction and \f$p_T\f$, the sign of
+     * the longitudinal momentum \f$p_z\f$ is undetermined. This method
+     * simply chooses the \f$p_z\f$ of the recoil lepton to always be positive.
+     */
     ForwardOnly = 1,
-    /// Boost LHE vertex momenta to the actual lepton energy
+
+    /**
+     * Boost LHE vertex momenta to the actual lepton energy
+     *
+     * The scaling is done via two boosts.
+     * 1. Boost out of the center-of-momentum (CoM) frame read in along with the
+     *    MadGraph event library.
+     * 2. Boost into approximately) the incident lepton energy frame by
+     *    constructing a "new" CoM frame using the actual CoM frame's 
+     *    transverse momentum and lowering the \f$p_z\f$ and energy of 
+     *    the CoM by the difference between the input incident
+     *    energy and the sampled incident energy.
+     *
+     * After these boosts, the energy of the recoil and its \f$p_T\f$ are
+     * extracted.
+     */
     CMScaling = 2,
-    /// Use LHE vertex as is
+    /**
+     * Use LHE vertex as is
+     *
+     * We simply copy the read-in recoil energy's energy, momentum, and \f$p_T\f$.
+     */
     Undefined = 3
   };
 
@@ -136,37 +169,46 @@ class G4DarkBreMModel : public PrototypeModel {
      * This requires its own enum variant since it is determined
      * by the \f$R = m_A/m_\ell\f$ ratio as configured by other parameters.
      *
-     * If \f$1 < R < 50\f$, Full is used while Improved is used otherwise.
+     * If \f$R < R_{max}\f$, Full is used while Improved is used otherwise.
      * These boarders were determine qualitatively by looking at a series
      * of cross section plots comparing all of these methods.
+     *
+     * The parameter \f$R_{max}\f$ is configurable in G4DarkBreMModel::G4DarkBreMModel
+     * as max_R_for_full.
      */
-    Default = 4
+    Auto = 4
   };
 
   /**
    * Set the parameters for this model.
    *
-   * @param[in] library_path directory in which MG library is stored
+   * @param[in] library_path full path to MG library
+   *            The library path is immediately passed to 
+   *            G4DarkBreMModel::SetMadGraphDataLibrary which simply calls 
+   *            g4db::parseLibrary (where you should look for the specification 
+   *            options of a dark brem library).
    * @param[in] muons true if using muons, false for electrons
    * @param[in] threshold minimum energy lepton needs to have to dark brem [GeV]
+   *            (overwritten by twice the A' mass if it is less so that it
+   *            kinematically makes sense).
    * @param[in] epsilon dark photon mixing strength
-   * @param[in] sm method on how to scale the events in the library
-   * @param[in] xm method on calculating the total cross section
+   * @param[in] sm G4DarkBreMModel::ScalingMethod on how to scale the events in the library
+   * @param[in] xm G4DarkBreMModel::XsecMethod on calculating the total cross section
+   * @param[in] max_R_for_full maximum value of R where Full will still be used
+   *            **Only used with** G4DarkBreMModel::XsecMethod::Auto (go there
+   *            for context)
    * @param[in] aprime_lhe_id PDG ID number for the dark photon in the LHE files 
-   * being loaded for the library. Only used if parsing LHE files.
+   *            being loaded for the library. **Only used if parsing LHE files.**
    * @param[in] load_library only used in cross section executable where it is known
    *            that the library will not be used during program run
    *
-   * The threshold is set to the maximum of the passed value or twice
-   * the A' mass (so that it kinematically makes sense).
-   *
-   * The library path is immediately passed to SetMadGraphDataLibrary.
    */
   G4DarkBreMModel(const std::string& library_path, bool muons,
       double threshold = 0.0, 
       double epsilon = 1.0,
       ScalingMethod sm = ScalingMethod::ForwardOnly, 
-      XsecMethod xm = XsecMethod::Default, 
+      XsecMethod xm = XsecMethod::Auto, 
+      double max_R_for_full = 50.0,
       int aprime_lhe_id = 622, bool load_library = true);
 
   /**
@@ -213,41 +255,8 @@ class G4DarkBreMModel : public PrototypeModel {
    * the nearest incident energy above the actual input incident energy.
    *
    * The scaling of this energy fraction and \f$p_T\f$ to the actual lepton
-   * energy depends on the input method. In all cases, the azimuthal angle
-   * is chosen uniformly between 0 and \f$2\pi\f$.
-   *
-   * ## Forward Only
-   * Scales the energy so that the fraction of kinetic energy is constant,
-   * keeping the \f$p_T\f$ constant. 
-   *
-   * If the \f$p_T\f$ is larger than the new energy, that event
-   * is skipped, and a new one is taken from the file. If the loaded library
-   * does not fully represent the range of incident energies being seen
-   * by the simulation, this will occur frequently.
-   *
-   * With only the kinetic energy fraction and \f$p_T\f$, the sign of
-   * the longitudinal momentum \f$p_z\f$ is undetermined. This method
-   * simply chooses the \f$p_z\f$ of the recoil lepton to always be positive.
-   *
-   * ## CM Scaling
-   * Scale MadGraph vertex to actual energy of lepton using Lorentz boosts.
-   *
-   * The scaling is done via two boosts.
-   * 1. Boost out of the center-of-momentum (CoM) frame read in along with the
-   *    MadGraph event library.
-   * 2. Boost into approximately) the incident lepton energy frame by
-   *    constructing a "new" CoM frame using the actual CoM frame's 
-   *    transverse momentum and lowering the \f$p_z\f$ and energy of 
-   *    the CoM by the difference between the input incident
-   *    energy and the sampled incident energy.
-   *
-   * After these boosts, the energy of the recoil and its \f$p_T\f$ are
-   * extracted.
-   *
-   * ## Undefined
-   * Don't scale the MadGraph vertex to the actual energy of the lepton.
-   *
-   * We simply copy the read-in recoil energy's energy, momentum, and \f$p_T\f$.
+   * energy depends on the input G4DarkBreMModel::ScalingMethod. 
+   * In all cases, the azimuthal angle is chosen uniformly between 0 and \f$2\pi\f$.
    *
    * @param[in] incident_energy incident total energy of the lepton [GeV] 
    * @param[in] lepton_mass mass of incident lepton [GeV]
@@ -277,10 +286,13 @@ class G4DarkBreMModel : public PrototypeModel {
   /**
    * Set the library of dark brem events to be scaled.
    *
-   * This function loads the directory of LHE files passed
-   * into our in-memory library of events to be sampled from.
+   * This function loads the library from the on-disk file
+   * (or files).
    *
-   * @param path path to directory of LHE files
+   * @see parseLibrary for how libraries are read and
+   * what the structure of a dark brem library is
+   *
+   * @param path path to the on-disk library
    */
   void SetMadGraphDataLibrary(const std::string& path);
 
