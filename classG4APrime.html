@@ -145,8 +145,8 @@ static <a class="el" href="classG4APrime.html">G4APrime</a> *&#160;</td><td clas
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Formal class representing the A' (a dark photon) </p>
-<p>This class follows the standard prototype for all G4ParticleDefinitions where a static private member holds onto the single instance of this particle definition to be shared by everyone. In this case, <em>the first call</em> to the accessor function needs to define the A' mass and then all subsequent calls can access it like normal with that configured mass.</p>
-<p>This first call to the accessing method should be done in the ConstructParticle function of a physics constructor. </p>
+<p>This class follows the standard prototype for all G4ParticleDefinitions where a static private member holds onto the single instance of this particle definition to be shared by everyone. In this case, <a class="el" href="classG4APrime.html#adb10dbe58988db0e95fa1ace25d0fb54" title="Initialize the APrime particle with the passed configuration.">G4APrime::Initialize</a> needs to be called before any calls to <a class="el" href="classG4APrime.html#ae372cd69bd9ed13c8940c2b3107a95fd" title="Constructor.">G4APrime::G4APrime</a> so that the simulation has a defined A' mass.</p>
+<p>The <a class="el" href="classG4APrime.html#adb10dbe58988db0e95fa1ace25d0fb54" title="Initialize the APrime particle with the passed configuration.">G4APrime::Initialize</a> call should be done in the ConstructParticle function of a physics constructor. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae372cd69bd9ed13c8940c2b3107a95fd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae372cd69bd9ed13c8940c2b3107a95fd">&#9670;&nbsp;</a></span>G4APrime()</h2>
