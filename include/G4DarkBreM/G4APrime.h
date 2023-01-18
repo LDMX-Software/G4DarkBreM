@@ -20,11 +20,10 @@ class G4DecayTable;
  * This class follows the standard prototype for all G4ParticleDefinitions
  * where a static private member holds onto the single instance of this
  * particle definition to be shared by everyone. In this case, 
- * _the first call_ to the accessor function needs to define the A' mass
- * and then all subsequent calls can access it like normal with that
- * configured mass.
+ * G4APrime::Initialize needs to be called before any calls to G4APrime::G4APrime
+ * so that the simulation has a defined A' mass.
  *
- * This first call to the accessing method should be done in the 
+ * The G4APrime::Initialize call should be done in the 
  * ConstructParticle function of a physics constructor.
  */
 class G4APrime : public G4ParticleDefinition {
