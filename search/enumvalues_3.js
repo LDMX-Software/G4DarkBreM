@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['improved_244',['Improved',['../classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afae17310830c72d17857bf7df1ddf80dfe',1,'g4db::G4DarkBreMModel']]]
+  ['hyperimproved_246',['HyperImproved',['../classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afae723f214b18bf2adabfe484d4c65517d',1,'g4db::G4DarkBreMModel']]]
 ];
