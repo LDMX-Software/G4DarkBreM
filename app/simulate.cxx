@@ -32,14 +32,23 @@ namespace g4db {
 /**
  * example simulation application required classes
  *
- * this namespace is here _only_ to put these example classes
- * deeper into the documentation so that users can see the 
- * important stuff first.
+ * This rudimentary simulation consists of six different
+ * classes that each perform special roles within the
+ * simulation. Specifically for G4DarkBreM, the 
+ * APrimePhysics class is of most interest because it is
+ * the class that does the necessary configuration for
+ * the dark brem simulation to function. This class is a 
+ * good starting point for integrating G4DarkBreM into
+ * your Geant4 simulation.
  */
 namespace example {
 
 /**
  * basic physics constructor which simply creates the A' and the dark brem
+ *
+ * We follow the Geant4 model where we construct the particle and then
+ * the process. APrimePhysics::ConstructParticle configures the G4APrime
+ * and APrimePhysics::ConstructProcess configures G4DarkBremsstrahlung.
  */
 class APrimePhysics : public G4VPhysicsConstructor {
   /// handle to the process, cleaned up when the physics list is desctructed
@@ -59,13 +68,14 @@ class APrimePhysics : public G4VPhysicsConstructor {
 
   /**
    * Insert A-prime into the Geant4 particle table.
-   * For now we flag it as stable.
    *
-   * We also define its mass here by passing the A' mass parameter.
-   * Future calls to G4APrime::APrime can provide no arguments.
+   * We define its mass here using G4APrime::Initialize.
+   * Future calls to G4APrime::APrime for the rest of the run
+   * will use that mass.
    *
    * Geant4 registers all instances derived from G4ParticleDefinition and
-   * deletes them at the end of the run.
+   * deletes them at the end of the run so we do not need to cleanup
+   * the constructed particle definition.
    */
   void ConstructParticle() final override {
     G4APrime::Initialize(ap_mass_);
@@ -77,10 +87,11 @@ class APrimePhysics : public G4VPhysicsConstructor {
    * We own the process and clean it up when the physics constructor
    * is cleaned up by Geant4 after registration.
    *
-   * Lots of configuration variables here are hard-coded for this
-   * simple example simulation, users of G4DarkBreM are encouraged
-   * to try out the different options to see what works best for 
-   * their situation.
+   * Besides the required configuration parameters (the path
+   * to the dark brem library and whether or not we are dark-bremming off muons),
+   * we leave the rest of the sim parameters to their default values.
+   * Look at G4DarkBreMModel::G4DarkBreMModel for the default value
+   * definitions to see if your situation requires changing any of them.
    */
   void ConstructProcess() final override {
     the_process_ = std::unique_ptr<G4DarkBremsstrahlung>(new G4DarkBremsstrahlung(
@@ -290,8 +301,8 @@ class LeptonBeam : public G4VUserPrimaryGeneratorAction {
  *
  * This uses OutgoingKinematics::stream to write out the CSV where data will be stored.
  * 
- * @note The stream method at the CSV header row written here need to match for the CSV
- * to make sense.
+ * @note The OutgoingKinematics::stream method and the CSV header 
+ * row written here need to match for the CSV to make sense.
  *
  * We don't do any caching, just trusting the std::ofstream to handle the caching,
  * only flushing when necessary and when destructed.
