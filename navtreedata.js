@@ -32,7 +32,9 @@ var NAVTREE =
       [ "g4db-simulate", "md_app_README.html#autotoc_md10", null ],
       [ "g4db-extract-library", "md_app_README.html#autotoc_md11", null ]
     ] ],
-    [ "Configuration of Simulation", "md_docs_configuration.html", null ],
+    [ "Configuration of Simulation", "md_docs_configuration.html", [
+      [ "Physics Parameters", "md_docs_configuration.html#autotoc_md13", null ]
+    ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [

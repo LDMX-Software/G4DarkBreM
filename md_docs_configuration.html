@@ -101,7 +101,36 @@ $(document).ready(function(){initNavTree('md_docs_configuration.html',''); initR
 <li>Define which model the process should use with <a class="el" href="classG4DarkBremsstrahlung.html#a69201ae758988d703b9d018c06fc09f0" title="Constructor.">G4DarkBremsstrahlung::G4DarkBremsstrahlung</a></li>
 </ol>
 <p>Besides definition of the dark photon mass, all of the parameters that change how the dark brem physically behaves are defined within the model. The process contains some functionality (for example, limiting the simulation to only one dark brem interaction per event); however, these parameters are second to the model parameters.</p>
-<p>It is common to do both of these steps within a <code>G4VPhysicsConstructor</code> since that class can be registered with a Geant4 PhysicsList and handled later by Geant4. An example G4VPhysicsConstructor is provded by <a class="el" href="classg4db_1_1example_1_1APrimePhysics.html" title="basic physics constructor which simply creates the A&#39; and the dark brem">g4db::example::APrimePhysics</a>. </p>
+<p>It is common to do both of these steps within a <code>G4VPhysicsConstructor</code> since that class can be registered with a Geant4 PhysicsList and handled later by Geant4. An example G4VPhysicsConstructor is provded by <a class="el" href="classg4db_1_1example_1_1APrimePhysics.html" title="basic physics constructor which simply creates the A&#39; and the dark brem">g4db::example::APrimePhysics</a>.</p>
+<h1><a class="anchor" id="autotoc_md13"></a>
+Physics Parameters</h1>
+<p>There are other parameters that tune the functionality of the simulation, but the parameters listed here are directly related to how the physics of the simulation is done.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Parameter </th><th class="markdownTableHeadNone">Required </th><th class="markdownTableHeadNone">Location </th><th class="markdownTableHeadNone">Description  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">A' Mass </td><td class="markdownTableBodyNone">Yes </td><td class="markdownTableBodyNone"><a class="el" href="classG4APrime.html" title="Formal class representing the A&#39; (a dark photon)">G4APrime</a> </td><td class="markdownTableBodyNone">Mass of dark photon in MeV  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">MG/ME Data </td><td class="markdownTableBodyNone">Yes </td><td class="markdownTableBodyNone"><a class="el" href="classg4db_1_1G4DarkBreMModel.html">g4db::G4DarkBreMModel</a> </td><td class="markdownTableBodyNone">Library of dark brem events  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Use Muons </td><td class="markdownTableBodyNone">Yes </td><td class="markdownTableBodyNone"><a class="el" href="classg4db_1_1G4DarkBreMModel.html">g4db::G4DarkBreMModel</a> </td><td class="markdownTableBodyNone">Choice to dark brem off muons or electrons  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Minimum DB Threshold </td><td class="markdownTableBodyNone">No </td><td class="markdownTableBodyNone"><a class="el" href="classg4db_1_1G4DarkBreMModel.html">g4db::G4DarkBreMModel</a> </td><td class="markdownTableBodyNone">Minimum energy in GeV lepton needs to have to DB (default twice A' mass)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Mixing Strength </td><td class="markdownTableBodyNone">No </td><td class="markdownTableBodyNone"><a class="el" href="classg4db_1_1G4DarkBreMModel.html">g4db::G4DarkBreMModel</a> </td><td class="markdownTableBodyNone">Mixing strength between dark photon and SM photon (default 1.0)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Scaling Method </td><td class="markdownTableBodyNone">No </td><td class="markdownTableBodyNone"><a class="el" href="classg4db_1_1G4DarkBreMModel.html">g4db::G4DarkBreMModel</a> </td><td class="markdownTableBodyNone">Choice of how to scale the outgoing kinematics from the library (default ForwardOnly)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Xsec Method </td><td class="markdownTableBodyNone">No </td><td class="markdownTableBodyNone"><a class="el" href="classg4db_1_1G4DarkBreMModel.html">g4db::G4DarkBreMModel</a> </td><td class="markdownTableBodyNone">Choice of how to calculate the total cross section (default Auto)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Maxing mass ratio </td><td class="markdownTableBodyNone">No </td><td class="markdownTableBodyNone"><a class="el" href="classg4db_1_1G4DarkBreMModel.html">g4db::G4DarkBreMModel</a> </td><td class="markdownTableBodyNone">If using Auto Xsec Method, the maximum ratio of A' to lepton mass to transition from Full WW to Improved WW (default 50.0)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">A' LHE ID </td><td class="markdownTableBodyNone">No </td><td class="markdownTableBodyNone"><a class="el" href="classg4db_1_1G4DarkBreMModel.html">g4db::G4DarkBreMModel</a> </td><td class="markdownTableBodyNone">If MG/ME Data is in the form of LHE files, the PDG ID of the A' inside of those files (default 622)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Only One per Event </td><td class="markdownTableBodyNone">No </td><td class="markdownTableBodyNone"><a class="el" href="classG4DarkBremsstrahlung.html">G4DarkBremsstrahlung</a> </td><td class="markdownTableBodyNone">Limit the dark brem process to only one interaction per event (default false)  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Global Bias </td><td class="markdownTableBodyNone">No </td><td class="markdownTableBodyNone"><a class="el" href="classG4DarkBremsstrahlung.html">G4DarkBremsstrahlung</a> </td><td class="markdownTableBodyNone">Bias the dark brem process everywhere by this factor (default 1.0)  </td></tr>
+</table>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
