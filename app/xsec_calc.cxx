@@ -156,6 +156,7 @@ int main(int argc, char* argv[]) try {
         1.0, // epsilon
         g4db::G4DarkBreMModel::ScalingMethod::Undefined, // scaling method
         xsec_methods.at(method), // xsec calculation method
+        50.0, // maximum R for XsecMethod::Auto
         622, // ID of dark photon in event library
         false // load event library
         );
