@@ -97,6 +97,10 @@ G4DarkBremsstrahlung::G4DarkBremsstrahlung(
   }
 }
 
+void G4DarkBremsstrahlung::RegisterStorageMechanism(void (*f)(const G4Element&)) {
+  storage_func_ = f;
+}
+
 G4bool G4DarkBremsstrahlung::IsApplicable(const G4ParticleDefinition& p) {
   if (model_->DarkBremOffMuons()) return &p == G4MuonMinus::Definition() or &p == G4MuonPlus::Definition();
   else return &p == G4Electron::Definition();
@@ -181,6 +185,8 @@ G4VParticleChange* G4DarkBremsstrahlung::PostStepDoIt(const G4Track& track,
     // only one element, this is easy
     element = (*elements)[0];
   }
+
+  if (storage_func_) storage_func_(*element);
 
   if (GetVerboseLevel() > 2) G4cout << "Calling model's GenerateChange" << G4endl;
   model_->GenerateChange(aParticleChange, track, step, *element);
