@@ -278,9 +278,11 @@ class G4DarkBreMModel : public PrototypeModel {
    * track
    * @param[in] track current track being processesed
    * @param[in] step current step of the track
+   * @param[in] element element we are going to dark brem off of
    */
   virtual void GenerateChange(G4ParticleChange& particleChange,
-                              const G4Track& track, const G4Step& step);
+                              const G4Track& track, const G4Step& step,
+                              const G4Element& element);
 
  private:
   /**

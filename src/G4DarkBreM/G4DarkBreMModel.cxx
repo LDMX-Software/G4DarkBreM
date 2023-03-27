@@ -456,7 +456,7 @@ G4ThreeVector G4DarkBreMModel::scale(double incident_energy, double lepton_mass)
 
 void G4DarkBreMModel::GenerateChange(
     G4ParticleChange &particleChange, const G4Track &track,
-    const G4Step &step) {
+    const G4Step &step, const G4Element& element) {
   // mass of incident lepton 
   double Ml = track.GetDefinition()->GetPDGMass() / CLHEP::GeV;
 
