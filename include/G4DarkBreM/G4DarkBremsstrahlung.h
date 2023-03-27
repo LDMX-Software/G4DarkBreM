@@ -27,6 +27,11 @@ class G4ParticleDefinition;
 class G4DarkBremsstrahlung : public G4VDiscreteProcess {
  public:
   /**
+   * Function signature able to be used as a storage callback
+   */
+  typedef void (*StorageCallback)(const G4Element&);
+
+  /**
    * The name of this process in Geant4
    */
   static const std::string PROCESS_NAME;
@@ -66,6 +71,13 @@ class G4DarkBremsstrahlung : public G4VDiscreteProcess {
    * Destructor
    */
   virtual ~G4DarkBremsstrahlung() = default;
+
+  /**
+   * Register a storage mechanism for saving the material in-which the brem occurred
+   *
+   * @param[in] f function that stores information from G4Element as desired
+   */
+  void RegisterStorageMechanism(StorageCallback f);
 
   /**
    * Checks if the passed particle should be able to do this process
@@ -209,6 +221,8 @@ class G4DarkBremsstrahlung : public G4VDiscreteProcess {
    * as we loop through the different elements in the material.
    */
   std::vector<double> partial_sum_sigma_;
+
+  StorageCallback storage_func_ = nullptr;
 };  // G4DarkBremsstrahlung
 
 #endif
