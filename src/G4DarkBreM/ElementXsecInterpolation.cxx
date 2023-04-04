@@ -5,7 +5,7 @@ namespace g4db {
 
 G4double ElementXsecInterpolation::get(G4double energy, G4double A, G4double Z) {
   static const double kinematic_min = 2*G4APrime::APrime()->GetPDGMass();
-  if (energy < kinematic_min) return 0;
+  if (energy <= kinematic_min) return 0;
   double x = energy - kinematic_min;
   /**
    * @note Implicit conversion to integer from the double form of Z.
@@ -105,11 +105,19 @@ void ElementXsecInterpolation::SampleSet::append(double x, double y) {
 }
 
 double ElementXsecInterpolation::SampleSet::interpolate(double x) const {
-  assert(x > x_.front() && x < x_.back());
+  assert((x >= x_.front() && x <= x_.back()));
+  if (x == x_.front()) {
+    return y_.front();
+  }
+  if (x == x_.back()) {
+    return y_.back();
+  }
   std::size_t i_0{0};
   for (; i_0 < x_.size()-2; ++i_0) {
     if (x > x_[i_0] and x < x_[i_0+2]) {
       break;
+    } else if (x == x_[i_0]) {
+      return y_[i_0];
     }
   }
   double x_0{x_[i_0  ]}, y_0{y_[i_0  ]},

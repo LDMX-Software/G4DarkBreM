@@ -7,7 +7,7 @@
 #include <iostream>
 #include <unistd.h>
 
-#include "G4DarkBreM/G4DarkBremsstrahlung.h"
+#include "G4DarkBreM/ElementXsecInterpolation.h"
 #include "G4DarkBreM/G4DarkBreMModel.h"
 #include "G4DarkBreM/G4APrime.h"
 
@@ -30,6 +30,7 @@ void usage() {
     "                 default start is 0 and default step is 0.1 GeV\n"
     "  --target     : define target material with two parameters (atomic units): Z A\n"
     "  --method     : method to calculate xsec, one of 'fullww', 'hiww', or 'iww'\n"
+    "  --interpolate : run the expanding interpolation instead of the full xsec\n"
     << std::flush;
 }
 
@@ -56,6 +57,7 @@ int main(int argc, char* argv[]) try {
   double target_Z{74.};
   double target_A{183.84};
   bool muons{false};
+  bool interpolate{false};
   std::string method{};
   for (int i_arg{1}; i_arg < argc; ++i_arg) {
     std::string arg{argv[i_arg]};
@@ -64,6 +66,8 @@ int main(int argc, char* argv[]) try {
       return 0;
     } else if (arg == "--muons") {
       muons = true;
+    } else if (arg == "--interpolate") {
+      interpolate = true;
     } else if (arg == "--method") {
       if (i_arg+1 >= argc) {
         std::cerr << arg << " requires an argument after it" << std::endl;
@@ -127,9 +131,11 @@ int main(int argc, char* argv[]) try {
     return 2;
   }
 
-  G4double current_energy = min_energy * GeV;
-  energy_step *= GeV;
+  // start at max and work our way down
+  //    this mimics the actual progress of a simulation slightly better
   max_energy *= GeV;
+  energy_step *= GeV;
+  min_energy *= GeV;
 
   if (method.empty()) {
     if (muons) method = "fullww";
@@ -139,9 +145,9 @@ int main(int argc, char* argv[]) try {
   std::cout 
     << "Parameter         : Value\n"
     << "Mass A' [MeV]     : " << ap_mass*GeV << "\n"
-    << "Min Energy [MeV]  : " << current_energy << "\n"
-    << "Max Energy [MeV]  : " << max_energy     << "\n"
-    << "Energy Step [MeV] : " << energy_step    << "\n"
+    << "Min Energy [MeV]  : " << min_energy  << "\n"
+    << "Max Energy [MeV]  : " << max_energy  << "\n"
+    << "Energy Step [MeV] : " << energy_step << "\n"
     << "Lepton            : " << (muons ? "Muons" : "Electrons") << "\n"
     << "Xsec Method       : " << method << "\n"
     << "Target A [amu]    : " << target_A << "\n"
@@ -160,19 +166,32 @@ int main(int argc, char* argv[]) try {
         622, // ID of dark photon in event library
         false // load event library
         );
-  // wrap the created model in the cache so we can use it
-  // to hold the xsec table and write out the CSV later
-  g4db::ElementXsecCache cache(model);
 
+  // wrap the model in an interpolation object
+  //   wrapping is almost no cost, cross section calculations
+  //   are only made if the `get` method is called
+  g4db::ElementXsecInterpolation interpolation(model);
+
+  table_file << "A [au],Z [protons],Energy [MeV],Xsec [pb]\n";
+
+  G4double current_energy = max_energy;
+  int energy_width = (max_energy - min_energy);
   int bar_width = 80;
   int pos = 0;
   bool is_redirected = (isatty(STDOUT_FILENO) == 0);
-  while (current_energy < max_energy + energy_step) {
-    cache.get(current_energy, target_A, target_Z);
-    current_energy += energy_step;
+  while (current_energy > min_energy - energy_step and current_energy > 0) {
+    double xsec = interpolate ?
+      interpolation.get(current_energy, target_A, target_Z) :
+      model->ComputeCrossSectionPerAtom(current_energy, target_A, target_Z);
+    table_file 
+        << target_A << ","
+        << target_Z << ","
+        << current_energy << ","
+        << xsec / CLHEP::picobarn << "\n";
+    current_energy -= energy_step;
     if (not is_redirected) {
       int old_pos{pos};
-      pos = bar_width * current_energy / max_energy;
+      pos = bar_width * (max_energy - current_energy) / energy_width;
       if (pos != old_pos) {
         std::cout << "[";
         for (int i{0}; i < bar_width; ++i) {
@@ -180,15 +199,14 @@ int main(int argc, char* argv[]) try {
           else if (i == pos) std::cout << ">";
           else std::cout << " ";
         }
-        std::cout << "] " << int(current_energy / max_energy * 100.0) << " %\r";
+        std::cout << "] " << int((max_energy - current_energy) / energy_width * 100.0) << " %\r";
         std::cout.flush();
       }
     }
   }
   if (not is_redirected) std::cout << std::endl;
 
-  table_file << cache;
-
+  table_file.flush();
   table_file.close();
 
   return 0;
