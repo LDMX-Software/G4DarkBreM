@@ -25,16 +25,19 @@ G4double ElementXsecInterpolation::get(G4double energy, G4double A, G4double Z) 
     /**
      * When there is no entry for an element yet, we
      * initialize the samples by calculating the cross
-     * section for the requested energy and a sample above
-     * and below.
+     * section in 10% energy steps from the kinematic minimum
+     * up to the requested energy.
      */
+    std::vector<double> init_x{0.}, init_y{0.};
+    double curr_x{0.1*kinematic_min};
+    while (curr_x+kinematic_min < energy) {
+      init_x.push_back(curr_x);
+      init_y.push_back(model_->ComputeCrossSectionPerAtom(curr_x+kinematic_min, A, Z));
+      curr_x *= 1.1;
+    }
+    init_x.push_back(energy-kinematic_min);
     double xsec = model_->ComputeCrossSectionPerAtom(energy, A, Z);
-    std::vector<double> init_x{x/2, x, 2*x};
-    std::vector<double> init_y{ 
-      model_->ComputeCrossSectionPerAtom(x/2+kinematic_min, A, Z),
-      xsec,
-      model_->ComputeCrossSectionPerAtom(2*x+kinematic_min, A, Z)
-    };
+    init_y.push_back(xsec);
     the_samples_.emplace(std::piecewise_construct,
         std::forward_as_tuple(Z_key),
         std::forward_as_tuple(init_x, init_y));
@@ -48,8 +51,8 @@ G4double ElementXsecInterpolation::get(G4double energy, G4double A, G4double Z) 
     double xsec = model_->ComputeCrossSectionPerAtom(energy, A, Z);
     sample_set->second.prepend(x, xsec);
     sample_set->second.prepend(
-        x/2, 
-        model_->ComputeCrossSectionPerAtom(x/2+kinematic_min, A, Z)
+        x/1.1, 
+        model_->ComputeCrossSectionPerAtom(x/1.1+kinematic_min, A, Z)
         );
     return xsec;
   } else if (x > sample_set->second.max()) {
@@ -61,8 +64,8 @@ G4double ElementXsecInterpolation::get(G4double energy, G4double A, G4double Z) 
     double xsec = model_->ComputeCrossSectionPerAtom(energy, A, Z);
     sample_set->second.append(x, xsec);
     sample_set->second.append(
-        2*x, 
-        model_->ComputeCrossSectionPerAtom(2*x+kinematic_min, A, Z)
+        1.1*x, 
+        model_->ComputeCrossSectionPerAtom(1.1*x+kinematic_min, A, Z)
         );
     return xsec;
   } else {
