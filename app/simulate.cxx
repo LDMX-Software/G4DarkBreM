@@ -99,7 +99,7 @@ class APrimePhysics : public G4VPhysicsConstructor {
           library_path_, muons_)),
         false, /* only one per event */
         bias_, /* global bias */
-        true /* cache xsec */));
+        true /* interpolate xsec */));
   }
 };  // APrimePhysics
 
