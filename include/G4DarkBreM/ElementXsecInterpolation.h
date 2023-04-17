@@ -58,32 +58,67 @@ class ElementXsecInterpolation {
    public:
     /**
      * Initialize the sample set with the two input vectors
+     *
+     * @note We assume that the input vectors are ordered properly
+     * i.e. init_x are ordered by their values and init_y are paired
+     * with their x.
+     *
+     * @param[in] init_x x values ordered by x
+     * @param[in] init_y corresponding y values
      */
     SampleSet(const std::vector<double>& init_x,
-              const std::vector<double>& inti_y);
+              const std::vector<double>& init_y);
 
     /**
      * Get the minimum x currently in sample set
+     * @return minimum x in sample set
      */
     const double& min() const;
 
     /**
      * Get the maximum x currently in sample set
+     * @return maximum x in sample set
      */
     const double& max() const;
 
     /**
      * prepend the sample set with the input point
+     * 
+     * We assume that the input x is less than the current
+     * minimum x. In debug build mode, this assumption is
+     * enforced by assert.
+     *
+     * @param[in] x new lowest x sample point
+     * @param[in] y corresponding y value
      */
     void prepend(double x, double y);
 
     /**
      * append the sample set with the input point
+     * 
+     * We assume that the input x is greater than the current
+     * maximum x. In debug build mode, this assumption is
+     * enforced by assert.
+     *
+     * @param[in] x new highest x sample point
+     * @param[in] y corresponding y value
      */
     void append(double x, double y);
 
     /**
      * Calculate an interpolation for the point x
+     *
+     * The interpolation is a quadratic interpolation over
+     * three points whose range encloses the requested sample x.
+     * The first such three points that satisfies this criteria
+     * is used, so this usually selects the three points where
+     * two points are below x and one above.
+     *
+     * @note We assume that the input x is within the range
+     * of the sample set. In debug build mode, this assumption
+     * is enforced with assert.
+     *
+     * @return interpolated value y for the input x
      */
     double interpolate(double x) const;
 
