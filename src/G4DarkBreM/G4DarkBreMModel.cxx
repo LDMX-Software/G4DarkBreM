@@ -244,7 +244,10 @@ G4double G4DarkBreMModel::ComputeCrossSectionPerAtom(
      * operations on doubles.
      */
     auto diff_cross = [&](double x, double theta) {
-      if (x*lepton_e < threshold_) return 0.;
+      // x is limited above by one value of the mass (xmax = 1 - MA/lepton_e)
+      // and so we impose the other half of the kinematic limit that the
+      // energy given to the A' (x*lepton_e) must be at least its mass
+      if (x*lepton_e < MA) return 0.;
   
       double theta_sq = theta*theta;
       double x_sq = x*x;
@@ -325,7 +328,10 @@ G4double G4DarkBreMModel::ComputeCrossSectionPerAtom(
      */
     integrated_xsec = integrate(
         [&](double x) {
-          if (x*lepton_e < threshold_) return 0.;
+          // x is limited above by one value of the mass (xmax = 1 - MA/lepton_e)
+          // and so we impose the other half of the kinematic limit that the
+          // energy given to the A' (x*lepton_e) must be at least its mass
+          if (x*lepton_e < MA) return 0.;
           double utilde = -MA2*(1.-x)/x -lepton_mass_sq*x;
           double utilde_sq = utilde*utilde;
           // non-zero theta and non-zero m_l
@@ -354,7 +360,10 @@ G4double G4DarkBreMModel::ComputeCrossSectionPerAtom(
 
     integrated_xsec = integrate(
         [&](double x) {
-          if (x*lepton_e < threshold_) return 0.;
+          // x is limited above by one value of the mass (xmax = 1 - MA/lepton_e)
+          // and so we impose the other half of the kinematic limit that the
+          // energy given to the A' (x*lepton_e) must be at least its mass
+          if (x*lepton_e < MA) return 0.;
           double beta = sqrt(1 - MA2/lepton_e_sq),
                  nume = 1. - x + x*x/3.,
                  deno = MA2*(1-x)/x + lepton_mass_sq;
