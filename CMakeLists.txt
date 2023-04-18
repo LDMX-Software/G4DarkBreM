@@ -13,6 +13,7 @@ include(${Geant4_USE_FILE})
 
 add_library(G4DarkBreM SHARED
   src/G4DarkBreM/ElementXsecCache.cxx
+  src/G4DarkBreM/ElementXsecInterpolation.cxx
   src/G4DarkBreM/G4APrime.cxx
   src/G4DarkBreM/G4DarkBreMModel.cxx
   src/G4DarkBreM/G4DarkBremsstrahlung.cxx

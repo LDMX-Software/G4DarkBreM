@@ -22,11 +22,13 @@ const std::string G4DarkBremsstrahlung::PROCESS_NAME = "DarkBrem";
 G4DarkBremsstrahlung::G4DarkBremsstrahlung(
     std::shared_ptr<g4db::PrototypeModel> the_model,
     bool only_one_per_event, double global_bias, 
-    bool cache_xsec, int verbose_level, int subtype)
+    bool interpolate_xsec, bool cache_xsec, 
+    int verbose_level, int subtype)
     : G4VDiscreteProcess(G4DarkBremsstrahlung::PROCESS_NAME,
                          fElectromagnetic),
-      only_one_per_event_{only_one_per_event},
-      global_bias_{global_bias}, cache_xsec_{cache_xsec}, model_{the_model} {
+      only_one_per_event_{only_one_per_event}, global_bias_{global_bias}, 
+      interpolate_xsec_{interpolate_xsec}, cache_xsec_{cache_xsec},
+      model_{the_model} {
   /**
    * @note we need to pretend to be an electromagnetic process 
    * so that the biasing framework can recognize us.
@@ -83,8 +85,15 @@ G4DarkBremsstrahlung::G4DarkBremsstrahlung(
     G4cout << "[ G4DarkBremsstrahlung ] : set dark brem process ordering to first" << G4endl;
   }
 
+  if (interpolate_xsec_ and cache_xsec_) {
+    throw std::runtime_error("Cannot cache and interpolate the cross section,"
+        " must pick to do one or neither.");
+  }
+
   if (cache_xsec_) {
     element_xsec_cache_ = g4db::ElementXsecCache(model_);
+  } else if (interpolate_xsec_) {
+    element_xsec_interpolation_ = g4db::ElementXsecInterpolation(model_);
   }
 }
 
@@ -98,7 +107,8 @@ void G4DarkBremsstrahlung::PrintInfo() {
     << " Muons              : " << model_->DarkBremOffMuons() << "\n"
     << " Only One Per Event : " << only_one_per_event_ << "\n"
     << " Global Bias        : " << global_bias_ << "\n"
-    << " Cache Xsec         : " << cache_xsec_
+    << " Cache Xsec         : " << cache_xsec_ << "\n"
+    << " Interpolate Xsec   : " << interpolate_xsec_
     << G4endl;
   model_->PrintInfo();
 }
@@ -177,6 +187,8 @@ G4double G4DarkBremsstrahlung::GetMeanFreePath(const G4Track& track, G4double,
   
     if (cache_xsec_)
       element_xsec = element_xsec_cache_.get(energy, AtomicA, AtomicZ);
+    else if (interpolate_xsec_)
+      element_xsec = element_xsec_interpolation_.get(energy, AtomicA, AtomicZ);
     else
       element_xsec =
           model_->ComputeCrossSectionPerAtom(energy, AtomicA, AtomicZ);
