@@ -31,6 +31,8 @@ void usage() {
     "  --target     : define target material with two parameters (atomic units): Z A\n"
     "  --method     : method to calculate xsec, one of 'fullww', 'hiww', or 'iww'\n"
     "  --interpolate : run the expanding interpolation instead of the full xsec\n"
+    "                  if an argument is provided to this option, then the table of sampling points\n"
+    "                  used for the interpolation will be dumped into a file named after that arg.\n"
     << std::flush;
 }
 
@@ -58,6 +60,7 @@ int main(int argc, char* argv[]) try {
   double target_A{183.84};
   bool muons{false};
   bool interpolate{false};
+  std::string interpo_samples{};
   std::string method{};
   for (int i_arg{1}; i_arg < argc; ++i_arg) {
     std::string arg{argv[i_arg]};
@@ -68,8 +71,11 @@ int main(int argc, char* argv[]) try {
       muons = true;
     } else if (arg == "--interpolate") {
       interpolate = true;
+      if (i_arg+1 < argc and argv[i_arg+1][0] != '-') {
+        interpo_samples = argv[++i_arg];
+      }
     } else if (arg == "--method") {
-      if (i_arg+1 >= argc) {
+      if (i_arg+1 >= argc or argv[i_arg+1][0] == '-') {
         std::cerr << arg << " requires an argument after it" << std::endl;
         return 1;
       }
@@ -79,13 +85,13 @@ int main(int argc, char* argv[]) try {
         return 1;
       }
     } else if (arg == "-o" or arg == "--output") {
-      if (i_arg+1 >= argc) {
+      if (i_arg+1 >= argc or argv[i_arg+1][0] == '-') {
         std::cerr << arg << " requires an argument after it" << std::endl;
         return 1;
       }
       output_filename = argv[++i_arg];
     } else if (arg == "-M" or arg == "--ap-mass") {
-      if (i_arg+1 >= argc) {
+      if (i_arg+1 >= argc or argv[i_arg+1][0] == '-') {
         std::cerr << arg << " requires an argument after it" << std::endl;
         return 1;
       }
@@ -208,6 +214,16 @@ int main(int argc, char* argv[]) try {
 
   table_file.flush();
   table_file.close();
+
+  if (not interpo_samples.empty()) {
+    std::ofstream sample_file{interpo_samples};
+    if (not sample_file.is_open()) {
+      throw std::runtime_error("Unable to open file '"+interpo_samples+"' to store table of interpolation sample points.");
+    }
+    sample_file << interpolation;
+    sample_file.flush();
+    sample_file.close();
+  }
 
   return 0;
 } catch (const std::exception& e) {
