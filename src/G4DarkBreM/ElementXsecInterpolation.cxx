@@ -82,6 +82,18 @@ G4double ElementXsecInterpolation::get(G4double energy, G4double A, G4double Z) 
   }
 }
 
+void ElementXsecInterpolation::stream(std::ostream& o) const {
+  static const double kinematic_min = 2*G4APrime::APrime()->GetPDGMass();
+  o << "Z [protons],Energy [MeV],Xsec [pb]\n"
+    << std::setprecision(std::numeric_limits<double>::digits10 +
+                         1);  // maximum precision
+  for (const auto& sample : the_samples_) {
+    sample.second.dump(o, sample.first, kinematic_min);
+  }
+  o << std::endl;
+}
+
+
 ElementXsecInterpolation::SampleSet::SampleSet(const std::vector<double>& x, 
     const std::vector<double>& y) : x_{x}, y_{y} {
   assert(x_.size() == y_.size());
@@ -131,6 +143,12 @@ double ElementXsecInterpolation::SampleSet::interpolate(double x) const {
       +(x - x_0)*(x - x_2)/(x_1 - x_2)/(x_1 - x_0)*y_1
       +(x - x_0)*(x - x_1)/(x_2 - x_0)/(x_2 - x_1)*y_2
       );
+}
+
+void ElementXsecInterpolation::SampleSet::dump(std::ostream& o, int z, double kinematic_min) const {
+  for (std::size_t i_sample{0}; i_sample < x_.size(); ++i_sample) {
+    o << z << "," << kinematic_min+x_[i_sample] << "," << y_[i_sample] / CLHEP::picobarn << "\n";
+  }
 }
 
 }

@@ -49,6 +49,25 @@ class ElementXsecInterpolation {
    */
   G4double get(G4double energy, G4double A, G4double Z);
 
+  /**
+   * Stream the table of sample points into the output stream.
+   *
+   * @param[in,out] o ostream to write to
+   */
+  void stream(std::ostream& o) const;
+
+  /**
+   * Overload the streaming operator for ease
+   *
+   * @param[in] o ostream to write to
+   * @param[in] c interpolation to write out
+   * @returns modified ostream
+   */
+  friend std::ostream& operator<<(std::ostream& o, const ElementXsecInterpolation c) {
+    c.stream(o);
+    return o;
+  }
+
  private:
   /**
    * A sample set is two parallel vectors limited to operate for 
@@ -121,6 +140,21 @@ class ElementXsecInterpolation {
      * @return interpolated value y for the input x
      */
     double interpolate(double x) const;
+
+    /**
+     * Dump our sample points to the input stream.
+     *
+     * We also want to label each row with the Z of
+     * the nucleus the sample is for, so that is a parameter,
+     * moreover, we want to add the kinematic_min to the x
+     * value we used to recover the actual energy of
+     * the particle we have the sampled cross section for.
+     *
+     * @param[in] o output stream to write to
+     * @param[in] z atomic z to write as first entry in CSV
+     * @param[in] kinematic_min minimum energy to add to x value
+     */
+    void dump(std::ostream& o, int z, double kinematic_min) const;
 
    private:
     /// x points
