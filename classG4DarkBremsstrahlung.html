@@ -34,7 +34,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">G4DarkBreM
-   &#160;<span id="projectnumber">v1.2.2</span>
+   &#160;<span id="projectnumber">v1.3.0</span>
    </div>
    <div id="projectbrief">Geant4 Dark Bremmstrahlung from MadGraph</div>
   </td>
@@ -113,15 +113,15 @@ Inheritance diagram for G4DarkBremsstrahlung:</div>
 <div class="dynheader">
 Collaboration diagram for G4DarkBremsstrahlung:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classG4DarkBremsstrahlung__coll__graph.svg" width="1144" height="210"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classG4DarkBremsstrahlung__coll__graph.svg" width="1592" height="298"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a69201ae758988d703b9d018c06fc09f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#a69201ae758988d703b9d018c06fc09f0">G4DarkBremsstrahlung</a> (std::shared_ptr&lt; <a class="el" href="classg4db_1_1PrototypeModel.html">g4db::PrototypeModel</a> &gt; the_model, bool only_one_per_event=false, double global_bias=1., bool cache_xsec=true, int verbose_level=0, int subtype=63)</td></tr>
-<tr class="memdesc:a69201ae758988d703b9d018c06fc09f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="classG4DarkBremsstrahlung.html#a69201ae758988d703b9d018c06fc09f0">More...</a><br /></td></tr>
-<tr class="separator:a69201ae758988d703b9d018c06fc09f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a093b7301ae58147e1e28776cf7581c24"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#a093b7301ae58147e1e28776cf7581c24">G4DarkBremsstrahlung</a> (std::shared_ptr&lt; <a class="el" href="classg4db_1_1PrototypeModel.html">g4db::PrototypeModel</a> &gt; the_model, bool only_one_per_event=false, double global_bias=1., bool interp_xsec=true, bool cache_xsec=false, int verbose_level=0, int subtype=63)</td></tr>
+<tr class="memdesc:a093b7301ae58147e1e28776cf7581c24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="classG4DarkBremsstrahlung.html#a093b7301ae58147e1e28776cf7581c24">More...</a><br /></td></tr>
+<tr class="separator:a093b7301ae58147e1e28776cf7581c24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e21edafc6f4e408a8c24ba91ce037cb"><td class="memItemLeft" align="right" valign="top"><a id="a7e21edafc6f4e408a8c24ba91ce037cb"></a>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#a7e21edafc6f4e408a8c24ba91ce037cb">~G4DarkBremsstrahlung</a> ()=default</td></tr>
 <tr class="memdesc:a7e21edafc6f4e408a8c24ba91ce037cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
@@ -172,6 +172,10 @@ Private Attributes</h2></td></tr>
 double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#a252f7ff2b39006505b8bee6208a1803b">global_bias_</a></td></tr>
 <tr class="memdesc:a252f7ff2b39006505b8bee6208a1803b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bias the dark brem cross section GLOBALLY. <br /></td></tr>
 <tr class="separator:a252f7ff2b39006505b8bee6208a1803b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab71f52a39e6cec9e3ae960d5ef8c2b60"><td class="memItemLeft" align="right" valign="top"><a id="ab71f52a39e6cec9e3ae960d5ef8c2b60"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#ab71f52a39e6cec9e3ae960d5ef8c2b60">interpolate_xsec_</a></td></tr>
+<tr class="memdesc:ab71f52a39e6cec9e3ae960d5ef8c2b60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Should we interpolated over the computed cross sections? <br /></td></tr>
+<tr class="separator:ab71f52a39e6cec9e3ae960d5ef8c2b60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4cea6b7ac951681575884e5365cf6302"><td class="memItemLeft" align="right" valign="top"><a id="a4cea6b7ac951681575884e5365cf6302"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#a4cea6b7ac951681575884e5365cf6302">cache_xsec_</a></td></tr>
 <tr class="memdesc:a4cea6b7ac951681575884e5365cf6302"><td class="mdescLeft">&#160;</td><td class="mdescRight">Should we have a cache for the computed cross sections? <br /></td></tr>
@@ -183,12 +187,16 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <a class="el" href="classg4db_1_1ElementXsecCache.html">g4db::ElementXsecCache</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#af46413f7f1aa7ac69e617ed382ffadb0">element_xsec_cache_</a></td></tr>
 <tr class="memdesc:af46413f7f1aa7ac69e617ed382ffadb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Our instance of a cross section cache. <br /></td></tr>
 <tr class="separator:af46413f7f1aa7ac69e617ed382ffadb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc08d99409be0183cb284fa1237644e0"><td class="memItemLeft" align="right" valign="top"><a id="afc08d99409be0183cb284fa1237644e0"></a>
+<a class="el" href="classg4db_1_1ElementXsecInterpolation.html">g4db::ElementXsecInterpolation</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#afc08d99409be0183cb284fa1237644e0">element_xsec_interpolation_</a></td></tr>
+<tr class="memdesc:afc08d99409be0183cb284fa1237644e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Our instance of a cross section interpolation. <br /></td></tr>
+<tr class="separator:afc08d99409be0183cb284fa1237644e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that represents the dark brem process. A muon or electron is allowed to brem a dark photon </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a69201ae758988d703b9d018c06fc09f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69201ae758988d703b9d018c06fc09f0">&#9670;&nbsp;</a></span>G4DarkBremsstrahlung()</h2>
+<a id="a093b7301ae58147e1e28776cf7581c24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a093b7301ae58147e1e28776cf7581c24">&#9670;&nbsp;</a></span>G4DarkBremsstrahlung()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,7 +223,13 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>cache_xsec</em> = <code>true</code>, </td>
+          <td class="paramname"><em>interp_xsec</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>cache_xsec</em> = <code>false</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -255,6 +269,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
     <tr><td class="paramdir">[in]</td><td class="paramname">the_model</td><td>model to use for dark brem simulation </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">only_one_per_event</td><td>true if de-activating process after first dark brem </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">global_bias</td><td>bias xsec globally by this factor </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">interpolate_xsec</td><td>true if we should interpolate cross sections over 10% energy differences </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">cache_xsec</td><td>true if we should cache xsecs at the MeV level of precision </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">verbose_level</td><td>level of verbosity to print for this process and model </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">subtype</td><td>subtype for this process distinct from other EM processes in use (detail below) </td></tr>

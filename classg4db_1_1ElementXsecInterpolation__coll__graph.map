@@ -1,0 +1,8 @@
+<map id="g4db::ElementXsecInterpolation" name="g4db::ElementXsecInterpolation">
+<area shape="rect" id="node1" title="Interpolation of cross sections by element." alt="" coords="924,59,1155,85"/>
+<area shape="rect" id="node2" title=" " alt="" coords="583,7,781,63"/>
+<area shape="rect" id="node3" href="$classg4db_1_1ElementXsecInterpolation_1_1SampleSet.html" title="A sample set is two parallel vectors limited to operate for our interpolation goal." alt="" coords="239,14,469,55"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,21,171,48"/>
+<area shape="rect" id="node5" title=" " alt="" coords="599,87,765,129"/>
+<area shape="rect" id="node6" href="$classg4db_1_1PrototypeModel.html" title="Abstract class representing a model for dark brem." alt="" coords="271,95,437,121"/>
+</map>

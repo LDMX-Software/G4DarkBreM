@@ -1,6 +1,6 @@
 var classG4DarkBremsstrahlung =
 [
-    [ "G4DarkBremsstrahlung", "classG4DarkBremsstrahlung.html#a69201ae758988d703b9d018c06fc09f0", null ],
+    [ "G4DarkBremsstrahlung", "classG4DarkBremsstrahlung.html#a093b7301ae58147e1e28776cf7581c24", null ],
     [ "~G4DarkBremsstrahlung", "classG4DarkBremsstrahlung.html#a7e21edafc6f4e408a8c24ba91ce037cb", null ],
     [ "G4DarkBremsstrahlung", "classG4DarkBremsstrahlung.html#a1f79becdbaa6cdceeb461959fc469ec0", null ],
     [ "getCache", "classG4DarkBremsstrahlung.html#a852d75481d749fc385688dd334468fb7", null ],
@@ -11,7 +11,9 @@ var classG4DarkBremsstrahlung =
     [ "PrintInfo", "classG4DarkBremsstrahlung.html#afab9204e0317220cc8bd7a846f16cfae", null ],
     [ "cache_xsec_", "classG4DarkBremsstrahlung.html#a4cea6b7ac951681575884e5365cf6302", null ],
     [ "element_xsec_cache_", "classG4DarkBremsstrahlung.html#af46413f7f1aa7ac69e617ed382ffadb0", null ],
+    [ "element_xsec_interpolation_", "classG4DarkBremsstrahlung.html#afc08d99409be0183cb284fa1237644e0", null ],
     [ "global_bias_", "classG4DarkBremsstrahlung.html#a252f7ff2b39006505b8bee6208a1803b", null ],
+    [ "interpolate_xsec_", "classG4DarkBremsstrahlung.html#ab71f52a39e6cec9e3ae960d5ef8c2b60", null ],
     [ "model_", "classG4DarkBremsstrahlung.html#af075c1808429773ffc2f3789b54896b7", null ],
     [ "only_one_per_event_", "classG4DarkBremsstrahlung.html#afd5ed4a2c61506b3b6cd2f980a1cdba0", null ],
     [ "PROCESS_NAME", "classG4DarkBremsstrahlung.html#a15da7089067e058d852227e5488e33bc", null ]

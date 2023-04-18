@@ -34,7 +34,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">G4DarkBreM
-   &#160;<span id="projectnumber">v1.2.2</span>
+   &#160;<span id="projectnumber">v1.3.0</span>
    </div>
    <div id="projectbrief">Geant4 Dark Bremmstrahlung from MadGraph</div>
   </td>
@@ -100,6 +100,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>ap_mass_
 : <a class="el" href="classg4db_1_1example_1_1APrimePhysics.html#aad25e8412407b9ddfbb303d9737ade59">g4db::example::APrimePhysics</a>
 </li>
+<li>append()
+: <a class="el" href="classg4db_1_1ElementXsecInterpolation_1_1SampleSet.html#a27ee476297a231306b2f751b1515538e">g4db::ElementXsecInterpolation::SampleSet</a>
+</li>
 <li>APrime()
 : <a class="el" href="classG4APrime.html#a1836c6a175d89e8244410f7a1ddd99ce">G4APrime</a>
 </li>
@@ -158,6 +161,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>depth_
 : <a class="el" href="classg4db_1_1example_1_1Hunk.html#acbf64e3728cd9da79d8f0b412d7104fd">g4db::example::Hunk</a>
 </li>
+<li>dump()
+: <a class="el" href="classg4db_1_1ElementXsecInterpolation_1_1SampleSet.html#afc066e0a92701fd5f548f86bf9830048">g4db::ElementXsecInterpolation::SampleSet</a>
+</li>
 </ul>
 
 
@@ -168,8 +174,14 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>element_xsec_cache_
 : <a class="el" href="classG4DarkBremsstrahlung.html#af46413f7f1aa7ac69e617ed382ffadb0">G4DarkBremsstrahlung</a>
 </li>
+<li>element_xsec_interpolation_
+: <a class="el" href="classG4DarkBremsstrahlung.html#afc08d99409be0183cb284fa1237644e0">G4DarkBremsstrahlung</a>
+</li>
 <li>ElementXsecCache()
 : <a class="el" href="classg4db_1_1ElementXsecCache.html#ad43008933d9a4a00467ea9c235c4c855">g4db::ElementXsecCache</a>
+</li>
+<li>ElementXsecInterpolation()
+: <a class="el" href="classg4db_1_1ElementXsecInterpolation.html#ab42c29b177a84420d8e4bfc990240f74">g4db::ElementXsecInterpolation</a>
 </li>
 <li>EndOfEventAction()
 : <a class="el" href="classg4db_1_1example_1_1PersistDarkBremProducts.html#aecaa7c590153a8389e0eea94398ddc3b">g4db::example::PersistDarkBremProducts</a>
@@ -204,7 +216,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 : <a class="el" href="classg4db_1_1G4DarkBreMModel.html#ad4038fb4f46ba16a2bfb829c5c81ea8c">g4db::G4DarkBreMModel</a>
 </li>
 <li>G4DarkBremsstrahlung()
-: <a class="el" href="classG4DarkBremsstrahlung.html#a69201ae758988d703b9d018c06fc09f0">G4DarkBremsstrahlung</a>
+: <a class="el" href="classG4DarkBremsstrahlung.html#a1f79becdbaa6cdceeb461959fc469ec0">G4DarkBremsstrahlung</a>
 </li>
 <li>GenerateChange()
 : <a class="el" href="classg4db_1_1G4DarkBreMModel.html#af55e733c9b510ed0ced469afce610909">g4db::G4DarkBreMModel</a>
@@ -215,6 +227,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 </li>
 <li>get()
 : <a class="el" href="classg4db_1_1ElementXsecCache.html#a8832585ab96da99bf781bf12eca04010">g4db::ElementXsecCache</a>
+, <a class="el" href="classg4db_1_1ElementXsecInterpolation.html#a3577e6955d06c0cf72a5e2d9545c09e8">g4db::ElementXsecInterpolation</a>
 , <a class="el" href="classg4db_1_1example_1_1OutgoingKinematics.html#aec3600921c109c2b49f83f8a5c0d14f2">g4db::example::OutgoingKinematics</a>
 </li>
 <li>getCache()
@@ -245,6 +258,12 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <h3><a id="index_i"></a>- i -</h3><ul>
 <li>Initialize()
 : <a class="el" href="classG4APrime.html#adb10dbe58988db0e95fa1ace25d0fb54">G4APrime</a>
+</li>
+<li>interpolate()
+: <a class="el" href="classg4db_1_1ElementXsecInterpolation_1_1SampleSet.html#a9b3ed17e3f33df97bac739f322598e27">g4db::ElementXsecInterpolation::SampleSet</a>
+</li>
+<li>interpolate_xsec_
+: <a class="el" href="classG4DarkBremsstrahlung.html#ab71f52a39e6cec9e3ae960d5ef8c2b60">G4DarkBremsstrahlung</a>
 </li>
 <li>IsApplicable()
 : <a class="el" href="classG4DarkBremsstrahlung.html#a7e37a347d1136a2d1a12838cfe346a37">G4DarkBremsstrahlung</a>
@@ -283,6 +302,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>material_
 : <a class="el" href="classg4db_1_1example_1_1Hunk.html#a84d375e67e9f44fc215d45b8c66adc01">g4db::example::Hunk</a>
 </li>
+<li>max()
+: <a class="el" href="classg4db_1_1ElementXsecInterpolation_1_1SampleSet.html#ad27714db8dfe57ffe22dc32528806ee8">g4db::ElementXsecInterpolation::SampleSet</a>
+</li>
 <li>MAX_A
 : <a class="el" href="classg4db_1_1ElementXsecCache.html#aad2ca99bae9d6ff6b09c4d7107e97618">g4db::ElementXsecCache</a>
 </li>
@@ -295,9 +317,13 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>method_name_
 : <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a2d97e48c82feb83feae73a44bd1eb326">g4db::G4DarkBreMModel</a>
 </li>
+<li>min()
+: <a class="el" href="classg4db_1_1ElementXsecInterpolation_1_1SampleSet.html#a4ebe9c8d01ed547f7d2c0181f36243c4">g4db::ElementXsecInterpolation::SampleSet</a>
+</li>
 <li>model_
 : <a class="el" href="classG4DarkBremsstrahlung.html#af075c1808429773ffc2f3789b54896b7">G4DarkBremsstrahlung</a>
 , <a class="el" href="classg4db_1_1ElementXsecCache.html#a2d64c8e65ecbb8ac5909952f54ebd200">g4db::ElementXsecCache</a>
+, <a class="el" href="classg4db_1_1ElementXsecInterpolation.html#a643fe87ec393f82f84ee988837b9b3f1">g4db::ElementXsecInterpolation</a>
 </li>
 <li>muons_
 : <a class="el" href="classg4db_1_1example_1_1APrimePhysics.html#a64316e3a5b2e1ad3372c0965acd40cf4">g4db::example::APrimePhysics</a>
@@ -312,6 +338,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 </li>
 <li>operator&lt;&lt;
 : <a class="el" href="classg4db_1_1ElementXsecCache.html#a316b28302abaad0bd13a8d08a1b7992a">g4db::ElementXsecCache</a>
+, <a class="el" href="classg4db_1_1ElementXsecInterpolation.html#a6180c96c51b45a2f18ccc817a207ae21">g4db::ElementXsecInterpolation</a>
 </li>
 <li>operator=()
 : <a class="el" href="classG4DarkBremsstrahlung.html#abcecfbfaaa48c2bd5e06eaf7af8c3fa2">G4DarkBremsstrahlung</a>
@@ -328,6 +355,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 </li>
 <li>PostStepDoIt()
 : <a class="el" href="classG4DarkBremsstrahlung.html#a23f4a3e9dfeb50cafeed9afff675c6b0">G4DarkBremsstrahlung</a>
+</li>
+<li>prepend()
+: <a class="el" href="classg4db_1_1ElementXsecInterpolation_1_1SampleSet.html#a644a15ecd5c698b681ffc9d86c8c6df8">g4db::ElementXsecInterpolation::SampleSet</a>
 </li>
 <li>PreUserTrackingAction()
 : <a class="el" href="classg4db_1_1example_1_1FindDarkBremProducts.html#a863a3b24b70da9494f29fa53c9f81cce">g4db::example::FindDarkBremProducts</a>
@@ -360,6 +390,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>sample()
 : <a class="el" href="classg4db_1_1G4DarkBreMModel.html#aa4ceed0b1888e8fdfd95b602bb771188">g4db::G4DarkBreMModel</a>
 </li>
+<li>SampleSet()
+: <a class="el" href="classg4db_1_1ElementXsecInterpolation_1_1SampleSet.html#a1b05a3a03620ada96b860ba840d79147">g4db::ElementXsecInterpolation::SampleSet</a>
+</li>
 <li>scale()
 : <a class="el" href="classg4db_1_1G4DarkBreMModel.html#aea0e3784c4faff89fe84a53360f0951b">g4db::G4DarkBreMModel</a>
 </li>
@@ -383,6 +416,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 </li>
 <li>stream()
 : <a class="el" href="classg4db_1_1ElementXsecCache.html#a8b399712cba2984bc3a1de925437dd62">g4db::ElementXsecCache</a>
+, <a class="el" href="classg4db_1_1ElementXsecInterpolation.html#a2036abf3287e61f5b796943b8e008861">g4db::ElementXsecInterpolation</a>
 , <a class="el" href="classg4db_1_1example_1_1OutgoingKinematics.html#a153d5265a98b4d27253ed7c8cc9e3b9b">g4db::example::OutgoingKinematics</a>
 </li>
 </ul>
@@ -394,6 +428,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 </li>
 <li>the_process_
 : <a class="el" href="classg4db_1_1example_1_1APrimePhysics.html#a992a8eb01dff492fbb5eca761c2cbadd">g4db::example::APrimePhysics</a>
+</li>
+<li>the_samples_
+: <a class="el" href="classg4db_1_1ElementXsecInterpolation.html#a2278074d76cccb33f5065c7adfc66730">g4db::ElementXsecInterpolation</a>
 </li>
 <li>theAPrime
 : <a class="el" href="classG4APrime.html#a5b7a1230fcdc24b8bcb3d3803876d134">G4APrime</a>
@@ -412,11 +449,21 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 
 
 <h3><a id="index_x"></a>- x -</h3><ul>
+<li>x_
+: <a class="el" href="classg4db_1_1ElementXsecInterpolation_1_1SampleSet.html#a8a90cab323e9b67497a0e3385daa0070">g4db::ElementXsecInterpolation::SampleSet</a>
+</li>
 <li>xsec_method_
 : <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a5e687dc02358e48f90db39f1a180754d">g4db::G4DarkBreMModel</a>
 </li>
 <li>XsecMethod
 : <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587af">g4db::G4DarkBreMModel</a>
+</li>
+</ul>
+
+
+<h3><a id="index_y"></a>- y -</h3><ul>
+<li>y_
+: <a class="el" href="classg4db_1_1ElementXsecInterpolation_1_1SampleSet.html#a8f943e39ec89f1d1a90fac7000becbcd">g4db::ElementXsecInterpolation::SampleSet</a>
 </li>
 </ul>
 

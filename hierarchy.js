@@ -1,6 +1,7 @@
 var hierarchy =
 [
     [ "g4db::ElementXsecCache", "classg4db_1_1ElementXsecCache.html", null ],
+    [ "g4db::ElementXsecInterpolation", "classg4db_1_1ElementXsecInterpolation.html", null ],
     [ "G4ParticleDefinition", null, [
       [ "G4APrime", "classG4APrime.html", null ]
     ] ],
@@ -28,5 +29,6 @@ var hierarchy =
     [ "g4db::OutgoingKinematics", "structg4db_1_1OutgoingKinematics.html", null ],
     [ "g4db::PrototypeModel", "classg4db_1_1PrototypeModel.html", [
       [ "g4db::G4DarkBreMModel", "classg4db_1_1G4DarkBreMModel.html", null ]
-    ] ]
+    ] ],
+    [ "g4db::ElementXsecInterpolation::SampleSet", "classg4db_1_1ElementXsecInterpolation_1_1SampleSet.html", null ]
 ];

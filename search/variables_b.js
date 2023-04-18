@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['recoil_5f_230',['recoil_',['../classg4db_1_1example_1_1OutgoingKinematics.html#a5f809bd4a9ee277d03bfcea9165cf419',1,'g4db::example::OutgoingKinematics']]]
+  ['process_5fname_254',['PROCESS_NAME',['../classG4DarkBremsstrahlung.html#a15da7089067e058d852227e5488e33bc',1,'G4DarkBremsstrahlung']]]
 ];

@@ -34,7 +34,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">G4DarkBreM
-   &#160;<span id="projectnumber">v1.2.2</span>
+   &#160;<span id="projectnumber">v1.3.0</span>
    </div>
    <div id="projectbrief">Geant4 Dark Bremmstrahlung from MadGraph</div>
   </td>
@@ -98,7 +98,7 @@ $(document).ready(function(){initNavTree('md_docs_configuration.html',''); initR
 <div class="textblock"><p>The G4DarkBreM package follows Geant4's structure of separating particles from processes and specific models of processes from the process itself. This means configuring the package requires three steps.</p><ol type="1">
 <li>Define the dark photon mass with <a class="el" href="classG4APrime.html#adb10dbe58988db0e95fa1ace25d0fb54" title="Initialize the APrime particle with the passed configuration.">G4APrime::Initialize</a></li>
 <li>Define how the model should behave with <a class="el" href="classg4db_1_1G4DarkBreMModel.html#ad4038fb4f46ba16a2bfb829c5c81ea8c" title="Set the parameters for this model.">g4db::G4DarkBreMModel::G4DarkBreMModel</a></li>
-<li>Define which model the process should use with <a class="el" href="classG4DarkBremsstrahlung.html#a69201ae758988d703b9d018c06fc09f0" title="Constructor.">G4DarkBremsstrahlung::G4DarkBremsstrahlung</a></li>
+<li>Define which model the process should use with <a class="el" href="classG4DarkBremsstrahlung.html#a093b7301ae58147e1e28776cf7581c24" title="Constructor.">G4DarkBremsstrahlung::G4DarkBremsstrahlung</a></li>
 </ol>
 <p>Besides definition of the dark photon mass, all of the parameters that change how the dark brem physically behaves are defined within the model. The process contains some functionality (for example, limiting the simulation to only one dark brem interaction per event); however, these parameters are second to the model parameters.</p>
 <p>It is common to do both of these steps within a <code>G4VPhysicsConstructor</code> since that class can be registered with a Geant4 PhysicsList and handled later by Geant4. An example G4VPhysicsConstructor is provded by <a class="el" href="classg4db_1_1example_1_1APrimePhysics.html" title="basic physics constructor which simply creates the A&#39; and the dark brem">g4db::example::APrimePhysics</a>.</p>

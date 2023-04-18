@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['xsec_5fmethod_5f_237',['xsec_method_',['../classg4db_1_1G4DarkBreMModel.html#a5e687dc02358e48f90db39f1a180754d',1,'g4db::G4DarkBreMModel']]],
-  ['xsec_5fmethods_238',['xsec_methods',['../xsec__calc_8cxx.html#acf8051e40d5aa08d1fa463f3ae14b927',1,'xsec_calc.cxx']]]
+  ['verbose_5flevel_5f_262',['verbose_level_',['../classg4db_1_1PrototypeModel.html#a730ea81c1402e907fba494da8ac5581b',1,'g4db::PrototypeModel']]]
 ];

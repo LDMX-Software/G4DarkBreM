@@ -1,11 +1,12 @@
 <map id="include/G4DarkBreM/PrototypeModel.h" name="include/G4DarkBreM/PrototypeModel.h">
-<area shape="rect" id="node1" title="Class providing a prototype model for dark brem." alt="" coords="451,5,607,47"/>
-<area shape="rect" id="node2" href="$ElementXsecCache_8h_source.html" title=" " alt="" coords="329,95,491,136"/>
-<area shape="rect" id="node3" href="$G4DarkBremsstrahlung_8h.html" title="Class providing the Dark Bremsstrahlung process class." alt="" coords="315,184,505,225"/>
-<area shape="rect" id="node7" href="$G4DarkBreMModel_8h_source.html" title=" " alt="" coords="529,184,691,225"/>
-<area shape="rect" id="node4" href="$G4DarkBremsstrahlung_8cxx.html" title="Class providing the Dark Bremsstrahlung process class." alt="" coords="5,281,316,307"/>
-<area shape="rect" id="node5" href="$simulate_8cxx.html" title=" " alt="" coords="504,281,639,307"/>
-<area shape="rect" id="node6" href="$xsec__calc_8cxx.html" title=" " alt="" coords="340,281,480,307"/>
-<area shape="rect" id="node8" href="$G4DarkBreMModel_8cxx.html" title="Source file for dark brem model with some static functions that are helpful to be documented." alt="" coords="798,273,1001,315"/>
-<area shape="rect" id="node9" href="$scale_8cxx.html" title=" " alt="" coords="663,281,773,307"/>
+<area shape="rect" id="node1" title="Class providing a prototype model for dark brem." alt="" coords="198,5,354,47"/>
+<area shape="rect" id="node2" href="$ElementXsecCache_8h_source.html" title=" " alt="" coords="5,95,168,136"/>
+<area shape="rect" id="node3" href="$G4DarkBremsstrahlung_8h.html" title="Class providing the Dark Bremsstrahlung process class." alt="" coords="86,184,277,225"/>
+<area shape="rect" id="node6" href="$ElementXsecInterpolation_8h_source.html" title=" " alt="" coords="243,95,450,136"/>
+<area shape="rect" id="node8" href="$G4DarkBreMModel_8h_source.html" title=" " alt="" coords="474,95,635,136"/>
+<area shape="rect" id="node4" href="$G4DarkBremsstrahlung_8cxx.html" title="Class providing the Dark Bremsstrahlung process class." alt="" coords="26,273,337,300"/>
+<area shape="rect" id="node5" href="$simulate_8cxx.html" title=" " alt="" coords="386,273,521,300"/>
+<area shape="rect" id="node7" href="$xsec__calc_8cxx.html" title=" " alt="" coords="301,191,441,218"/>
+<area shape="rect" id="node9" href="$G4DarkBreMModel_8cxx.html" title="Source file for dark brem model with some static functions that are helpful to be documented." alt="" coords="516,184,719,225"/>
+<area shape="rect" id="node10" href="$scale_8cxx.html" title=" " alt="" coords="743,191,854,218"/>
 </map>
