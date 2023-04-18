@@ -13,6 +13,7 @@
 
 #include "G4DarkBreM/PrototypeModel.h"
 #include "G4DarkBreM/ElementXsecCache.h"
+#include "G4DarkBreM/ElementXsecInterpolation.h"
 
 class G4String;
 class G4ParticleDefinition;
@@ -50,6 +51,7 @@ class G4DarkBremsstrahlung : public G4VDiscreteProcess {
    * @param[in] the_model model to use for dark brem simulation
    * @param[in] only_one_per_event true if de-activating process after first dark brem
    * @param[in] global_bias bias xsec globally by this factor
+   * @param[in] interpolate_xsec true if we should interpolate cross sections over 10% energy differences
    * @param[in] cache_xsec true if we should cache xsecs at the MeV level of precision
    * @param[in] verbose_level level of verbosity to print for this process and model
    * @param[in] subtype subtype for this process distinct from other EM 
@@ -57,7 +59,8 @@ class G4DarkBremsstrahlung : public G4VDiscreteProcess {
    */
   G4DarkBremsstrahlung(std::shared_ptr<g4db::PrototypeModel> the_model,
       bool only_one_per_event = false, double global_bias = 1., 
-      bool cache_xsec = true, int verbose_level = 0, int subtype = 63);
+      bool interp_xsec = true, bool cache_xsec = false, 
+      int verbose_level = 0, int subtype = 63);
 
   /**
    * Destructor
@@ -173,6 +176,11 @@ class G4DarkBremsstrahlung : public G4VDiscreteProcess {
   double global_bias_;
 
   /**
+   * Should we interpolated over the computed cross sections?
+   */
+  bool interpolate_xsec_;
+
+  /**
    * Should we have a cache for the computed cross sections?
    */
   bool cache_xsec_;
@@ -186,6 +194,9 @@ class G4DarkBremsstrahlung : public G4VDiscreteProcess {
 
   /// Our instance of a cross section cache
   g4db::ElementXsecCache element_xsec_cache_;
+
+  /// Our instance of a cross section interpolation
+  g4db::ElementXsecInterpolation element_xsec_interpolation_;
 };  // G4DarkBremsstrahlung
 
 #endif

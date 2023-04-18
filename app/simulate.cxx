@@ -99,7 +99,7 @@ class APrimePhysics : public G4VPhysicsConstructor {
           library_path_, muons_)),
         false, /* only one per event */
         bias_, /* global bias */
-        true /* cache xsec */));
+        true /* interpolate xsec */));
   }
 };  // APrimePhysics
 
@@ -398,7 +398,7 @@ void usage() {
     "               distribution of dark brem vertices is sampled."
     "\n"
     "OPTIONS\n"
-    "  -h, --help    : print this usage and exit"
+    "  -h, --help    : print this usage and exit\n"
     "  --muons       : run using muons (without this flag, assumes electrons)\n"
     "  -m, --ap-mass : mass of the dark photon (A') in GeV (defaults to 0.1 for electrons and 1. for muons)\n"
     "  -d, --depth   : thickness of target in mm (defaults to 18 for electrons, 2000 for muons)\n"
