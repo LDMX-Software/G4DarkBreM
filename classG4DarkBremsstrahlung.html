@@ -34,7 +34,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">G4DarkBreM
-   &#160;<span id="projectnumber">v1.3.0</span>
+   &#160;<span id="projectnumber">v2.0.0</span>
    </div>
    <div id="projectbrief">Geant4 Dark Bremmstrahlung from MadGraph</div>
   </td>
@@ -92,6 +92,7 @@ $(document).ready(function(){initNavTree('classG4DarkBremsstrahlung.html',''); i
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
@@ -113,10 +114,17 @@ Inheritance diagram for G4DarkBremsstrahlung:</div>
 <div class="dynheader">
 Collaboration diagram for G4DarkBremsstrahlung:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classG4DarkBremsstrahlung__coll__graph.svg" width="1592" height="298"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classG4DarkBremsstrahlung__coll__graph.svg" width="1592" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ac10c358086d45213f9c5e91133a4e849"><td class="memItemLeft" align="right" valign="top"><a id="ac10c358086d45213f9c5e91133a4e849"></a>
+typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#ac10c358086d45213f9c5e91133a4e849">StorageCallback</a>) (const G4Element &amp;)</td></tr>
+<tr class="memdesc:ac10c358086d45213f9c5e91133a4e849"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function signature able to be used as a storage callback. <br /></td></tr>
+<tr class="separator:ac10c358086d45213f9c5e91133a4e849"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a093b7301ae58147e1e28776cf7581c24"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#a093b7301ae58147e1e28776cf7581c24">G4DarkBremsstrahlung</a> (std::shared_ptr&lt; <a class="el" href="classg4db_1_1PrototypeModel.html">g4db::PrototypeModel</a> &gt; the_model, bool only_one_per_event=false, double global_bias=1., bool interp_xsec=true, bool cache_xsec=false, int verbose_level=0, int subtype=63)</td></tr>
@@ -126,6 +134,9 @@ Public Member Functions</h2></td></tr>
 virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#a7e21edafc6f4e408a8c24ba91ce037cb">~G4DarkBremsstrahlung</a> ()=default</td></tr>
 <tr class="memdesc:a7e21edafc6f4e408a8c24ba91ce037cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:a7e21edafc6f4e408a8c24ba91ce037cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92e13b306a943f7a6585533e374f9bde"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#a92e13b306a943f7a6585533e374f9bde">RegisterStorageMechanism</a> (<a class="el" href="classG4DarkBremsstrahlung.html#ac10c358086d45213f9c5e91133a4e849">StorageCallback</a> f)</td></tr>
+<tr class="memdesc:a92e13b306a943f7a6585533e374f9bde"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a storage mechanism for saving the material in-which the brem occurred.  <a href="classG4DarkBremsstrahlung.html#a92e13b306a943f7a6585533e374f9bde">More...</a><br /></td></tr>
+<tr class="separator:a92e13b306a943f7a6585533e374f9bde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e37a347d1136a2d1a12838cfe346a37"><td class="memItemLeft" align="right" valign="top">virtual G4bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#a7e37a347d1136a2d1a12838cfe346a37">IsApplicable</a> (const G4ParticleDefinition &amp;p)</td></tr>
 <tr class="memdesc:a7e37a347d1136a2d1a12838cfe346a37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the passed particle should be able to do this process.  <a href="classG4DarkBremsstrahlung.html#a7e37a347d1136a2d1a12838cfe346a37">More...</a><br /></td></tr>
 <tr class="separator:a7e37a347d1136a2d1a12838cfe346a37"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -191,6 +202,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <a class="el" href="classg4db_1_1ElementXsecInterpolation.html">g4db::ElementXsecInterpolation</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#afc08d99409be0183cb284fa1237644e0">element_xsec_interpolation_</a></td></tr>
 <tr class="memdesc:afc08d99409be0183cb284fa1237644e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Our instance of a cross section interpolation. <br /></td></tr>
 <tr class="separator:afc08d99409be0183cb284fa1237644e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a747bc3c944cde3352391c15b4e29c4ec"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classG4DarkBremsstrahlung.html#a747bc3c944cde3352391c15b4e29c4ec">partial_sum_sigma_</a></td></tr>
+<tr class="memdesc:a747bc3c944cde3352391c15b4e29c4ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hold the calculations of the cross section per atom here so we can select a random element for the dark brem to go off of when Geant4 decides it is time.  <a href="classG4DarkBremsstrahlung.html#a747bc3c944cde3352391c15b4e29c4ec">More...</a><br /></td></tr>
+<tr class="separator:a747bc3c944cde3352391c15b4e29c4ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1b3acefead70e2b87d6f2998f8eb5e8"><td class="memItemLeft" align="right" valign="top"><a id="ac1b3acefead70e2b87d6f2998f8eb5e8"></a>
+<a class="el" href="classG4DarkBremsstrahlung.html#ac10c358086d45213f9c5e91133a4e849">StorageCallback</a>&#160;</td><td class="memItemRight" valign="bottom"><b>storage_func_</b> = nullptr</td></tr>
+<tr class="separator:ac1b3acefead70e2b87d6f2998f8eb5e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that represents the dark brem process. A muon or electron is allowed to brem a dark photon </p>
@@ -482,6 +499,32 @@ G4DarkBremsstrahlungModel::GenerateChange </dd></dl>
 
 </div>
 </div>
+<a id="a92e13b306a943f7a6585533e374f9bde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92e13b306a943f7a6585533e374f9bde">&#9670;&nbsp;</a></span>RegisterStorageMechanism()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void G4DarkBremsstrahlung::RegisterStorageMechanism </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classG4DarkBremsstrahlung.html#ac10c358086d45213f9c5e91133a4e849">StorageCallback</a>&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register a storage mechanism for saving the material in-which the brem occurred. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">f</td><td>function that stores information from G4Element as desired </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="af075c1808429773ffc2f3789b54896b7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af075c1808429773ffc2f3789b54896b7">&#9670;&nbsp;</a></span>model_</h2>
@@ -531,6 +574,31 @@ G4DarkBremsstrahlungModel::GenerateChange </dd></dl>
 <p>Only allow the dark brem to happen once per event. </p>
 <p>This allows for the dark brem process to be de-activated when SampleSecondaries is called.</p>
 <dl class="section note"><dt>Note</dt><dd>If a user wants to use this option, the dark brem process should be <em>always</em> re-activated at the end of each event. This reactivation has no effect when the process is already active. </dd></dl>
+
+</div>
+</div>
+<a id="a747bc3c944cde3352391c15b4e29c4ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a747bc3c944cde3352391c15b4e29c4ec">&#9670;&nbsp;</a></span>partial_sum_sigma_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;double&gt; G4DarkBremsstrahlung::partial_sum_sigma_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Hold the calculations of the cross section per atom here so we can select a random element for the dark brem to go off of when Geant4 decides it is time. </p>
+<p>The elements in this vector correspond to the element vector from the material. It is called "partial sum sigma" because it actually is the running cumulative sum of the cross section as we loop through the different elements in the material. </p>
 
 </div>
 </div>

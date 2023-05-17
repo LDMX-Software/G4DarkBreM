@@ -10,7 +10,7 @@ var searchData=
   ['g4darkbremsstrahlung_2ecxx_47',['G4DarkBremsstrahlung.cxx',['../G4DarkBremsstrahlung_8cxx.html',1,'']]],
   ['g4darkbremsstrahlung_2eh_48',['G4DarkBremsstrahlung.h',['../G4DarkBremsstrahlung_8h.html',1,'']]],
   ['g4db_49',['g4db',['../namespaceg4db.html',1,'']]],
-  ['generatechange_50',['GenerateChange',['../classg4db_1_1G4DarkBreMModel.html#af55e733c9b510ed0ced469afce610909',1,'g4db::G4DarkBreMModel::GenerateChange()'],['../classg4db_1_1PrototypeModel.html#a5023399bd69f3b9bc2ba611766ed069e',1,'g4db::PrototypeModel::GenerateChange()']]],
+  ['generatechange_50',['GenerateChange',['../classg4db_1_1G4DarkBreMModel.html#a90de72907fb942ae5c51b21c064be513',1,'g4db::G4DarkBreMModel::GenerateChange()'],['../classg4db_1_1PrototypeModel.html#adfcf780fab4f49212a96e43291efa308',1,'g4db::PrototypeModel::GenerateChange()']]],
   ['generateprimaries_51',['GeneratePrimaries',['../classg4db_1_1example_1_1LeptonBeam.html#a12ab9d55cf1a55b4ef738612841f4435',1,'g4db::example::LeptonBeam']]],
   ['get_52',['get',['../classg4db_1_1ElementXsecCache.html#a8832585ab96da99bf781bf12eca04010',1,'g4db::ElementXsecCache::get()'],['../classg4db_1_1ElementXsecInterpolation.html#a3577e6955d06c0cf72a5e2d9545c09e8',1,'g4db::ElementXsecInterpolation::get()'],['../classg4db_1_1example_1_1OutgoingKinematics.html#aec3600921c109c2b49f83f8a5c0d14f2',1,'g4db::example::OutgoingKinematics::get()']]],
   ['getcache_53',['getCache',['../classG4DarkBremsstrahlung.html#a852d75481d749fc385688dd334468fb7',1,'G4DarkBremsstrahlung']]],

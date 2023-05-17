@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['madgraphdata_5f_75',['madGraphData_',['../classg4db_1_1G4DarkBreMModel.html#a466770b569c7cc2952dbff5a1f38de5c',1,'g4db::G4DarkBreMModel']]],
+  ['madgraphdata_5f_75',['madGraphData_',['../classg4db_1_1G4DarkBreMModel.html#a44105e3f5d9be423ab66bd9dc6484fac',1,'g4db::G4DarkBreMModel']]],
   ['main_76',['main',['../extract__library_8cxx.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;extract_library.cxx'],['../scale_8cxx.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;scale.cxx'],['../simulate_8cxx.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;simulate.cxx'],['../xsec__calc_8cxx.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;xsec_calc.cxx']]],
   ['makeplaceholders_77',['MakePlaceholders',['../classg4db_1_1G4DarkBreMModel.html#a97d43e129542b8392ff62d502d94894b',1,'g4db::G4DarkBreMModel']]],
   ['material_5f_78',['material_',['../classg4db_1_1example_1_1Hunk.html#a84d375e67e9f44fc215d45b8c66adc01',1,'g4db::example::Hunk']]],

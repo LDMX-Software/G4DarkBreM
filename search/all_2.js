@@ -8,7 +8,7 @@ var searchData=
   ['construct_14',['Construct',['../classg4db_1_1example_1_1Hunk.html#a19bddfcff11c6c5eec8935174e925709',1,'g4db::example::Hunk']]],
   ['constructparticle_15',['ConstructParticle',['../classg4db_1_1example_1_1APrimePhysics.html#a05cc1bd5006eb1c2ce880c5503e5f41f',1,'g4db::example::APrimePhysics']]],
   ['constructprocess_16',['ConstructProcess',['../classg4db_1_1example_1_1APrimePhysics.html#a78179a929b44e99e6931efded7fcfa1b',1,'g4db::example::APrimePhysics']]],
-  ['csv_17',['csv',['../namespaceg4db_1_1parse.html#aba8cb24b1a0261829307b5eb82a4fe04',1,'g4db::parse']]],
-  ['currentdatapoints_5f_18',['currentDataPoints_',['../classg4db_1_1G4DarkBreMModel.html#a5d7f8e9c841d4b2990172567ae87745c',1,'g4db::G4DarkBreMModel']]],
+  ['csv_17',['csv',['../namespaceg4db_1_1parse.html#a629eccb38472ba5bd6cb267cf0501d29',1,'g4db::parse']]],
+  ['currentdatapoints_5f_18',['currentDataPoints_',['../classg4db_1_1G4DarkBreMModel.html#ac77e31d825ae54dd4497019710c806eb',1,'g4db::G4DarkBreMModel']]],
   ['configuration_20of_20simulation_19',['Configuration of Simulation',['../md_docs_configuration.html',1,'']]]
 ];

@@ -4,7 +4,7 @@ var classg4db_1_1PrototypeModel =
     [ "~PrototypeModel", "classg4db_1_1PrototypeModel.html#ae11ef65b539948079f2ccd0607bd3fe6", null ],
     [ "ComputeCrossSectionPerAtom", "classg4db_1_1PrototypeModel.html#ae99722026388d768ba95bff9938fdf00", null ],
     [ "DarkBremOffMuons", "classg4db_1_1PrototypeModel.html#a6eb0ae8e1eeab01ac45f6a469919e422", null ],
-    [ "GenerateChange", "classg4db_1_1PrototypeModel.html#a5023399bd69f3b9bc2ba611766ed069e", null ],
+    [ "GenerateChange", "classg4db_1_1PrototypeModel.html#adfcf780fab4f49212a96e43291efa308", null ],
     [ "GetVerboseLevel", "classg4db_1_1PrototypeModel.html#ae36ab543a94d5b8477022a82d05dba47", null ],
     [ "PrintInfo", "classg4db_1_1PrototypeModel.html#a5ceaa69cebb5968017b2a7c7e031e444", null ],
     [ "SetVerboseLevel", "classg4db_1_1PrototypeModel.html#a05293e494288dec73e465fe0d30695eb", null ],

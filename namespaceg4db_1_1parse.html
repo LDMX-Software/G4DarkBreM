@@ -34,7 +34,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">G4DarkBreM
-   &#160;<span id="projectnumber">v1.3.0</span>
+   &#160;<span id="projectnumber">v2.0.0</span>
    </div>
    <div id="projectbrief">Geant4 Dark Bremmstrahlung from MadGraph</div>
   </td>
@@ -103,18 +103,18 @@ $(document).ready(function(){initNavTree('namespaceg4db_1_1parse.html',''); init
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1246f65d85fa3ce5461028ccdadd4488"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceg4db_1_1parse.html#a1246f65d85fa3ce5461028ccdadd4488">lhe</a> (boost::iostreams::filtering_istream &amp;reader, int aprime_lhe_id, std::map&lt; double, std::vector&lt; <a class="el" href="structg4db_1_1OutgoingKinematics.html">OutgoingKinematics</a> &gt;&gt; &amp;lib)</td></tr>
-<tr class="memdesc:a1246f65d85fa3ce5461028ccdadd4488"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse an LHE file from the input stream.  <a href="namespaceg4db_1_1parse.html#a1246f65d85fa3ce5461028ccdadd4488">More...</a><br /></td></tr>
-<tr class="separator:a1246f65d85fa3ce5461028ccdadd4488"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba8cb24b1a0261829307b5eb82a4fe04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceg4db_1_1parse.html#aba8cb24b1a0261829307b5eb82a4fe04">csv</a> (boost::iostreams::filtering_istream &amp;reader, std::map&lt; double, std::vector&lt; <a class="el" href="structg4db_1_1OutgoingKinematics.html">OutgoingKinematics</a> &gt;&gt; &amp;lib)</td></tr>
-<tr class="memdesc:aba8cb24b1a0261829307b5eb82a4fe04"><td class="mdescLeft">&#160;</td><td class="mdescRight">parse the input stream as a CSV file, filling the input library  <a href="namespaceg4db_1_1parse.html#aba8cb24b1a0261829307b5eb82a4fe04">More...</a><br /></td></tr>
-<tr class="separator:aba8cb24b1a0261829307b5eb82a4fe04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab215e493cc007d0ba5ec5d866e59e358"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceg4db_1_1parse.html#ab215e493cc007d0ba5ec5d866e59e358">lhe</a> (boost::iostreams::filtering_istream &amp;reader, int aprime_lhe_id, std::map&lt; int, std::map&lt; double, std::vector&lt; <a class="el" href="structg4db_1_1OutgoingKinematics.html">OutgoingKinematics</a> &gt;&gt;&gt; &amp;lib)</td></tr>
+<tr class="memdesc:ab215e493cc007d0ba5ec5d866e59e358"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse an LHE file from the input stream.  <a href="namespaceg4db_1_1parse.html#ab215e493cc007d0ba5ec5d866e59e358">More...</a><br /></td></tr>
+<tr class="separator:ab215e493cc007d0ba5ec5d866e59e358"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a629eccb38472ba5bd6cb267cf0501d29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceg4db_1_1parse.html#a629eccb38472ba5bd6cb267cf0501d29">csv</a> (boost::iostreams::filtering_istream &amp;reader, std::map&lt; int, std::map&lt; double, std::vector&lt; <a class="el" href="structg4db_1_1OutgoingKinematics.html">OutgoingKinematics</a> &gt;&gt;&gt; &amp;lib)</td></tr>
+<tr class="memdesc:a629eccb38472ba5bd6cb267cf0501d29"><td class="mdescLeft">&#160;</td><td class="mdescRight">parse the input stream as a CSV file, filling the input library  <a href="namespaceg4db_1_1parse.html#a629eccb38472ba5bd6cb267cf0501d29">More...</a><br /></td></tr>
+<tr class="separator:a629eccb38472ba5bd6cb267cf0501d29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>namespace holding implementation of library parsing </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="aba8cb24b1a0261829307b5eb82a4fe04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba8cb24b1a0261829307b5eb82a4fe04">&#9670;&nbsp;</a></span>csv()</h2>
+<a id="a629eccb38472ba5bd6cb267cf0501d29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a629eccb38472ba5bd6cb267cf0501d29">&#9670;&nbsp;</a></span>csv()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -128,7 +128,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::map&lt; double, std::vector&lt; <a class="el" href="structg4db_1_1OutgoingKinematics.html">OutgoingKinematics</a> &gt;&gt; &amp;&#160;</td>
+          <td class="paramtype">std::map&lt; int, std::map&lt; double, std::vector&lt; <a class="el" href="structg4db_1_1OutgoingKinematics.html">OutgoingKinematics</a> &gt;&gt;&gt; &amp;&#160;</td>
           <td class="paramname"><em>lib</em>&#160;</td>
         </tr>
         <tr>
@@ -141,7 +141,8 @@ Functions</h2></td></tr>
 
 <p>parse the input stream as a CSV file, filling the input library </p>
 <p>The CSV file is expected to have a <b>single</b> header line which names the columns. These column names have no requirements (besides the existence of this line).</p>
-<p>The CSV is required to have 9 columns on all non-empty lines of the file. The 9 columns of the CSV all are in MeV and <em>in order</em> are</p><ol type="1">
+<p>The CSV is required to have 10 columns on all non-empty lines of the file. The 10 columns of the CSV all are in MeV and <em>in order</em> are</p><ol type="1">
+<li>The target Z</li>
 <li>The incident lepton energy</li>
 <li>The total energy of the recoil</li>
 <li>The x-component of the recoil momentum</li>
@@ -163,8 +164,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a1246f65d85fa3ce5461028ccdadd4488"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1246f65d85fa3ce5461028ccdadd4488">&#9670;&nbsp;</a></span>lhe()</h2>
+<a id="ab215e493cc007d0ba5ec5d866e59e358"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab215e493cc007d0ba5ec5d866e59e358">&#9670;&nbsp;</a></span>lhe()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -184,7 +185,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::map&lt; double, std::vector&lt; <a class="el" href="structg4db_1_1OutgoingKinematics.html">OutgoingKinematics</a> &gt;&gt; &amp;&#160;</td>
+          <td class="paramtype">std::map&lt; int, std::map&lt; double, std::vector&lt; <a class="el" href="structg4db_1_1OutgoingKinematics.html">OutgoingKinematics</a> &gt;&gt;&gt; &amp;&#160;</td>
           <td class="paramname"><em>lib</em>&#160;</td>
         </tr>
         <tr>
@@ -204,7 +205,9 @@ Functions</h2></td></tr>
 <div class="line">&lt;skip-line&gt;</div>
 <div class="line">&lt;skip-line&gt;</div>
 <div class="line">aprime_id 1 &lt;skip&gt; &lt;skip&gt; &lt;skip&gt; &lt;skip&gt; px py pz E m</div>
-</div><!-- fragment --><p>This matches a subcomponent of the LHE scheme written by MadGraph/MadEvent (hence the reason this is the "lhe" parser); however, a lot of information is skipped and additional assumptions are made in order to increase the parsing speed.</p>
+</div><!-- fragment --><p>We also check each line if it contains a 'Znuc' string. Looking for the target Z value from this line matching the following format. </p><div class="fragment"><div class="line">&lt;num&gt;   &lt;Z&gt; # Znuc &lt;other comments&gt;</div>
+</div><!-- fragment --><p>This is supposed to match a line of the param_card dumped into the header of the LHE. In other words, this parser should function properly if your MG/ME model has a configurable parameter in param_card.dat for the target Z and that parameter is called 'Znuc'.</p>
+<p>This matches a subcomponent of the LHE scheme written by MadGraph/MadEvent (hence the reason this is the "lhe" parser); however, a lot of information is skipped and additional assumptions are made in order to increase the parsing speed.</p>
 <p>The <code>lepton_id</code> is allowed to be <em>either</em> 11 or 13 <em>everywhere</em>. No consistency checking is done.</p>
 <p>The <code>E</code> from the first line is used as the incident lepton energy. The four-momentum from the middle line is the recoil lepton's four momentum, and the four-momentum from the last line is used in conjuction with the recoil four-momentum to calculate the center of momentum vector.</p>
 <dl class="params"><dt>Parameters</dt><dd>

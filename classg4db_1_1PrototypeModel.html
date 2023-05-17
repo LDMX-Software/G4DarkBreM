@@ -34,7 +34,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">G4DarkBreM
-   &#160;<span id="projectnumber">v1.3.0</span>
+   &#160;<span id="projectnumber">v2.0.0</span>
    </div>
    <div id="projectbrief">Geant4 Dark Bremmstrahlung from MadGraph</div>
   </td>
@@ -135,9 +135,9 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:ae99722026388d768ba95bff9938fdf00"><td class="memItemLeft" align="right" valign="top">virtual G4double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1PrototypeModel.html#ae99722026388d768ba95bff9938fdf00">ComputeCrossSectionPerAtom</a> (G4double leptonKE, G4double atomicA, G4double atomicZ)=0</td></tr>
 <tr class="memdesc:ae99722026388d768ba95bff9938fdf00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculate the cross section given the input parameters.  <a href="classg4db_1_1PrototypeModel.html#ae99722026388d768ba95bff9938fdf00">More...</a><br /></td></tr>
 <tr class="separator:ae99722026388d768ba95bff9938fdf00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5023399bd69f3b9bc2ba611766ed069e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1PrototypeModel.html#a5023399bd69f3b9bc2ba611766ed069e">GenerateChange</a> (G4ParticleChange &amp;particleChange, const G4Track &amp;track, const G4Step &amp;step)=0</td></tr>
-<tr class="memdesc:a5023399bd69f3b9bc2ba611766ed069e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate the change in the particle now that we can assume the interaction is occuring.  <a href="classg4db_1_1PrototypeModel.html#a5023399bd69f3b9bc2ba611766ed069e">More...</a><br /></td></tr>
-<tr class="separator:a5023399bd69f3b9bc2ba611766ed069e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfcf780fab4f49212a96e43291efa308"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classg4db_1_1PrototypeModel.html#adfcf780fab4f49212a96e43291efa308">GenerateChange</a> (G4ParticleChange &amp;particleChange, const G4Track &amp;track, const G4Step &amp;step, const G4Element &amp;element)=0</td></tr>
+<tr class="memdesc:adfcf780fab4f49212a96e43291efa308"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate the change in the particle now that we can assume the interaction is occuring.  <a href="classg4db_1_1PrototypeModel.html#adfcf780fab4f49212a96e43291efa308">More...</a><br /></td></tr>
+<tr class="separator:adfcf780fab4f49212a96e43291efa308"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -274,8 +274,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 
 </div>
 </div>
-<a id="a5023399bd69f3b9bc2ba611766ed069e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5023399bd69f3b9bc2ba611766ed069e">&#9670;&nbsp;</a></span>GenerateChange()</h2>
+<a id="adfcf780fab4f49212a96e43291efa308"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfcf780fab4f49212a96e43291efa308">&#9670;&nbsp;</a></span>GenerateChange()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -299,7 +299,13 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const G4Step &amp;&#160;</td>
-          <td class="paramname"><em>step</em>&#160;</td>
+          <td class="paramname"><em>step</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const G4Element &amp;&#160;</td>
+          <td class="paramname"><em>element</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -322,11 +328,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
     <tr><td class="paramdir">[in,out]</td><td class="paramname">particleChange</td><td>particle change class that stores information </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">track</td><td>current track that needs the change </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">step</td><td>current step of the track </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">element</td><td>the element selected to dark brem off of </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classg4db_1_1G4DarkBreMModel.html#af55e733c9b510ed0ced469afce610909">g4db::G4DarkBreMModel</a>.</p>
+<p>Implemented in <a class="el" href="classg4db_1_1G4DarkBreMModel.html#a90de72907fb942ae5c51b21c064be513">g4db::G4DarkBreMModel</a>.</p>
 
 </div>
 </div>
