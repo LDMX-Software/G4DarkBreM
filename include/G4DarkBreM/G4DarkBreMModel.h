@@ -258,11 +258,12 @@ class G4DarkBreMModel : public PrototypeModel {
    * energy depends on the input G4DarkBreMModel::ScalingMethod. 
    * In all cases, the azimuthal angle is chosen uniformly between 0 and \f$2\pi\f$.
    *
+   * @param[in] target_Z atomic Z of target nucleus
    * @param[in] incident_energy incident total energy of the lepton [GeV] 
    * @param[in] lepton_mass mass of incident lepton [GeV]
    * @return G4ThreeVector representing the recoil lepton's outgoing momentum
    */
-  G4ThreeVector scale(double incident_energy, double lepton_mass);
+  G4ThreeVector scale(double target_Z, double incident_energy, double lepton_mass);
 
   /**
    * Simulates the emission of a dark photon + lepton
@@ -278,9 +279,11 @@ class G4DarkBreMModel : public PrototypeModel {
    * track
    * @param[in] track current track being processesed
    * @param[in] step current step of the track
+   * @param[in] element element we are going to dark brem off of
    */
   virtual void GenerateChange(G4ParticleChange& particleChange,
-                              const G4Track& track, const G4Step& step);
+                              const G4Track& track, const G4Step& step,
+                              const G4Element& element);
 
  private:
   /**
@@ -322,10 +325,11 @@ class G4DarkBreMModel : public PrototypeModel {
    * Samples from the closest imported incident energy _above_ the given value
    * (this helps avoid biasing issues).
    *
+   * @param target_Z atomic Z of target nucleus
    * @param incident_energy energy of particle undergoing dark brem [GeV]
    * @return sample outgoing kinematics
    */
-  OutgoingKinematics sample(double incident_energy);
+  OutgoingKinematics sample(double target_Z, double incident_energy);
 
  private:
   /**
@@ -396,22 +400,22 @@ class G4DarkBreMModel : public PrototypeModel {
   /**
    * Storage of data from mad graph
    *
-   * Maps incoming lepton energy to various options for outgoing kinematics.
+   * Maps target Z and incoming lepton energy to various options for outgoing kinematics.
    * This is a hefty map and is what stores **all** of the events
    * imported from the LHE library of dark brem events.
    */
-  std::map<double, std::vector<OutgoingKinematics> > madGraphData_;
+  std::map<int, std::map<double, std::vector<OutgoingKinematics>> > madGraphData_;
 
   /**
    * Stores a map of current access points to mad graph data.
    *
-   * Maps incoming lepton energy to the index of the data vector
+   * Maps target Z and incoming lepton energy to the index of the data vector
    * that we will get the data from.
    *
    * Also sorts the incoming lepton energy so that we can find
    * the sampling energy that is closest above the actual incoming energy.
    */
-  std::map<double, unsigned int> currentDataPoints_;
+  std::map<int, std::map<double, unsigned int>> currentDataPoints_;
 };
 
 }  // namespace g4db

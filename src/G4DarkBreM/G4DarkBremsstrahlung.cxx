@@ -97,6 +97,10 @@ G4DarkBremsstrahlung::G4DarkBremsstrahlung(
   }
 }
 
+void G4DarkBremsstrahlung::RegisterStorageMechanism(void (*f)(const G4Element&)) {
+  storage_func_ = f;
+}
+
 G4bool G4DarkBremsstrahlung::IsApplicable(const G4ParticleDefinition& p) {
   if (model_->DarkBremOffMuons()) return &p == G4MuonMinus::Definition() or &p == G4MuonPlus::Definition();
   else return &p == G4Electron::Definition();
@@ -156,8 +160,36 @@ G4VParticleChange* G4DarkBremsstrahlung::PostStepDoIt(const G4Track& track,
   if (GetVerboseLevel() > 2) G4cout << "Initializing track" << G4endl;
   aParticleChange.Initialize(track);
 
+  const G4ElementVector* elements = track.GetMaterial()->GetElementVector();
+  int n_elements = track.GetMaterial()->GetNumberOfElements();
+  const G4Element* element = nullptr;
+  if (n_elements > 1) {
+    // more than one element, need to pick one at random weighted by
+    // their relative cross sections
+    // In our case, the partial_sum_sigma_ is the cumulative distribution
+    // function of a weighted, discrete sample
+    double rand_val = G4UniformRand() * partial_sum_sigma_[n_elements-1];
+
+    // in case our random value is not <= to any of the other partial sums
+    element = (*elements)[n_elements-1];
+    // loop through the partial sums and if our random value is <= to one of
+    // them, then that is the index of the element that was selected
+    for (int i_element{0}; i_element < n_elements-1; ++i_element) {
+      if (rand_val <= partial_sum_sigma_[i_element]) {
+        element = (*elements)[i_element];
+        break;
+      }
+    }
+
+  } else {
+    // only one element, this is easy
+    element = (*elements)[0];
+  }
+
+  if (storage_func_) storage_func_(*element);
+
   if (GetVerboseLevel() > 2) G4cout << "Calling model's GenerateChange" << G4endl;
-  model_->GenerateChange(aParticleChange, track, step);
+  model_->GenerateChange(aParticleChange, track, step, *element);
 
   /*
    * Parent class has some internal counters that need to be reset,
@@ -178,7 +210,9 @@ G4double G4DarkBremsstrahlung::GetMeanFreePath(const G4Track& track, G4double,
   G4Material* materialWeAreIn = track.GetMaterial();
   const G4ElementVector* theElementVector = materialWeAreIn->GetElementVector();
   const G4double* NbOfAtomsPerVolume = materialWeAreIn->GetVecNbOfAtomsPerVolume();
-  
+
+  // simple resize so we save time when stepping through the same material
+  partial_sum_sigma_.resize(materialWeAreIn->GetNumberOfElements());
   for (size_t i = 0; i < materialWeAreIn->GetNumberOfElements(); i++) {
     G4double AtomicZ = (*theElementVector)[i]->GetZ();
     G4double AtomicA = (*theElementVector)[i]->GetA() / (g / mole);
@@ -194,6 +228,7 @@ G4double G4DarkBremsstrahlung::GetMeanFreePath(const G4Track& track, G4double,
           model_->ComputeCrossSectionPerAtom(energy, AtomicA, AtomicZ);
   
     SIGMA += NbOfAtomsPerVolume[i] * element_xsec;
+    partial_sum_sigma_[i] = SIGMA;
   }
   SIGMA *= global_bias_;
   if (GetVerboseLevel() > 3) {
