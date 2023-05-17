@@ -41,7 +41,7 @@ void usage() {
       "  -E,--incident-energy  : energy of incident lepton in GeV\n"
       "  -Z,--target-Z         : atomic Z of target nucleus to scale to\n"
       "  -N,--num-events       : number of events to sample and scale\n"
-      "  -M,--ap-mass          : mass of dark photon in GeV\n"
+      "  -M,--ap-mass          : mass of dark photon in MeV\n"
       "  --muons               : pass to set lepton to muons (otherwise electrons)\n"
       << std::flush;
 }

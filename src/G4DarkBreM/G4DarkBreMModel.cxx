@@ -562,7 +562,7 @@ G4DarkBreMModel::sample(double target_Z, double incident_energy) {
     samplingZ = Z_submap.first; // move samplingZ up
     // check if we went under the sampling Z
     // this works since the std::map keys are sorted
-    if (target_Z < samplingZ) break;
+    if (target_Z <= samplingZ) break;
   }
   double samplingE = 0.;
   for (const auto &beam_index : currentDataPoints_[samplingZ]) {
@@ -570,7 +570,7 @@ G4DarkBreMModel::sample(double target_Z, double incident_energy) {
     // check if went under the sampling energy
     //  the map is sorted by key, so we can be done right after E0 goes under
     //  samplingE
-    if (incident_energy < samplingE) break;
+    if (incident_energy <= samplingE) break;
   }
   // now samplingE is the closest energy above E0 or the maximum energy imported
   // from mad graph
