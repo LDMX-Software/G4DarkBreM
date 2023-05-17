@@ -386,10 +386,10 @@ G4double G4DarkBreMModel::ComputeCrossSectionPerAtom(
   return cross;
 }
 
-G4ThreeVector G4DarkBreMModel::scale(double incident_energy, double lepton_mass) {
+G4ThreeVector G4DarkBreMModel::scale(double target_Z, double incident_energy, double lepton_mass) {
   // mass A' in GeV
   static const double MA = G4APrime::APrime()->GetPDGMass() / CLHEP::GeV;
-  OutgoingKinematics data = sample(incident_energy);
+  OutgoingKinematics data = sample(target_Z, incident_energy);
   double EAcc = (data.lepton.e() - lepton_mass) *
                     ((incident_energy - lepton_mass - MA) / (data.E - lepton_mass - MA))
                 + lepton_mass;
@@ -400,7 +400,7 @@ G4ThreeVector G4DarkBreMModel::scale(double incident_energy, double lepton_mass)
     while (Pt * Pt + lepton_mass * lepton_mass > EAcc * EAcc) {
       // Skip events until the transverse energy is less than the total energy.
       i++;
-      data = sample(incident_energy);
+      data = sample(target_Z, incident_energy);
       EAcc = (data.lepton.e() - lepton_mass) *
                  ((incident_energy - lepton_mass - MA) / (data.E - lepton_mass - MA))
              + lepton_mass;
@@ -463,7 +463,7 @@ void G4DarkBreMModel::GenerateChange(
   // convert to energy units in LHE files [GeV]
   G4double incidentEnergy = step.GetPostStepPoint()->GetTotalEnergy()/CLHEP::GeV;
 
-  G4ThreeVector recoilMomentum = scale(incidentEnergy, Ml);
+  G4ThreeVector recoilMomentum = scale(element.GetZ(), incidentEnergy, Ml);
   recoilMomentum.rotateUz(track.GetMomentumDirection());
 
   // create g4dynamicparticle object for the dark photon.
@@ -527,9 +527,12 @@ void G4DarkBreMModel::SetMadGraphDataLibrary(const std::string& path) {
    */
   if (GetVerboseLevel() > 1) {
     G4cout << "MadGraph Library of Dark Brem Events:\n";
-    for (const auto &kV : madGraphData_) {
-      G4cout << "\t" << kV.first << " GeV Beam -> "
-                << kV.second.size() << " Events\n";
+    for (const auto &Z_submap : madGraphData_) {
+      G4cout << "  Target Z: " << Z_submap.first << "\n";
+      for (const auto &beam_events : Z_submap.second) {
+        G4cout << "\t" << beam_events.first << " GeV Beam -> "
+               << beam_events.second.size() << " Events\n";
+      }
     }
     G4cout << G4endl;
   }
@@ -540,20 +543,30 @@ void G4DarkBreMModel::SetMadGraphDataLibrary(const std::string& path) {
 void G4DarkBreMModel::MakePlaceholders() {
   currentDataPoints_.clear();
   maxIterations_ = 10000;
-  for (const auto &iter : madGraphData_) {
-    currentDataPoints_[iter.first] = int(G4UniformRand() * iter.second.size());
-    if (iter.second.size() < maxIterations_)
-      maxIterations_ = iter.second.size();
+  for (const auto &Z_submap : madGraphData_) {
+    for (const auto &beam_events : Z_submap.second) {
+      currentDataPoints_[Z_submap.first][beam_events.first] = int(G4UniformRand() * beam_events.second.size());
+      if (beam_events.second.size() < maxIterations_)
+        maxIterations_ = beam_events.second.size();
+    }
   }
 }
 
 OutgoingKinematics
-G4DarkBreMModel::sample(double incident_energy) {
-  // Cycle through imported beam energies until the closest one above is found,
+G4DarkBreMModel::sample(double target_Z, double incident_energy) {
+  // Cycle through imported targets and beam energies until the closest one above is found,
   // or the max is reached.
+  // We pick a target Z and then a beam energy.
+  int samplingZ = 0;
+  for (const auto &Z_submap : currentDataPoints_) {
+    samplingZ = Z_submap.first; // move samplingZ up
+    // check if we went under the sampling Z
+    // this works since the std::map keys are sorted
+    if (target_Z < samplingZ) break;
+  }
   double samplingE = 0.;
-  for (const auto &keyVal : currentDataPoints_) {
-    samplingE = keyVal.first;  // move samplingE up
+  for (const auto &beam_index : currentDataPoints_[samplingZ]) {
+    samplingE = beam_index.first;  // move samplingE up
     // check if went under the sampling energy
     //  the map is sorted by key, so we can be done right after E0 goes under
     //  samplingE
@@ -564,13 +577,13 @@ G4DarkBreMModel::sample(double incident_energy) {
 
   // Need to loop around if we hit the end, in case our random
   // starting position happens to be late enough in the file
-  if (currentDataPoints_.at(samplingE) >= madGraphData_.at(samplingE).size()) {
-    currentDataPoints_[samplingE] = 0;
+  if (currentDataPoints_.at(samplingZ).at(samplingE) >= madGraphData_.at(samplingZ).at(samplingE).size()) {
+    currentDataPoints_[samplingZ][samplingE] = 0;
   }
 
   // increment the current index _after_ getting its entry from
   // the in-memory library
-  return madGraphData_.at(samplingE).at(currentDataPoints_[samplingE]++);
+  return madGraphData_.at(samplingZ).at(samplingE).at(currentDataPoints_[samplingZ][samplingE]++);
 }
 
 }  // namespace g4db
