@@ -39,8 +39,9 @@ void usage() {
       "  -h,--help             : produce this help and exit\n"
       "  -o,--output           : output file to write scaled events to\n"
       "  -E,--incident-energy  : energy of incident lepton in GeV\n"
+      "  -Z,--target-Z         : atomic Z of target nucleus to scale to\n"
       "  -N,--num-events       : number of events to sample and scale\n"
-      "  -M,--ap-mass          : mass of dark photon in GeV\n"
+      "  -M,--ap-mass          : mass of dark photon in MeV\n"
       "  --muons               : pass to set lepton to muons (otherwise electrons)\n"
       << std::flush;
 }
@@ -56,6 +57,7 @@ void usage() {
 int main(int argc, char* argv[]) try {
   std::string output_filename{"scaled.csv"};
   double incident_energy{4};
+  double target_Z{74.0};
   int num_events{10};
   std::string db_lib;
   double ap_mass{0.1};
@@ -79,6 +81,12 @@ int main(int argc, char* argv[]) try {
         return 1;
       }
       incident_energy = std::stod(argv[++i_arg]);
+    } else if (arg == "-Z" or arg == "--target-Z") {
+      if (i_arg+1 >= argc) {
+        std::cerr << arg << " requires an argument after it" << std::endl;
+        return 1;
+      }
+      target_Z = std::stod(argv[++i_arg]);
     } else if (arg == "-M" or arg == "--ap-mass") {
       if (i_arg+1 >= argc) {
         std::cerr << arg << " requires an argument after it" << std::endl;
@@ -132,7 +140,7 @@ int main(int argc, char* argv[]) try {
   f << "recoil_energy,recoil_px,recoil_py,recoil_pz\n";
 
   for (int i_event{0}; i_event < num_events; ++i_event) {
-    G4ThreeVector recoil = db_model.scale(incident_energy, lepton_mass);
+    G4ThreeVector recoil = db_model.scale(target_Z, incident_energy, lepton_mass);
     double recoil_energy = sqrt(recoil.mag2() + lepton_mass*lepton_mass);
 
     f << recoil_energy << ','

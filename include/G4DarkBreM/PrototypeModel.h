@@ -110,9 +110,11 @@ class PrototypeModel {
    * @param[in,out] particleChange particle change class that stores information
    * @param[in] track current track that needs the change
    * @param[in] step current step of the track
+   * @param[in] element the element selected to dark brem off of
    */
   virtual void GenerateChange(G4ParticleChange& particleChange,
-                              const G4Track& track, const G4Step& step) = 0;
+                              const G4Track& track, const G4Step& step,
+                              const G4Element& element) = 0;
 
  protected:
   /// whether muons (true) or electrons (false) are dark bremming

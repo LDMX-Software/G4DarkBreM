@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) try {
     return 2;
   }
 
-  std::map<double, std::vector<g4db::OutgoingKinematics>> lib;
+  std::map<int, std::map<double, std::vector<g4db::OutgoingKinematics>>> lib;
   parseLibrary(db_lib, aprime_id, lib);
   dumpLibrary(output, lib);
 

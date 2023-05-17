@@ -50,6 +50,16 @@ namespace parse {
  *   aprime_id 1 <skip> <skip> <skip> <skip> px py pz E m
  * ```
  *
+ * We also check each line if it contains a 'Znuc' string. Looking
+ * for the target Z value from this line matching the following format.
+ * ```
+ *     <num>   <Z> # Znuc <other comments>
+ * ```
+ * This is supposed to match a line of the param_card dumped into the header
+ * of the LHE. In other words, this parser should function properly if your
+ * MG/ME model has a configurable parameter in param_card.dat for the target
+ * Z and that parameter is called 'Znuc'.
+ *
  * This matches a subcomponent of the LHE scheme written by MadGraph/MadEvent
  * (hence the reason this is the "lhe" parser); however, a lot of information
  * is skipped and additional assumptions are made in order to increase the 
@@ -67,10 +77,20 @@ namespace parse {
  * @param[in] aprime_lhe_id ID number of the dark photon within the LHE file
  * @param[in,out] lib dark brem event library to fill
  */
-void lhe(boost::iostreams::filtering_istream& reader, int aprime_lhe_id, std::map<double, std::vector<OutgoingKinematics>>& lib) {
+void lhe(boost::iostreams::filtering_istream& reader, int aprime_lhe_id, std::map<int, std::map<double, std::vector<OutgoingKinematics>>>& lib) {
   std::string line;
+  int target_Z{-1};
   while (std::getline(reader,line)) {
     std::istringstream iss(line);
+    if (line.find("Znuc") != std::string::npos) {
+      int param_id;
+      double Znuc_param;
+      if (iss >> param_id >> Znuc_param) {
+        target_Z = int(Znuc_param);
+      } else {
+        throw std::runtime_error("Unable to deduce target Z from line '"+line+"'.");
+      }
+    }
     int ptype, state;
     double skip, px, py, pz, E, M;
     if (iss >> ptype >> state >> skip >> skip >> skip >> skip 
@@ -100,7 +120,10 @@ void lhe(boost::iostreams::filtering_istream& reader, int aprime_lhe_id, std::ma
             evnt.lepton = CLHEP::HepLorentzVector(e_px, e_py, e_pz, e_E);
             evnt.centerMomentum = CLHEP::HepLorentzVector(cmpx, cmpy, cmpz, cmE);
             evnt.E = incident_energy;
-            lib[incident_energy].push_back(evnt);
+            if (target_Z < 0) {
+              throw std::runtime_error("Did not deduce target Z before starting to deduce events.");
+            }
+            lib[target_Z][incident_energy].push_back(evnt);
           }  // get a prime kinematics
         }    // check for final state
       }      // check for particle type and state
@@ -115,17 +138,18 @@ void lhe(boost::iostreams::filtering_istream& reader, int aprime_lhe_id, std::ma
  * names the columns. These column names have no requirements
  * (besides the existence of this line).
  *
- * The CSV is required to have 9 columns on all non-empty lines of the file.
- * The 9 columns of the CSV all are in MeV and _in order_ are
- * 1. The incident lepton energy
- * 2. The total energy of the recoil
- * 3. The x-component of the recoil momentum
- * 4. The y-component of the recoil momentum
- * 5. The z-component of the recoil momentum
- * 6. The total energy of the A'
- * 7. The x-component of the A' momentum
- * 8. The y-component of the A' momentum
- * 9. The z-component of the A' momentum
+ * The CSV is required to have 10 columns on all non-empty lines of the file.
+ * The 10 columns of the CSV all are in MeV and _in order_ are
+ * 1. The target Z
+ * 2. The incident lepton energy
+ * 3. The total energy of the recoil
+ * 4. The x-component of the recoil momentum
+ * 5. The y-component of the recoil momentum
+ * 6. The z-component of the recoil momentum
+ * 7. The total energy of the A'
+ * 8. The x-component of the A' momentum
+ * 9. The y-component of the A' momentum
+ * 10. The z-component of the A' momentum
  *
  * @note If developing this function, make sure to update dumpLibrary
  * so that they can be used in conjuction.
@@ -133,7 +157,7 @@ void lhe(boost::iostreams::filtering_istream& reader, int aprime_lhe_id, std::ma
  * @param[in] reader input stream reading the file
  * @param[in,out] lib dark brem event library to fill
  */
-void csv(boost::iostreams::filtering_istream& reader, std::map<double, std::vector<OutgoingKinematics>>& lib) {
+void csv(boost::iostreams::filtering_istream& reader, std::map<int, std::map<double, std::vector<OutgoingKinematics>>>& lib) {
   std::string line;
   // skip the header line
   if (not std::getline(reader, line)) {
@@ -148,20 +172,21 @@ void csv(boost::iostreams::filtering_istream& reader, std::map<double, std::vect
       vals.push_back(std::stod(cell));
     }
     if (not lss and cell.empty()) vals.push_back(-9999);
-    if (vals.size() != 9) {
+    if (vals.size() != 10) {
       throw std::runtime_error("Malformed row in CSV file: not exactly 9 columns");
     }
     OutgoingKinematics ok;
-    ok.E = vals[0];
-    ok.lepton = CLHEP::HepLorentzVector(vals[2], vals[3], vals[4], vals[1]);
-    ok.centerMomentum = CLHEP::HepLorentzVector(vals[6], vals[7], vals[8], vals[5]);
-    lib[ok.E].push_back(ok);
+    int target_Z = vals[0]; // implicit drop of any decimal points
+    ok.E = vals[1];
+    ok.lepton = CLHEP::HepLorentzVector(vals[3], vals[4], vals[5], vals[2]);
+    ok.centerMomentum = CLHEP::HepLorentzVector(vals[7], vals[8], vals[9], vals[6]);
+    lib[target_Z][ok.E].push_back(ok);
   }
 }
 
 }  // namspace parser
 
-void parseLibrary(const std::string& path, int aprime_lhe_id, std::map<double, std::vector<OutgoingKinematics>>& lib) {
+void parseLibrary(const std::string& path, int aprime_lhe_id, std::map<int, std::map<double, std::vector<OutgoingKinematics>>>& lib) {
   if (hasEnding(path, ".csv") or hasEnding(path, ".csv.gz") or hasEnding(path, ".lhe") or hasEnding(path, ".lhe.gz")) {
     /**
      * If the input path has one of the four file extensions below,
@@ -218,24 +243,27 @@ void parseLibrary(const std::string& path, int aprime_lhe_id, std::map<double, s
   }
 }
 
-void dumpLibrary(std::ostream& o, const std::map<double, std::vector<OutgoingKinematics>>& lib) {
+void dumpLibrary(std::ostream& o, const std::map<int, std::map<double, std::vector<OutgoingKinematics>>>& lib) {
   /**
    * This function writes out the input library as CSV to the input output stream
    * in the same format as expected by parse::csv.
    */
-  o << "incident_energy,recoil_energy,recoil_px,recoil_py,recoil_pz,"
+  o << "target_Z,incident_energy,recoil_energy,recoil_px,recoil_py,recoil_pz,"
          "centerMomentum_energy,centerMomentum_px,centerMomentum_py,centerMomentum_pz\n";
-  for (const auto& lib_entry : lib) {
-    for (const auto& sample : lib_entry.second) {
-      o << sample.E << ','
-        << sample.lepton.e() << ','
-        << sample.lepton.px() << ','
-        << sample.lepton.py() << ','
-        << sample.lepton.pz() << ','
-        << sample.centerMomentum.e() << ','
-        << sample.centerMomentum.px() << ','
-        << sample.centerMomentum.py() << ','
-        << sample.centerMomentum.pz() << '\n';
+  for (const auto& Z_submap : lib) {
+    for (const auto& beam_events : Z_submap.second) {
+      for (const auto& sample : beam_events.second) {
+        o << Z_submap.first << ','
+          << sample.E << ','
+          << sample.lepton.e() << ','
+          << sample.lepton.px() << ','
+          << sample.lepton.py() << ','
+          << sample.lepton.pz() << ','
+          << sample.centerMomentum.e() << ','
+          << sample.centerMomentum.px() << ','
+          << sample.centerMomentum.py() << ','
+          << sample.centerMomentum.pz() << '\n';
+      }
     }
   }
   o.flush();
