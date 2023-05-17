@@ -82,9 +82,9 @@ struct OutgoingKinematics {
  *
  * @param[in] path path to library to parse
  * @param[in] aprime_lhe_id the ID number for the A' (aka dark photon) in the library being parsed
- * @param[in,out] lib map of incident energy keys to set of outgoing kinematics
+ * @param[in,out] lib map of target Z and incident energy keys to set of outgoing kinematics
  */
-void parseLibrary(const std::string& path, int aprime_lhe_id, std::map<double, std::vector<OutgoingKinematics>>& lib);
+void parseLibrary(const std::string& path, int aprime_lhe_id, std::map<int, std::map<double, std::vector<OutgoingKinematics>>>& lib);
 
 /**
  * Dump the input library to the input output stream
@@ -95,7 +95,7 @@ void parseLibrary(const std::string& path, int aprime_lhe_id, std::map<double, s
  * @param[in,out] o output stream to write CSV to
  * @param[in] lib library to write out
  */
-void dumpLibrary(std::ostream& o, const std::map<double, std::vector<OutgoingKinematics>>& lib);
+void dumpLibrary(std::ostream& o, const std::map<int, std::map<double, std::vector<OutgoingKinematics>>>& lib);
 
 }
 
