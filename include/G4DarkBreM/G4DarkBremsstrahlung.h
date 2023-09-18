@@ -9,11 +9,10 @@
 #define G4DARKBREM_G4DARKBREMSSTRAHLUNG_H_
 
 // Geant
-#include "G4VDiscreteProcess.hh"
-
-#include "G4DarkBreM/PrototypeModel.h"
 #include "G4DarkBreM/ElementXsecCache.h"
 #include "G4DarkBreM/ElementXsecInterpolation.h"
+#include "G4DarkBreM/PrototypeModel.h"
+#include "G4VDiscreteProcess.hh"
 
 class G4String;
 class G4ParticleDefinition;
@@ -54,18 +53,22 @@ class G4DarkBremsstrahlung : public G4VDiscreteProcess {
    * to the electron table (and vis-versa).
    *
    * @param[in] the_model model to use for dark brem simulation
-   * @param[in] only_one_per_event true if de-activating process after first dark brem
+   * @param[in] only_one_per_event true if de-activating process after first
+   * dark brem
    * @param[in] global_bias bias xsec globally by this factor
-   * @param[in] interpolate_xsec true if we should interpolate cross sections over 10% energy differences
-   * @param[in] cache_xsec true if we should cache xsecs at the MeV level of precision
-   * @param[in] verbose_level level of verbosity to print for this process and model
-   * @param[in] subtype subtype for this process distinct from other EM 
+   * @param[in] interpolate_xsec true if we should interpolate cross sections
+   * over 10% energy differences
+   * @param[in] cache_xsec true if we should cache xsecs at the MeV level of
+   * precision
+   * @param[in] verbose_level level of verbosity to print for this process and
+   * model
+   * @param[in] subtype subtype for this process distinct from other EM
    * processes in use (detail below)
    */
   G4DarkBremsstrahlung(std::shared_ptr<g4db::PrototypeModel> the_model,
-      bool only_one_per_event = false, double global_bias = 1., 
-      bool interp_xsec = true, bool cache_xsec = false, 
-      int verbose_level = 0, int subtype = 63);
+                       bool only_one_per_event = false, double global_bias = 1.,
+                       bool interp_xsec = true, bool cache_xsec = false,
+                       int verbose_level = 0, int subtype = 63);
 
   /**
    * Destructor
@@ -73,7 +76,8 @@ class G4DarkBremsstrahlung : public G4VDiscreteProcess {
   virtual ~G4DarkBremsstrahlung() = default;
 
   /**
-   * Register a storage mechanism for saving the material in-which the brem occurred
+   * Register a storage mechanism for saving the material in-which the brem
+   * occurred
    *
    * @param[in] f function that stores information from G4Element as desired
    */
@@ -226,4 +230,3 @@ class G4DarkBremsstrahlung : public G4VDiscreteProcess {
 };  // G4DarkBremsstrahlung
 
 #endif
-

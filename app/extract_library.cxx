@@ -1,10 +1,10 @@
-/** 
+/**
  * @file extract_library.cxx
  * definition of g4db-extract-library executable
  */
 
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
 #include "G4DarkBreM/ParseLibrary.h"
 
@@ -12,20 +12,21 @@
  * printout how to use g4db-extract-library
  */
 void usage() {
-  std::cout << 
-      "USAGE:\n"
-      "  g4db-extract-library [options] db-lib\n"
-      "\n"
-      "  Extract the input DB event library into a single CSV file\n"
-      "\n"
-      "ARGUMENTS\n"
-      "  db-lib : dark brem event library to load and extract\n"
-      "\n"
-      "OPTIONS\n"
-      "  -h,--help             : produce this help and exit\n"
-      "  -o,--output           : output file to write extracted events to\n"
-      "                          use the input library name with the '.csv' extension added by default\n"
-      "  --aprime-id           : A' ID number as used in the LHE files\n"
+  std::cout
+      << "USAGE:\n"
+         "  g4db-extract-library [options] db-lib\n"
+         "\n"
+         "  Extract the input DB event library into a single CSV file\n"
+         "\n"
+         "ARGUMENTS\n"
+         "  db-lib : dark brem event library to load and extract\n"
+         "\n"
+         "OPTIONS\n"
+         "  -h,--help             : produce this help and exit\n"
+         "  -o,--output           : output file to write extracted events to\n"
+         "                          use the input library name with the '.csv' "
+         "extension added by default\n"
+         "  --aprime-id           : A' ID number as used in the LHE files\n"
       << std::flush;
 }
 
@@ -42,13 +43,13 @@ int main(int argc, char* argv[]) try {
       usage();
       return 0;
     } else if (arg == "-o" or arg == "--output") {
-      if (i_arg+1 >= argc) {
+      if (i_arg + 1 >= argc) {
         std::cerr << arg << " requires an argument after it" << std::endl;
         return 1;
       }
       output_filename = argv[++i_arg];
     } else if (arg == "--aprime-id") {
-      if (i_arg+1 >= argc) {
+      if (i_arg + 1 >= argc) {
         std::cerr << arg << " requires an argument after it" << std::endl;
         return 1;
       }
@@ -69,12 +70,13 @@ int main(int argc, char* argv[]) try {
   if (output_filename.empty()) {
     // remove trailing slash if present
     if (db_lib.back() == '/') db_lib.pop_back();
-    output_filename = db_lib+".csv";
+    output_filename = db_lib + ".csv";
   }
 
   std::ofstream output{output_filename};
   if (not output.is_open()) {
-    std::cerr << "ERROR: Unable to open " << output_filename << " for writing." << std::endl;
+    std::cerr << "ERROR: Unable to open " << output_filename << " for writing."
+              << std::endl;
     return 2;
   }
 
