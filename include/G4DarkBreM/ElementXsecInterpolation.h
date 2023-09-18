@@ -40,7 +40,8 @@ class ElementXsecInterpolation {
    * limit immediately - i.e. if energy is less than twice the A'
    * mass, the cross section is zero.
    *
-   * @throws std::runtime_error if no model is available for calculating cross sections
+   * @throws std::runtime_error if no model is available for calculating cross
+   * sections
    * @param[in] energy Energy of incident lepton [MeV]
    * @param[in] A atomic mass of element [atomic mass units]
    * @param[in] Z atomic number of element [num protons]
@@ -63,14 +64,15 @@ class ElementXsecInterpolation {
    * @param[in] c interpolation to write out
    * @returns modified ostream
    */
-  friend std::ostream& operator<<(std::ostream& o, const ElementXsecInterpolation c) {
+  friend std::ostream& operator<<(std::ostream& o,
+                                  const ElementXsecInterpolation c) {
     c.stream(o);
     return o;
   }
 
  private:
   /**
-   * A sample set is two parallel vectors limited to operate for 
+   * A sample set is two parallel vectors limited to operate for
    * our interpolation goal
    */
   class SampleSet {
@@ -102,7 +104,7 @@ class ElementXsecInterpolation {
 
     /**
      * prepend the sample set with the input point
-     * 
+     *
      * We assume that the input x is less than the current
      * minimum x. In debug build mode, this assumption is
      * enforced by assert.
@@ -114,7 +116,7 @@ class ElementXsecInterpolation {
 
     /**
      * append the sample set with the input point
-     * 
+     *
      * We assume that the input x is greater than the current
      * maximum x. In debug build mode, this assumption is
      * enforced by assert.
@@ -172,6 +174,6 @@ class ElementXsecInterpolation {
 
 };  // ElementXsecInterpolation
 
-}
+}  // namespace g4db
 
 #endif
