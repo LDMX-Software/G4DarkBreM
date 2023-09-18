@@ -7,30 +7,29 @@
 
 #include "G4DarkBreM/G4DarkBremsstrahlung.h"
 
+#include "G4DarkBreM/G4APrime.h"
 #include "G4Electron.hh"      //for electron definition
+#include "G4EventManager.hh"  //for EventID number
 #include "G4MuonMinus.hh"     //for muon definition
 #include "G4MuonPlus.hh"      //for muon definition
-#include "G4EventManager.hh"  //for EventID number
 #include "G4ProcessTable.hh"  //for deactivating dark brem process
 #include "G4ProcessType.hh"   //for type of process
 #include "G4RunManager.hh"    //for VerboseLevel
 
-#include "G4DarkBreM/G4APrime.h"
-
 const std::string G4DarkBremsstrahlung::PROCESS_NAME = "DarkBrem";
 
 G4DarkBremsstrahlung::G4DarkBremsstrahlung(
-    std::shared_ptr<g4db::PrototypeModel> the_model,
-    bool only_one_per_event, double global_bias, 
-    bool interpolate_xsec, bool cache_xsec, 
+    std::shared_ptr<g4db::PrototypeModel> the_model, bool only_one_per_event,
+    double global_bias, bool interpolate_xsec, bool cache_xsec,
     int verbose_level, int subtype)
-    : G4VDiscreteProcess(G4DarkBremsstrahlung::PROCESS_NAME,
-                         fElectromagnetic),
-      only_one_per_event_{only_one_per_event}, global_bias_{global_bias}, 
-      interpolate_xsec_{interpolate_xsec}, cache_xsec_{cache_xsec},
+    : G4VDiscreteProcess(G4DarkBremsstrahlung::PROCESS_NAME, fElectromagnetic),
+      only_one_per_event_{only_one_per_event},
+      global_bias_{global_bias},
+      interpolate_xsec_{interpolate_xsec},
+      cache_xsec_{cache_xsec},
       model_{the_model} {
   /**
-   * @note we need to pretend to be an electromagnetic process 
+   * @note we need to pretend to be an electromagnetic process
    * so that the biasing framework can recognize us.
    * This introduces the extra complexity of needing to be a specific
    * EM subtype that is different from the other EM subtypes since
@@ -42,7 +41,7 @@ G4DarkBremsstrahlung::G4DarkBremsstrahlung(
    * listed there. You can use G4ProcessManager::GetProcessList in order
    * to find out what EM subtypes are available in your specific physics
    * list configuration. Deducing an available sub type from the current
-   * process list in code is dangerous since there may be more processes 
+   * process list in code is dangerous since there may be more processes
    * constructed after us.
    */
   SetProcessSubType(subtype);
@@ -61,32 +60,35 @@ G4DarkBremsstrahlung::G4DarkBremsstrahlung(
     particle_def = G4MuonMinus::Definition();
   }
   if (GetVerboseLevel() > 0) {
-    G4cout << "[ G4DarkBremsstrahlung ] : Connecting dark brem to " 
-      << particle_def->GetParticleName() << " "
-      << particle_def->GetPDGEncoding() << G4endl;
+    G4cout << "[ G4DarkBremsstrahlung ] : Connecting dark brem to "
+           << particle_def->GetParticleName() << " "
+           << particle_def->GetPDGEncoding() << G4endl;
   }
   G4int ret = particle_def->GetProcessManager()->AddDiscreteProcess(this);
   if (ret < 0) {
-    throw std::runtime_error("Particle process manager returned a non-zero status "
-        + std::to_string(ret) + " when attempting to register dark brem to it.");
+    throw std::runtime_error(
+        "Particle process manager returned a non-zero status " +
+        std::to_string(ret) + " when attempting to register dark brem to it.");
   } else if (GetVerboseLevel() > 0) {
-    G4cout
-      << "[ G4DarkBremsstrahlung ] : successfully put dark brem in index " 
-      << ret << " of process table." << G4endl;
+    G4cout << "[ G4DarkBremsstrahlung ] : successfully put dark brem in index "
+           << ret << " of process table." << G4endl;
   }
   /**
    * We have our custom dark brem process go first in any process ordering
    * so that we always have the opportunity to dark brem if the cross section
    * allows it.
    */
-  particle_def->GetProcessManager()->SetProcessOrderingToFirst(this,
-      G4ProcessVectorDoItIndex::idxAll);
+  particle_def->GetProcessManager()->SetProcessOrderingToFirst(
+      this, G4ProcessVectorDoItIndex::idxAll);
   if (GetVerboseLevel() > 0) {
-    G4cout << "[ G4DarkBremsstrahlung ] : set dark brem process ordering to first" << G4endl;
+    G4cout
+        << "[ G4DarkBremsstrahlung ] : set dark brem process ordering to first"
+        << G4endl;
   }
 
   if (interpolate_xsec_ and cache_xsec_) {
-    throw std::runtime_error("Cannot cache and interpolate the cross section,"
+    throw std::runtime_error(
+        "Cannot cache and interpolate the cross section,"
         " must pick to do one or neither.");
   }
 
@@ -97,31 +99,33 @@ G4DarkBremsstrahlung::G4DarkBremsstrahlung(
   }
 }
 
-void G4DarkBremsstrahlung::RegisterStorageMechanism(void (*f)(const G4Element&)) {
+void G4DarkBremsstrahlung::RegisterStorageMechanism(
+    void (*f)(const G4Element&)) {
   storage_func_ = f;
 }
 
 G4bool G4DarkBremsstrahlung::IsApplicable(const G4ParticleDefinition& p) {
-  if (model_->DarkBremOffMuons()) return &p == G4MuonMinus::Definition() or &p == G4MuonPlus::Definition();
-  else return &p == G4Electron::Definition();
+  if (model_->DarkBremOffMuons())
+    return &p == G4MuonMinus::Definition() or &p == G4MuonPlus::Definition();
+  else
+    return &p == G4Electron::Definition();
 }
 
 void G4DarkBremsstrahlung::PrintInfo() {
-  G4cout 
-    << " Muons              : " << model_->DarkBremOffMuons() << "\n"
-    << " Only One Per Event : " << only_one_per_event_ << "\n"
-    << " Global Bias        : " << global_bias_ << "\n"
-    << " Cache Xsec         : " << cache_xsec_ << "\n"
-    << " Interpolate Xsec   : " << interpolate_xsec_
-    << G4endl;
+  G4cout << " Muons              : " << model_->DarkBremOffMuons() << "\n"
+         << " Only One Per Event : " << only_one_per_event_ << "\n"
+         << " Global Bias        : " << global_bias_ << "\n"
+         << " Cache Xsec         : " << cache_xsec_ << "\n"
+         << " Interpolate Xsec   : " << interpolate_xsec_ << G4endl;
   model_->PrintInfo();
 }
 
 G4VParticleChange* G4DarkBremsstrahlung::PostStepDoIt(const G4Track& track,
-                                                       const G4Step& step) {
+                                                      const G4Step& step) {
   // Debugging Purposes: Check if track we get is the configured lepton
   if (not IsApplicable(*track.GetParticleDefinition()))
-    throw std::runtime_error("Dark brem process received a track that isn't applicable."); 
+    throw std::runtime_error(
+        "Dark brem process received a track that isn't applicable.");
 
   /*
    * Geant4 has decided that it is our time to interact,
@@ -132,19 +136,20 @@ G4VParticleChange* G4DarkBremsstrahlung::PostStepDoIt(const G4Track& track,
   if (only_one_per_event_) {
     /**
      * If configured to do so, we deactivate the process after one dark brem.
-     * If this is in the stepping action instead, more than one brem can occur 
-     * within each step. 
+     * If this is in the stepping action instead, more than one brem can occur
+     * within each step.
      *
      * @note In order to use this feature, one must re-activate the DB process
-     * at the end of each event. This could be done in RunManager::TerminateOneEvent
-     * or G4UserEventAction::EndOfEventAction.
+     * at the end of each event. This could be done in
+     * RunManager::TerminateOneEvent or G4UserEventAction::EndOfEventAction.
      *
-     * Both biased and unbiased process could be in the run (but not at the same time),
-     * so we turn off both while silencing the warnings from the process table.
-     * Reactivating the process is essentially the same code as here except using
-     * `true` intead of `false` in SetProcessActivation.
+     * Both biased and unbiased process could be in the run (but not at the same
+     * time), so we turn off both while silencing the warnings from the process
+     * table. Reactivating the process is essentially the same code as here
+     * except using `true` intead of `false` in SetProcessActivation.
      */
-    if (GetVerboseLevel() > 2) G4cout << "Deactivating dark brem process." << G4endl;
+    if (GetVerboseLevel() > 2)
+      G4cout << "Deactivating dark brem process." << G4endl;
     std::vector<G4String> db_process_name_options = {
         "biasWrapper(" + PROCESS_NAME + ")", PROCESS_NAME};
     G4ProcessManager* pman = track.GetDefinition()->GetProcessManager();
@@ -168,13 +173,13 @@ G4VParticleChange* G4DarkBremsstrahlung::PostStepDoIt(const G4Track& track,
     // their relative cross sections
     // In our case, the partial_sum_sigma_ is the cumulative distribution
     // function of a weighted, discrete sample
-    double rand_val = G4UniformRand() * partial_sum_sigma_[n_elements-1];
+    double rand_val = G4UniformRand() * partial_sum_sigma_[n_elements - 1];
 
     // in case our random value is not <= to any of the other partial sums
-    element = (*elements)[n_elements-1];
+    element = (*elements)[n_elements - 1];
     // loop through the partial sums and if our random value is <= to one of
     // them, then that is the index of the element that was selected
-    for (int i_element{0}; i_element < n_elements-1; ++i_element) {
+    for (int i_element{0}; i_element < n_elements - 1; ++i_element) {
       if (rand_val <= partial_sum_sigma_[i_element]) {
         element = (*elements)[i_element];
         break;
@@ -188,7 +193,8 @@ G4VParticleChange* G4DarkBremsstrahlung::PostStepDoIt(const G4Track& track,
 
   if (storage_func_) storage_func_(*element);
 
-  if (GetVerboseLevel() > 2) G4cout << "Calling model's GenerateChange" << G4endl;
+  if (GetVerboseLevel() > 2)
+    G4cout << "Calling model's GenerateChange" << G4endl;
   model_->GenerateChange(aParticleChange, track, step, *element);
 
   /*
@@ -196,12 +202,13 @@ G4VParticleChange* G4DarkBremsstrahlung::PostStepDoIt(const G4Track& track,
    * so we call it before returning. It will return our shared
    * protected member variable aParticleChange that we have been modifying
    */
-  if (GetVerboseLevel() > 2) G4cout << "Calling parent's PostStepDoIt" << G4endl;
+  if (GetVerboseLevel() > 2)
+    G4cout << "Calling parent's PostStepDoIt" << G4endl;
   return G4VDiscreteProcess::PostStepDoIt(track, step);
 }
 
 G4double G4DarkBremsstrahlung::GetMeanFreePath(const G4Track& track, G4double,
-                                                G4ForceCondition*) {
+                                               G4ForceCondition*) {
   // won't happen if it isn't applicable
   if (not IsApplicable(*track.GetParticleDefinition())) return DBL_MAX;
 
@@ -209,16 +216,17 @@ G4double G4DarkBremsstrahlung::GetMeanFreePath(const G4Track& track, G4double,
   G4double SIGMA = 0;
   G4Material* materialWeAreIn = track.GetMaterial();
   const G4ElementVector* theElementVector = materialWeAreIn->GetElementVector();
-  const G4double* NbOfAtomsPerVolume = materialWeAreIn->GetVecNbOfAtomsPerVolume();
+  const G4double* NbOfAtomsPerVolume =
+      materialWeAreIn->GetVecNbOfAtomsPerVolume();
 
   // simple resize so we save time when stepping through the same material
   partial_sum_sigma_.resize(materialWeAreIn->GetNumberOfElements());
   for (size_t i = 0; i < materialWeAreIn->GetNumberOfElements(); i++) {
     G4double AtomicZ = (*theElementVector)[i]->GetZ();
     G4double AtomicA = (*theElementVector)[i]->GetA() / (g / mole);
-  
+
     G4double element_xsec;
-  
+
     if (cache_xsec_)
       element_xsec = element_xsec_cache_.get(energy, AtomicA, AtomicZ);
     else if (interpolate_xsec_)
@@ -226,15 +234,15 @@ G4double G4DarkBremsstrahlung::GetMeanFreePath(const G4Track& track, G4double,
     else
       element_xsec =
           model_->ComputeCrossSectionPerAtom(energy, AtomicA, AtomicZ);
-  
+
     SIGMA += NbOfAtomsPerVolume[i] * element_xsec;
     partial_sum_sigma_[i] = SIGMA;
   }
   SIGMA *= global_bias_;
   if (GetVerboseLevel() > 3) {
-    G4cout << "G4DBrem : sigma = " << SIGMA 
-      << " initIntLenLeft = " << theInitialNumberOfInteractionLength
-      << " nIntLenLeft = " << theNumberOfInteractionLengthLeft << G4endl;
+    G4cout << "G4DBrem : sigma = " << SIGMA
+           << " initIntLenLeft = " << theInitialNumberOfInteractionLength
+           << " nIntLenLeft = " << theNumberOfInteractionLengthLeft << G4endl;
   }
   return SIGMA > DBL_MIN ? 1. / SIGMA : DBL_MAX;
 }

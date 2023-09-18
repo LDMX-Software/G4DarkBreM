@@ -27,14 +27,14 @@ class ElementXsecCache {
   /**
    * Constructor with a model to calculate the cross section.
    */
-  ElementXsecCache(std::shared_ptr<PrototypeModel> model)
-      : model_{model} {}
+  ElementXsecCache(std::shared_ptr<PrototypeModel> model) : model_{model} {}
 
   /**
    * Get the value of the cross section for the input variables
    * and calculate the cross section if it wasn't calculated before.
    *
-   * @throws std::runtime_error if no model is available for calculating cross sections
+   * @throws std::runtime_error if no model is available for calculating cross
+   * sections
    * @param[in] energy Energy of incident lepton [MeV]
    * @param[in] A atomic mass of element [atomic mass units]
    * @param[in] Z atomic number of element [num protons]
@@ -98,6 +98,6 @@ class ElementXsecCache {
 
 };  // ElementXsecCache
 
-}
+}  // namespace g4db
 
 #endif
