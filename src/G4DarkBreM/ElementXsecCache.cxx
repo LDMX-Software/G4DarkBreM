@@ -7,8 +7,8 @@ G4double ElementXsecCache::get(G4double energy, G4double A, G4double Z) {
   if (the_cache_.find(key) == the_cache_.end()) {
     if (model_.get() == nullptr) {
       throw std::runtime_error(
-                      "ElementXsecCache not given a model to calculate cross "
-                      "sections with.");
+          "ElementXsecCache not given a model to calculate cross "
+          "sections with.");
     }
     the_cache_[key] = model_->ComputeCrossSectionPerAtom(energy, A, Z);
   }
@@ -47,4 +47,4 @@ ElementXsecCache::key_t ElementXsecCache::computeKey(G4double energy,
   return (ZKey * MAX_A + AKey) * MAX_E + energyKey;
 }
 
-}
+}  // namespace g4db

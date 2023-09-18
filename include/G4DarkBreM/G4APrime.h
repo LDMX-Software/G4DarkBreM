@@ -19,11 +19,11 @@ class G4DecayTable;
  *
  * This class follows the standard prototype for all G4ParticleDefinitions
  * where a static private member holds onto the single instance of this
- * particle definition to be shared by everyone. In this case, 
- * G4APrime::Initialize needs to be called before any calls to G4APrime::G4APrime
- * so that the simulation has a defined A' mass.
+ * particle definition to be shared by everyone. In this case,
+ * G4APrime::Initialize needs to be called before any calls to
+ * G4APrime::G4APrime so that the simulation has a defined A' mass.
  *
- * The G4APrime::Initialize call should be done in the 
+ * The G4APrime::Initialize call should be done in the
  * ConstructParticle function of a physics constructor.
  */
 class G4APrime : public G4ParticleDefinition {
@@ -67,16 +67,17 @@ class G4APrime : public G4ParticleDefinition {
 
   /**
    * Initialize the APrime particle with the passed configuration
-   * 
+   *
    * @throws std::runtime_error if the APrime has already been initialized
    *
    * @param[in] mass The mass of the APrime in MeV
    * @param[in] id The PDG ID number to use for the APrime particle
    *
    * The default value for the PDG ID is set to 62 and has been arbitrarily
-   * chosen from the range defined by 11(c) in the 
-   * [PDG ID numbering scheme](https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf),
-   * avoiding the already-defined "one-of-a-kind" particles using 39, 41, and 42.
+   * chosen from the range defined by 11(c) in the
+   * [PDG ID numbering
+   * scheme](https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf), avoiding the
+   * already-defined "one-of-a-kind" particles using 39, 41, and 42.
    */
   static void Initialize(double mass, int id = 62);
 };

@@ -1,12 +1,11 @@
 #ifndef G4DARKBREM_G4DARKBREMMODEL_H
 #define G4DARKBREM_G4DARKBREMMODEL_H
 
-#include <memory>
 #include <map>
+#include <memory>
 
 #include "G4DarkBreM/ParseLibrary.h"
 #include "G4DarkBreM/PrototypeModel.h"
-
 
 namespace g4db {
 
@@ -25,18 +24,18 @@ namespace g4db {
 class G4DarkBreMModel : public PrototypeModel {
  public:
   /**
-   * @enum ScalingMethod 
+   * @enum ScalingMethod
    *
    * Possible methods to use the dark brem events from the imported library
    * inside of this model.
    */
   enum class ScalingMethod {
     /**
-     * Use actual lepton energy and get pT from LHE 
+     * Use actual lepton energy and get pT from LHE
      * (such that \f$p_T^2+m_l^2 < E_{acc}^2\f$)
      *
      * Scales the energy so that the fraction of kinetic energy is constant,
-     * keeping the \f$p_T\f$ constant. 
+     * keeping the \f$p_T\f$ constant.
      *
      * If the \f$p_T\f$ is larger than the new energy, that event
      * is skipped, and a new one is taken from the file. If the loaded library
@@ -56,8 +55,8 @@ class G4DarkBreMModel : public PrototypeModel {
      * 1. Boost out of the center-of-momentum (CoM) frame read in along with the
      *    MadGraph event library.
      * 2. Boost into approximately) the incident lepton energy frame by
-     *    constructing a "new" CoM frame using the actual CoM frame's 
-     *    transverse momentum and lowering the \f$p_z\f$ and energy of 
+     *    constructing a "new" CoM frame using the actual CoM frame's
+     *    transverse momentum and lowering the \f$p_z\f$ and energy of
      *    the CoM by the difference between the input incident
      *    energy and the sampled incident energy.
      *
@@ -68,7 +67,8 @@ class G4DarkBreMModel : public PrototypeModel {
     /**
      * Use LHE vertex as is
      *
-     * We simply copy the read-in recoil energy's energy, momentum, and \f$p_T\f$.
+     * We simply copy the read-in recoil energy's energy, momentum, and
+     * \f$p_T\f$.
      */
     Undefined = 3
   };
@@ -89,12 +89,14 @@ class G4DarkBreMModel : public PrototypeModel {
    * \tilde{u} = -xE_0^2\theta^2 - m_A^2\frac{1-x}{x} - m_\ell^2x
    * \f}
    *
-   * - \f$x_{max} = 1 - \max(m_A,m_\ell)/E_0\f$ is the upper limit on the x integration
+   * - \f$x_{max} = 1 - \max(m_A,m_\ell)/E_0\f$ is the upper limit on the x
+   * integration
    * - \f$E_0\f$ is the incoming lepton's energy in GeV
    * - \f$m_\ell\f$ is the lepton's mass in GeV
    * - \f$m_A\f$ is the dark photon's mass in GeV
    * - \f$\alpha_{EW} = 1/137\f$ is the fine-structure constant
-   * - \f$\epsilon\f$ is the dark photon mixsing strength with the standard photon
+   * - \f$\epsilon\f$ is the dark photon mixsing strength with the standard
+   * photon
    * - \f$pb/GeV = 3.894\times10^8\f$ is the conversion from GeV to pico-barns
    *
    * The integrand limits for \f$\chi\f$ are calculated as
@@ -115,15 +117,15 @@ class G4DarkBreMModel : public PrototypeModel {
      * for high (> 200 GeV) incident energies.
      *
      * \f{equation}{
-     * \sigma = \frac{pb}{GeV} \int_0^{x_{max}} \int_0^{0.3} \frac{d\sigma}{dx d\theta} d\theta~dx
-     * \f}
-     * \f{equation}{
-     * \frac{d\sigma}{dx~d\cos\theta} = 2 \alpha_{EW}^3\epsilon^2 \sqrt{x^2E_0^2 - m_A^2}E_0(1-x) 
+     * \sigma = \frac{pb}{GeV} \int_0^{x_{max}} \int_0^{0.3} \frac{d\sigma}{dx
+     * d\theta} d\theta~dx \f} \f{equation}{ \frac{d\sigma}{dx~d\cos\theta} = 2
+     * \alpha_{EW}^3\epsilon^2 \sqrt{x^2E_0^2 - m_A^2}E_0(1-x)
      *     \frac{\chi(x,\theta)}{\tilde{u}^2} \mathcal{A}^2
      * \f}
      * \f{equation}{
-     * \mathcal{A}^2 = 2\frac{2-2x+x^2}{1-x}+\frac{4(m_A^2+2m_\ell^2)}{\tilde{u}^2}(\tilde{u}x + m_A^2(1-x) + m_\ell^2x^2)
-     * \f}
+     * \mathcal{A}^2 =
+     * 2\frac{2-2x+x^2}{1-x}+\frac{4(m_A^2+2m_\ell^2)}{\tilde{u}^2}(\tilde{u}x +
+     * m_A^2(1-x) + m_\ell^2x^2) \f}
      */
     Full = 1,
 
@@ -131,15 +133,14 @@ class G4DarkBreMModel : public PrototypeModel {
      * assume \f$\theta=0\f$ in the integrand
      *
      * This reduces one of the dimensions of the numerical integration,
-     * allowing the theta integration to be done analytically and 
+     * allowing the theta integration to be done analytically and
      * so we only have a numerical integration over x and t
      *
      * \f{equation}{
-     * \sigma = \frac{pb}{GeV} \int_0^{x_{max}} \chi(x,\theta=0) \frac{d\sigma}{dx} dx
-     * \f}
-     * \f{equation}{
-     * \frac{d\sigma}{dx}(x) = 4 \alpha_{EW}^3\epsilon^2 \sqrt{1-\frac{m_A^2}{E_0^2}}\frac{1-x+x^2/3}{m_A^2(1-x)/x+m_\ell^2x}
-     * \f}
+     * \sigma = \frac{pb}{GeV} \int_0^{x_{max}} \chi(x,\theta=0)
+     * \frac{d\sigma}{dx} dx \f} \f{equation}{ \frac{d\sigma}{dx}(x) = 4
+     * \alpha_{EW}^3\epsilon^2
+     * \sqrt{1-\frac{m_A^2}{E_0^2}}\frac{1-x+x^2/3}{m_A^2(1-x)/x+m_\ell^2x} \f}
      */
     Improved = 2,
 
@@ -147,19 +148,19 @@ class G4DarkBreMModel : public PrototypeModel {
      * only calculate the flux factor once
      *
      * This simplifies the numerical integration even further by calculating
-     * the flux factor chi only at \f$(x=1, \theta=0)\f$ and then using that value
-     * everywhere in the integration of the differential cross section over
-     * x.
+     * the flux factor chi only at \f$(x=1, \theta=0)\f$ and then using that
+     * value everywhere in the integration of the differential cross section
+     * over x.
      *
      * \f{equation}{
-     * \sigma = \frac{pb}{GeV} \chi(x=1,\theta=0) \int_0^{x_{max}} \frac{d\sigma}{dx} dx
-     * \f}
+     * \sigma = \frac{pb}{GeV} \chi(x=1,\theta=0) \int_0^{x_{max}}
+     * \frac{d\sigma}{dx} dx \f}
      *
      * where \f$d\sigma/dx\f$ is the same as Improved.
-     * Since this uses the maximum value of \f$\chi\f$ for all values of \f$\chi\f$,
-     * we modify the upper limit of integration to avoid making this overestimate too
-     * much of an overestimate. Instead of \f$t_{max}=E_0^2\f$ we use
-     * \f$t_{max}=m_A^2+m_\ell^2\f$.
+     * Since this uses the maximum value of \f$\chi\f$ for all values of
+     * \f$\chi\f$, we modify the upper limit of integration to avoid making this
+     * overestimate too much of an overestimate. Instead of \f$t_{max}=E_0^2\f$
+     * we use \f$t_{max}=m_A^2+m_\ell^2\f$.
      */
     HyperImproved = 3,
 
@@ -173,8 +174,8 @@ class G4DarkBreMModel : public PrototypeModel {
      * These boarders were determine qualitatively by looking at a series
      * of cross section plots comparing all of these methods.
      *
-     * The parameter \f$R_{max}\f$ is configurable in G4DarkBreMModel::G4DarkBreMModel
-     * as max_R_for_full.
+     * The parameter \f$R_{max}\f$ is configurable in
+     * G4DarkBreMModel::G4DarkBreMModel as max_R_for_full.
      */
     Auto = 4
   };
@@ -183,33 +184,35 @@ class G4DarkBreMModel : public PrototypeModel {
    * Set the parameters for this model.
    *
    * @param[in] library_path full path to MG library
-   *            The library path is immediately passed to 
-   *            G4DarkBreMModel::SetMadGraphDataLibrary which simply calls 
-   *            g4db::parseLibrary (where you should look for the specification 
+   *            The library path is immediately passed to
+   *            G4DarkBreMModel::SetMadGraphDataLibrary which simply calls
+   *            g4db::parseLibrary (where you should look for the specification
    *            options of a dark brem library).
    * @param[in] muons true if using muons, false for electrons
    * @param[in] threshold minimum energy lepton needs to have to dark brem [GeV]
    *            (overwritten by twice the A' mass if it is less so that it
    *            kinematically makes sense).
    * @param[in] epsilon dark photon mixing strength
-   * @param[in] sm G4DarkBreMModel::ScalingMethod on how to scale the events in the library
-   * @param[in] xm G4DarkBreMModel::XsecMethod on calculating the total cross section
+   * @param[in] sm G4DarkBreMModel::ScalingMethod on how to scale the events in
+   * the library
+   * @param[in] xm G4DarkBreMModel::XsecMethod on calculating the total cross
+   * section
    * @param[in] max_R_for_full maximum value of R where Full will still be used
    *            **Only used with** G4DarkBreMModel::XsecMethod::Auto (go there
    *            for context)
-   * @param[in] aprime_lhe_id PDG ID number for the dark photon in the LHE files 
-   *            being loaded for the library. **Only used if parsing LHE files.**
-   * @param[in] load_library only used in cross section executable where it is known
-   *            that the library will not be used during program run
+   * @param[in] aprime_lhe_id PDG ID number for the dark photon in the LHE files
+   *            being loaded for the library. **Only used if parsing LHE
+   * files.**
+   * @param[in] load_library only used in cross section executable where it is
+   * known that the library will not be used during program run
    *
    */
   G4DarkBreMModel(const std::string& library_path, bool muons,
-      double threshold = 0.0, 
-      double epsilon = 1.0,
-      ScalingMethod sm = ScalingMethod::ForwardOnly, 
-      XsecMethod xm = XsecMethod::Auto, 
-      double max_R_for_full = 50.0,
-      int aprime_lhe_id = 622, bool load_library = true);
+                  double threshold = 0.0, double epsilon = 1.0,
+                  ScalingMethod sm = ScalingMethod::ForwardOnly,
+                  XsecMethod xm = XsecMethod::Auto,
+                  double max_R_for_full = 50.0, int aprime_lhe_id = 622,
+                  bool load_library = true);
 
   /**
    * Destructor
@@ -224,10 +227,10 @@ class G4DarkBreMModel : public PrototypeModel {
   /**
    * Calculates the cross section per atom in GEANT4 internal units.
    *
-   * The estimate for the total cross section given the material and the 
-   * lepton's energy is done using an implementation of the WW approximation 
-   * using Boost's Math Quadrature library to numerically calculate 
-   * the integrals. 
+   * The estimate for the total cross section given the material and the
+   * lepton's energy is done using an implementation of the WW approximation
+   * using Boost's Math Quadrature library to numerically calculate
+   * the integrals.
    *
    * @see XsecMethod for the different methods of calculating the cross section.
    *
@@ -241,7 +244,7 @@ class G4DarkBreMModel : public PrototypeModel {
                                               G4double atomicZ);
 
   /**
-   * Scale one of the MG events in our library to the input incident 
+   * Scale one of the MG events in our library to the input incident
    * lepton energy.
    *
    * This is also helpful for testing the scaling procedure in its own
@@ -255,15 +258,17 @@ class G4DarkBreMModel : public PrototypeModel {
    * the nearest incident energy above the actual input incident energy.
    *
    * The scaling of this energy fraction and \f$p_T\f$ to the actual lepton
-   * energy depends on the input G4DarkBreMModel::ScalingMethod. 
-   * In all cases, the azimuthal angle is chosen uniformly between 0 and \f$2\pi\f$.
+   * energy depends on the input G4DarkBreMModel::ScalingMethod.
+   * In all cases, the azimuthal angle is chosen uniformly between 0 and
+   * \f$2\pi\f$.
    *
    * @param[in] target_Z atomic Z of target nucleus
-   * @param[in] incident_energy incident total energy of the lepton [GeV] 
+   * @param[in] incident_energy incident total energy of the lepton [GeV]
    * @param[in] lepton_mass mass of incident lepton [GeV]
    * @return G4ThreeVector representing the recoil lepton's outgoing momentum
    */
-  G4ThreeVector scale(double target_Z, double incident_energy, double lepton_mass);
+  G4ThreeVector scale(double target_Z, double incident_energy,
+                      double lepton_mass);
 
   /**
    * Simulates the emission of a dark photon + lepton
@@ -304,15 +309,16 @@ class G4DarkBreMModel : public PrototypeModel {
    * madgraph data.
    *
    * Randomly choose a starting point so that the simulation run isn't dependent
-   * on the order of the events as written in the LHE library. The random starting
-   * position is uniformly chosen using G4Uniform() so. The sample function
-   * will loop from the last event parsed back to the first event parsed so that
-   * the starting position does not matter.
+   * on the order of the events as written in the LHE library. The random
+   * starting position is uniformly chosen using G4Uniform() so. The sample
+   * function will loop from the last event parsed back to the first event
+   * parsed so that the starting position does not matter.
    *
-   * In this function, we also update maxIterations_ so that it is equal to the smallest
-   * entry in the library (with a maximum of 10k). This saves time in the situation where
-   * an incorrect library was accidentally used and the simulation is looping through events
-   * attempting to find one that can fit its criteria.
+   * In this function, we also update maxIterations_ so that it is equal to the
+   * smallest entry in the library (with a maximum of 10k). This saves time in
+   * the situation where an incorrect library was accidentally used and the
+   * simulation is looping through events attempting to find one that can fit
+   * its criteria.
    */
   void MakePlaceholders();
 
@@ -341,7 +347,7 @@ class G4DarkBreMModel : public PrototypeModel {
    */
   unsigned int maxIterations_{10000};
 
-  /** 
+  /**
    * Threshold for non-zero xsec [GeV]
    *
    * Configurable with 'threshold'. At minimum, it is always
@@ -349,7 +355,7 @@ class G4DarkBreMModel : public PrototypeModel {
    */
   double threshold_;
 
-  /** 
+  /**
    * Epsilon value to plug into xsec calculation
    *
    * @sa ComputeCrossSectionPerAtom for how this is used
@@ -359,7 +365,7 @@ class G4DarkBreMModel : public PrototypeModel {
   double epsilon_;
 
   /**
-   * PDG ID number for the A' (dark photon) as written in the LHE files 
+   * PDG ID number for the A' (dark photon) as written in the LHE files
    * being loaded as the dark brem event library.
    *
    * This is only used if parsing LHE files and can be ignored if the
@@ -367,7 +373,7 @@ class G4DarkBreMModel : public PrototypeModel {
    */
   int aprime_lhe_id_;
 
-  /** 
+  /**
    * method to scale events for this model
    */
   ScalingMethod scaling_method_;
@@ -400,11 +406,12 @@ class G4DarkBreMModel : public PrototypeModel {
   /**
    * Storage of data from mad graph
    *
-   * Maps target Z and incoming lepton energy to various options for outgoing kinematics.
-   * This is a hefty map and is what stores **all** of the events
+   * Maps target Z and incoming lepton energy to various options for outgoing
+   * kinematics. This is a hefty map and is what stores **all** of the events
    * imported from the LHE library of dark brem events.
    */
-  std::map<int, std::map<double, std::vector<OutgoingKinematics>> > madGraphData_;
+  std::map<int, std::map<double, std::vector<OutgoingKinematics>>>
+      madGraphData_;
 
   /**
    * Stores a map of current access points to mad graph data.

@@ -8,9 +8,9 @@
 #ifndef G4DARKBREM_PROTOTYPEMODEL_H
 #define G4DARKBREM_PROTOTYPEMODEL_H
 
-#include "G4Track.hh"
-#include "G4Step.hh"
 #include "G4ParticleChange.hh"
+#include "G4Step.hh"
+#include "G4Track.hh"
 
 /**
  * G4DarkBreM internal namespace
@@ -51,21 +51,17 @@ class PrototypeModel {
    *
    * @param[in] l verbose leve
    */
-  void SetVerboseLevel(int l) {
-    verbose_level_ = l;
-  }
+  void SetVerboseLevel(int l) { verbose_level_ = l; }
 
   /**
    * Get the verbose level of the model
-   * 
+   *
    * Use this in model functions to decide if a printout should
    * be done or not.
    *
    * @return integer level (higher means more detail)
    */
-  int GetVerboseLevel() const {
-    return verbose_level_;
-  }
+  int GetVerboseLevel() const { return verbose_level_; }
 
   /**
    * Check if we are bremming off muons
@@ -74,9 +70,7 @@ class PrototypeModel {
    *
    * @return true if dark bremming of muons
    */
-  bool DarkBremOffMuons() const {
-    return muons_;
-  }
+  bool DarkBremOffMuons() const { return muons_; }
 
   /**
    * Print the configuration of this model
@@ -123,6 +117,6 @@ class PrototypeModel {
   int verbose_level_{0};
 };  // PrototypeModel
 
-} // namespace g4db
+}  // namespace g4db
 
 #endif
