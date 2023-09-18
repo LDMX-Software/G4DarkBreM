@@ -63,8 +63,9 @@ class APrimePhysics : public G4VPhysicsConstructor {
   double bias_;
  public:
   /// create the physics and store the parameters
-  APrimePhysics(const std::string& lp, double m, bool mu, double b)
-    : G4VPhysicsConstructor("APrime"), library_path_{lp}, ap_mass_{m}, muons_{mu}, bias_{b} {}
+  APrimePhysics(const std::string& lp, double ap_mass, bool muons, double bias)
+    : G4VPhysicsConstructor("APrime"),
+      library_path_{lp}, ap_mass_{ap_mass}, muons_{muons}, bias_{bias} {}
 
   /**
    * Insert A-prime into the Geant4 particle table.
@@ -118,8 +119,8 @@ class Hunk : public G4VUserDetectorConstruction {
   /**
    * Create our detector constructor, storing the configuration variables
    */
-  Hunk(double d, const std::string& m)
-    : G4VUserDetectorConstruction(), depth_{d}, material_{m} {}
+  Hunk(double depth, const std::string& material)
+    : G4VUserDetectorConstruction(), depth_{depth}, material_{material} {}
 
   /**
    * Construct the geometry
