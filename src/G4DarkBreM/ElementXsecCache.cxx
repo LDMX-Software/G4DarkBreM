@@ -15,6 +15,34 @@ G4double ElementXsecCache::get(G4double energy, G4double A, G4double Z) {
   return the_cache_.at(key);
 }
 
+void ElementXsecCache::stream(std::istream& i) {
+  // Buffer for each line
+  std::string buffer{};
+  // Buffer for ',' characters
+  char charbuffer{};
+  // Skip the header
+  std::getline(i, buffer);
+  double small{1e-3};
+  while (std::getline(i, buffer)) {
+    // Skip empty lines (avoid parsing as 0s)
+    if (buffer == "") {
+      continue;
+    }
+    std::stringstream ss{buffer};
+    ss >> std::setprecision(std::numeric_limits<double>::digits10 + 1);
+    double E{};
+    double A{};
+    double Z{};
+    double xsec{};
+    // Manually parsing CSV sure is fun and not bugprone at all
+    ss >> A >> charbuffer;
+    ss >> Z >> charbuffer;
+    ss >> E >> charbuffer;
+    ss >> xsec;
+    key_t key{computeKey(E, A, Z)};
+    the_cache_[key] = xsec * CLHEP::picobarn;
+  }
+}
 void ElementXsecCache::stream(std::ostream& o) const {
   o << "A [au],Z [protons],Energy [MeV],Xsec [pb]\n"
     << std::setprecision(std::numeric_limits<double>::digits10 +
