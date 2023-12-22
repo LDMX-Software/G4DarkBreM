@@ -18,8 +18,9 @@ G4double ElementXsecCache::get(G4double energy, G4double A, G4double Z) {
 void ElementXsecCache::stream(std::istream& i) {
   // Buffer for each line
   std::string buffer{};
-  // Buffer for ',' characters
-  char charbuffer{};
+  // Buffer for ',' characters. Char type so that the stream only extracts one
+  // character.
+  char comma{};
   // Skip the header
   std::getline(i, buffer);
   double small{1e-3};
