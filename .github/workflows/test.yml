@@ -48,6 +48,8 @@ jobs:
         name: install geant4
         if: ${{ steps.cache-deps.outputs.cache-hit != 'true' }}
         run: |
+          python3 -m pip install cmake==3.22
+          cmake --version
           mkdir dep-src
           wget -q -O - https://github.com/geant4/geant4/archive/refs/tags/v${{matrix.geant4}}.tar.gz |\
             tar -xz --strip-components=1 --directory dep-src
