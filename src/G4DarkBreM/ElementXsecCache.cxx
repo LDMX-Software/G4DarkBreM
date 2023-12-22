@@ -36,9 +36,9 @@ void ElementXsecCache::stream(std::istream& i) {
     double Z{};
     double xsec{};
     // Manually parsing CSV sure is fun and not bugprone at all
-    ss >> A >> charbuffer;
-    ss >> Z >> charbuffer;
-    ss >> E >> charbuffer;
+    ss >> A >> comma;
+    ss >> Z >> comma;
+    ss >> E >> comma;
     ss >> xsec;
 
     key_t key{computeKey(E, A, Z)};
