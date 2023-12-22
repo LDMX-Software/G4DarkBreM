@@ -42,6 +42,10 @@ void ElementXsecCache::stream(std::istream& i) {
     ss >> xsec;
     key_t key{computeKey(E, A, Z)};
     the_cache_[key] = xsec * CLHEP::picobarn;
+    if (!ss.eof() || ss.fail()) {
+      throw std::runtime_error(
+          "[G4DarkBreM]: Bad line encountered in CSV file: " + buffer);
+    }
   }
 }
 void ElementXsecCache::stream(std::ostream& o) const {
