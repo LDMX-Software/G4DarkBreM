@@ -10,6 +10,7 @@ G4double ElementXsecCache::get(G4double energy, G4double A, G4double Z) {
           "ElementXsecCache not given a model to calculate cross "
           "sections with.");
     }
+
     the_cache_[key] = model_->ComputeCrossSectionPerAtom(energy, A, Z);
   }
   return the_cache_.at(key);
@@ -23,7 +24,6 @@ void ElementXsecCache::stream(std::istream& i) {
   char comma{};
   // Skip the header
   std::getline(i, buffer);
-  double small{1e-3};
   while (std::getline(i, buffer)) {
     // Skip empty lines (avoid parsing as 0s)
     if (buffer == "") {
@@ -40,6 +40,7 @@ void ElementXsecCache::stream(std::istream& i) {
     ss >> Z >> charbuffer;
     ss >> E >> charbuffer;
     ss >> xsec;
+
     key_t key{computeKey(E, A, Z)};
     the_cache_[key] = xsec * CLHEP::picobarn;
     if (!ss.eof() || ss.fail()) {
@@ -48,6 +49,7 @@ void ElementXsecCache::stream(std::istream& i) {
     }
   }
 }
+
 void ElementXsecCache::stream(std::ostream& o) const {
   o << "A [au],Z [protons],Energy [MeV],Xsec [pb]\n"
     << std::setprecision(std::numeric_limits<double>::digits10 +

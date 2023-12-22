@@ -53,11 +53,9 @@ class ElementXsecCache {
   /**
    * Read the entire table from the input stream.
    *
-   * @param[in] in istream to read from 
+   * @param[in] in istream to read from
    */
   void stream(std::istream& i);
-
-
 
   /**
    * Overload the streaming operator for ease
