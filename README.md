@@ -6,11 +6,11 @@ Geant4 Dark Bremmstrahlung from MadGraph
   <a href="https://www.apache.org/licenses/LICENSE-2.0" alt="Apache 2.0 license">
     <img src="https://img.shields.io/badge/license-Apache%202-blue" />
   </a>
-  <a href="https://github.com/tomeichlersmith/G4DarkBreM/actions" alt="Actions">
-    <img src="https://img.shields.io/github/actions/workflow/status/tomeichlersmith/G4DarkBreM/test.yml?branch=main" />
+  <a href="https://github.com/LDMX-Software/G4DarkBreM/actions" alt="Actions">
+    <img src="https://img.shields.io/github/actions/workflow/status/LDMX-Software/G4DarkBreM/test.yml?branch=main" />
   </a>
-  <a href="https://github.com/tomeichlersmith/G4DarkBreM/releases" alt="Releases">
-    <img src="https://img.shields.io/github/v/release/tomeichlersmith/G4DarkBreM" />
+  <a href="https://github.com/LDMX-Software/G4DarkBreM/releases" alt="Releases">
+    <img src="https://img.shields.io/github/v/release/LDMX-Software/G4DarkBreM" />
   </a>
 </p>
 
