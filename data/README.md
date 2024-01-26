@@ -1,7 +1,7 @@
 # Dark Brem Event Libraries
 
 These **example** dark brem event libraries were generated using v4.3 of 
-[tomeichlersmith/dark-brem-lib-gen](https://github.com/tomeichlersmith/dark-brem-lib-gen)
+[LDMX-Software/dark-brem-lib-gen](https://github.com/LDMX-Software/dark-brem-lib-gen)
 and then extracted to a CSV and compressed (process below).
 
 They are merely here to help test run the simulation and be an example.
@@ -13,7 +13,7 @@ for muons was calculated. The outgoing kinematics (and therefore the libraries g
 be used, but use v4.4 (or later) if you wish to obtain a physical total cross section for muons.
 
 ## Generation Process
-Follow [Quick Start](https://github.com/tomeichlersmith/dark-brem-lib-gen#quick-start)
+Follow [Quick Start](https://github.com/LDMX-Software/dark-brem-lib-gen#quick-start)
 to setup dark brem library generation environment making sure to use `v4.3`.
 
 Generate the electron library.
