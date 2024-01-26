@@ -6,16 +6,18 @@ Geant4 Dark Bremmstrahlung from MadGraph
   <a href="https://www.apache.org/licenses/LICENSE-2.0" alt="Apache 2.0 license">
     <img src="https://img.shields.io/badge/license-Apache%202-blue" />
   </a>
-  <a href="https://github.com/tomeichlersmith/G4DarkBreM/actions" alt="Actions">
-    <img src="https://img.shields.io/github/actions/workflow/status/tomeichlersmith/G4DarkBreM/test.yml?branch=main" />
+  <a href="https://github.com/LDMX-Software/G4DarkBreM/actions" alt="Actions">
+    <img src="https://img.shields.io/github/actions/workflow/status/LDMX-Software/G4DarkBreM/test.yml?branch=main" />
   </a>
-  <a href="https://github.com/tomeichlersmith/G4DarkBreM/releases" alt="Releases">
-    <img src="https://img.shields.io/github/v/release/tomeichlersmith/G4DarkBreM" />
+  <a href="https://github.com/LDMX-Software/G4DarkBreM/releases" alt="Releases">
+    <img src="https://img.shields.io/github/v/release/LDMX-Software/G4DarkBreM" />
   </a>
 </p>
 
-The version submitted in 2022 to Computer Physics Communications is [release v1.1.1](https://github.com/tomeichlersmith/G4DarkBreM/releases/tag/v1.1.1).
+The version submitted in 2022 to Computer Physics Communications is [release v1.1.1](https://github.com/LDMX-Software/G4DarkBreM/releases/tag/v1.1.1).
 Ongoing development of this package is maintained at on GitHub [LDMX-Software/G4DarkBreM](https://github.com/LDMX-Software/G4DarkBreM).
+A seminar was given to provide more detail on this technique - the slides (with speaker notes) are available on 
+[the documentation website](https://ldmx-software.github.io/G4DarkBreM/G4DarkBreM_HEP_Seminar.pdf).
 
 ## Installation
 The only dependencies of G4DarkBreM are Geant4 which has [an extensive installation guide](http://cern.ch/geant4-userdoc/UsersGuides/InstallationGuide/html/)
