@@ -6,7 +6,7 @@ var classg4db_1_1example_1_1OutgoingKinematics =
     [ "setAPrime", "classg4db_1_1example_1_1OutgoingKinematics.html#a9bd47dc07cd183d08a5499683e603cee", null ],
     [ "setRecoil", "classg4db_1_1example_1_1OutgoingKinematics.html#a8fdcdda4431d9eab2799ca6e94f497ec", null ],
     [ "stream", "classg4db_1_1example_1_1OutgoingKinematics.html#a153d5265a98b4d27253ed7c8cc9e3b9b", null ],
-    [ "aprime_", "classg4db_1_1example_1_1OutgoingKinematics.html#a2a3d2521ef59b096d00b5bf6bb24e777", null ],
+    [ "aprime_", "classg4db_1_1example_1_1OutgoingKinematics.html#a0e4c3d197cdb24355a66726274926e11", null ],
     [ "found_", "classg4db_1_1example_1_1OutgoingKinematics.html#a63a57381ba1b754b3481c1ad27c95b55", null ],
-    [ "recoil_", "classg4db_1_1example_1_1OutgoingKinematics.html#a5f809bd4a9ee277d03bfcea9165cf419", null ]
+    [ "recoil_", "classg4db_1_1example_1_1OutgoingKinematics.html#a38302f741d089c4e1c204f117a361697", null ]
 ];

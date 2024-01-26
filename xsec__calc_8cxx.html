@@ -34,7 +34,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">G4DarkBreM
-   &#160;<span id="projectnumber">v2.0.0</span>
+   &#160;<span id="projectnumber">v2.0.2</span>
    </div>
    <div id="projectbrief">Geant4 Dark Bremmstrahlung from MadGraph</div>
   </td>
@@ -98,16 +98,16 @@ $(document).ready(function(){initNavTree('xsec__calc_8cxx.html',''); initResizab
 <div class="title">xsec_calc.cxx File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;fstream&gt;</code><br />
+<div class="textblock"><code>#include &lt;unistd.h&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
 <code>#include &lt;iostream&gt;</code><br />
-<code>#include &lt;unistd.h&gt;</code><br />
 <code>#include &quot;G4DarkBreM/ElementXsecInterpolation.h&quot;</code><br />
-<code>#include &quot;G4DarkBreM/G4DarkBreMModel.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="G4APrime_8h_source.html">G4DarkBreM/G4APrime.h</a>&quot;</code><br />
+<code>#include &quot;G4DarkBreM/G4DarkBreMModel.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for xsec_calc.cxx:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="xsec__calc_8cxx__incl.svg" width="1362" height="262"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="xsec__calc_8cxx__incl.svg" width="1363" height="262"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </div><table class="memberdecls">
@@ -181,11 +181,9 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">  {<span class="stringliteral">&quot;fullww&quot;</span>, <a class="code" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afabbd47109890259c0127154db1af26c75">g4db::G4DarkBreMModel::XsecMethod::Full</a> },</div>
-<div class="line">  {<span class="stringliteral">&quot;hiww&quot;</span>  , <a class="code" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afae723f214b18bf2adabfe484d4c65517d">g4db::G4DarkBreMModel::XsecMethod::HyperImproved</a> },</div>
-<div class="line">  {<span class="stringliteral">&quot;iww&quot;</span>   , <a class="code" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afae17310830c72d17857bf7df1ddf80dfe">g4db::G4DarkBreMModel::XsecMethod::Improved</a> }</div>
-<div class="line">}</div>
+<b>Initial value:</b><div class="fragment"><div class="line">= {{<span class="stringliteral">&quot;fullww&quot;</span>, <a class="code" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afabbd47109890259c0127154db1af26c75">g4db::G4DarkBreMModel::XsecMethod::Full</a>},</div>
+<div class="line">                    {<span class="stringliteral">&quot;hiww&quot;</span>, <a class="code" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afae723f214b18bf2adabfe484d4c65517d">g4db::G4DarkBreMModel::XsecMethod::HyperImproved</a>},</div>
+<div class="line">                    {<span class="stringliteral">&quot;iww&quot;</span>, <a class="code" href="classg4db_1_1G4DarkBreMModel.html#a8bde7a6a38770c17ae3056a7a3e587afae17310830c72d17857bf7df1ddf80dfe">g4db::G4DarkBreMModel::XsecMethod::Improved</a>}}</div>
 </div><!-- fragment -->
 <p>The names for the different xsec_methods that are acceptable on the command line. </p>
 

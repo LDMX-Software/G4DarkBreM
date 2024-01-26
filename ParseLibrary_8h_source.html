@@ -34,7 +34,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">G4DarkBreM
-   &#160;<span id="projectnumber">v2.0.0</span>
+   &#160;<span id="projectnumber">v2.0.2</span>
    </div>
    <div id="projectbrief">Geant4 Dark Bremmstrahlung from MadGraph</div>
   </td>
@@ -99,10 +99,10 @@ $(document).ready(function(){initNavTree('ParseLibrary_8h_source.html',''); init
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#ifndef G4DARKBREM_PARSELIBRARY_H</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#define G4DARKBREM_PARSELIBRARY_H</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;ostream&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;ostream&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;CLHEP/Vector/LorentzVector.h&quot;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
@@ -114,22 +114,27 @@ $(document).ready(function(){initNavTree('ParseLibrary_8h_source.html',''); init
 <div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="structg4db_1_1OutgoingKinematics.html#afb67a817cbe4f5f5b627ec63f684988a">   28</a></span>&#160;  <span class="keywordtype">double</span> <a class="code" href="structg4db_1_1OutgoingKinematics.html#afb67a817cbe4f5f5b627ec63f684988a">E</a>;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;};  <span class="comment">// OutgoingKinematics</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceg4db.html#a5ce098d2be7196d71e64a5632591cdea">parseLibrary</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keywordtype">int</span> aprime_lhe_id, std::map&lt;<span class="keywordtype">int</span>, std::map&lt;<span class="keywordtype">double</span>, std::vector&lt;OutgoingKinematics&gt;&gt;&gt;&amp; lib);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceg4db.html#ab6fb4a1eccdf3996dd0180f26b78fadc">dumpLibrary</a>(std::ostream&amp; o, <span class="keyword">const</span> std::map&lt;<span class="keywordtype">int</span>, std::map&lt;<span class="keywordtype">double</span>, std::vector&lt;OutgoingKinematics&gt;&gt;&gt;&amp; lib);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;}</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceg4db.html#a5ce098d2be7196d71e64a5632591cdea">parseLibrary</a>(</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">const</span> std::string&amp; path, <span class="keywordtype">int</span> aprime_lhe_id,</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    std::map&lt;<span class="keywordtype">int</span>, std::map&lt;<span class="keywordtype">double</span>, std::vector&lt;OutgoingKinematics&gt;&gt;&gt;&amp; lib);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespaceg4db.html#ab6fb4a1eccdf3996dd0180f26b78fadc">dumpLibrary</a>(</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    std::ostream&amp; o,</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keyword">const</span> std::map&lt;<span class="keywordtype">int</span>, std::map&lt;<span class="keywordtype">double</span>, std::vector&lt;OutgoingKinematics&gt;&gt;&gt;&amp;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        lib);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}  <span class="comment">// namespace g4db</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructg4db_1_1OutgoingKinematics_html_afb67a817cbe4f5f5b627ec63f684988a"><div class="ttname"><a href="structg4db_1_1OutgoingKinematics.html#afb67a817cbe4f5f5b627ec63f684988a">g4db::OutgoingKinematics::E</a></div><div class="ttdeci">double E</div><div class="ttdoc">energy of lepton before brem (used as key in mad graph data map)</div><div class="ttdef"><b>Definition:</b> ParseLibrary.h:28</div></div>
-<div class="ttc" id="anamespaceg4db_html_a5ce098d2be7196d71e64a5632591cdea"><div class="ttname"><a href="namespaceg4db.html#a5ce098d2be7196d71e64a5632591cdea">g4db::parseLibrary</a></div><div class="ttdeci">void parseLibrary(const std::string &amp;path, int aprime_lhe_id, std::map&lt; int, std::map&lt; double, std::vector&lt; OutgoingKinematics &gt;&gt;&gt; &amp;lib)</div><div class="ttdoc">parse the input library and return the in-memory kinematics library</div><div class="ttdef"><b>Definition:</b> ParseLibrary.cxx:189</div></div>
+<div class="ttc" id="anamespaceg4db_html_a5ce098d2be7196d71e64a5632591cdea"><div class="ttname"><a href="namespaceg4db.html#a5ce098d2be7196d71e64a5632591cdea">g4db::parseLibrary</a></div><div class="ttdeci">void parseLibrary(const std::string &amp;path, int aprime_lhe_id, std::map&lt; int, std::map&lt; double, std::vector&lt; OutgoingKinematics &gt;&gt;&gt; &amp;lib)</div><div class="ttdoc">parse the input library and return the in-memory kinematics library</div><div class="ttdef"><b>Definition:</b> ParseLibrary.cxx:199</div></div>
 <div class="ttc" id="astructg4db_1_1OutgoingKinematics_html_af5c642c26c9d5f5f49d1410833990472"><div class="ttname"><a href="structg4db_1_1OutgoingKinematics.html#af5c642c26c9d5f5f49d1410833990472">g4db::OutgoingKinematics::lepton</a></div><div class="ttdeci">CLHEP::HepLorentzVector lepton</div><div class="ttdoc">4-momentum of lepton in center of momentum frame for electron-A' system</div><div class="ttdef"><b>Definition:</b> ParseLibrary.h:24</div></div>
 <div class="ttc" id="anamespaceg4db_html"><div class="ttname"><a href="namespaceg4db.html">g4db</a></div><div class="ttdoc">G4DarkBreM internal namespace.</div><div class="ttdef"><b>Definition:</b> ElementXsecCache.cxx:3</div></div>
 <div class="ttc" id="astructg4db_1_1OutgoingKinematics_html"><div class="ttname"><a href="structg4db_1_1OutgoingKinematics.html">g4db::OutgoingKinematics</a></div><div class="ttdoc">Data frame to store necessary information from LHE files.</div><div class="ttdef"><b>Definition:</b> ParseLibrary.h:21</div></div>
 <div class="ttc" id="astructg4db_1_1OutgoingKinematics_html_ad19a99672da61c3c8d24f1ce342788ef"><div class="ttname"><a href="structg4db_1_1OutgoingKinematics.html#ad19a99672da61c3c8d24f1ce342788ef">g4db::OutgoingKinematics::centerMomentum</a></div><div class="ttdeci">CLHEP::HepLorentzVector centerMomentum</div><div class="ttdoc">4-vector pointing to center of momentum frame</div><div class="ttdef"><b>Definition:</b> ParseLibrary.h:26</div></div>
-<div class="ttc" id="anamespaceg4db_html_ab6fb4a1eccdf3996dd0180f26b78fadc"><div class="ttname"><a href="namespaceg4db.html#ab6fb4a1eccdf3996dd0180f26b78fadc">g4db::dumpLibrary</a></div><div class="ttdeci">void dumpLibrary(std::ostream &amp;o, const std::map&lt; int, std::map&lt; double, std::vector&lt; OutgoingKinematics &gt;&gt;&gt; &amp;lib)</div><div class="ttdoc">Dump the input library to the input output stream.</div><div class="ttdef"><b>Definition:</b> ParseLibrary.cxx:246</div></div>
+<div class="ttc" id="anamespaceg4db_html_ab6fb4a1eccdf3996dd0180f26b78fadc"><div class="ttname"><a href="namespaceg4db.html#ab6fb4a1eccdf3996dd0180f26b78fadc">g4db::dumpLibrary</a></div><div class="ttdeci">void dumpLibrary(std::ostream &amp;o, const std::map&lt; int, std::map&lt; double, std::vector&lt; OutgoingKinematics &gt;&gt;&gt; &amp;lib)</div><div class="ttdoc">Dump the input library to the input output stream.</div><div class="ttdef"><b>Definition:</b> ParseLibrary.cxx:262</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
