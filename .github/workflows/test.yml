@@ -27,7 +27,7 @@ jobs:
       -
         name: cache dependencies
         id: cache-deps
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{env.INSTALL_PREFIX}}
           key: new-boost-${{matrix.boost}}-geant4-${{matrix.geant4}}
