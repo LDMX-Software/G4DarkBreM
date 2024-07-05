@@ -141,8 +141,8 @@ void lhe(
  * names the columns. These column names have no requirements
  * (besides the existence of this line).
  *
- * The CSV is required to have 14 columns on all non-empty lines of the file.
- * The 14 columns of the CSV all are in MeV and _in order_ are
+ * The CSV is required to have 10 columns on all non-empty lines of the file.
+ * The 10 columns of the CSV all are in MeV and _in order_ are
  * 1. The target Z
  * 2. The incident lepton energy
  * 3. The total energy of the recoil
