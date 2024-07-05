@@ -70,7 +70,7 @@ namespace parse {
  *
  * The `E` from the first line is used as the incident lepton energy.
  * The four-momentum from the middle line is the recoil lepton's four momentum,
- * and the four-momentum from the last line is used in conjuction with the
+ * and the four-momentum from the last line (A') is used in conjuction with the
  * recoil four-momentum to calculate the center of momentum vector.
  *
  * @param[in] reader input stream reading the file
@@ -117,13 +117,10 @@ void lhe(
               a_py >> a_pz >> a_E >> a_M;
           if (ptype == aprime_lhe_id and state == 1) {
             OutgoingKinematics evnt;
-            double cmpx = a_px + e_px;
-            double cmpy = a_py + e_py;
-            double cmpz = a_pz + e_pz;
-            double cmE = a_E + e_E;
             evnt.lepton = CLHEP::HepLorentzVector(e_px, e_py, e_pz, e_E);
             evnt.centerMomentum =
-                CLHEP::HepLorentzVector(cmpx, cmpy, cmpz, cmE);
+                CLHEP::HepLorentzVector(e_px + a_px, e_py + a_py, e_pz + a_pz, 
+                                        e_E + a_E);
             evnt.E = incident_energy;
             if (target_Z < 0) {
               throw std::runtime_error(
@@ -144,18 +141,18 @@ void lhe(
  * names the columns. These column names have no requirements
  * (besides the existence of this line).
  *
- * The CSV is required to have 10 columns on all non-empty lines of the file.
- * The 10 columns of the CSV all are in MeV and _in order_ are
+ * The CSV is required to have 14 columns on all non-empty lines of the file.
+ * The 14 columns of the CSV all are in MeV and _in order_ are
  * 1. The target Z
  * 2. The incident lepton energy
  * 3. The total energy of the recoil
  * 4. The x-component of the recoil momentum
  * 5. The y-component of the recoil momentum
  * 6. The z-component of the recoil momentum
- * 7. The total energy of the A'
- * 8. The x-component of the A' momentum
- * 9. The y-component of the A' momentum
- * 10. The z-component of the A' momentum
+ * 7. The total energy of the CoM
+ * 8. The x-component of the CoM
+ * 9. The y-component of the CoM
+ * 10. The z-component of the CoM
  *
  * @note If developing this function, make sure to update dumpLibrary
  * so that they can be used in conjuction.
@@ -182,14 +179,14 @@ void csv(
     if (not lss and cell.empty()) vals.push_back(-9999);
     if (vals.size() != 10) {
       throw std::runtime_error(
-          "Malformed row in CSV file: not exactly 9 columns");
+          "Malformed row in CSV file: not exactly 10 columns");
     }
     OutgoingKinematics ok;
     int target_Z = vals[0];  // implicit drop of any decimal points
     ok.E = vals[1];
     ok.lepton = CLHEP::HepLorentzVector(vals[3], vals[4], vals[5], vals[2]);
-    ok.centerMomentum =
-        CLHEP::HepLorentzVector(vals[7], vals[8], vals[9], vals[6]);
+    ok.centerMomentum 
+        = CLHEP::HepLorentzVector(vals[7], vals[8], vals[9], vals[6]);
     lib[target_Z][ok.E].push_back(ok);
   }
 }

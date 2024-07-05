@@ -17,6 +17,7 @@
 #include "G4RunManager.hh"  //for VerboseLevel
 #include "G4SystemOfUnits.hh"
 #include "Randomize.hh"
+#include "G4PhaseSpaceDecayChannel.hh"
 
 // Boost
 #include <boost/math/quadrature/gauss_kronrod.hpp>
@@ -145,7 +146,9 @@ G4DarkBreMModel::G4DarkBreMModel(const std::string &library_path, bool muons,
                                  double threshold, double epsilon,
                                  ScalingMethod scaling_method,
                                  XsecMethod xsec_method, double max_R_for_full,
-                                 int aprime_lhe_id, bool load_library)
+                                 int aprime_lhe_id, bool load_library,
+                                 bool scale_APrime, double dist_decay_min,
+                                 double dist_decay_max)
     : PrototypeModel(muons),
       maxIterations_{10000},
       threshold_{std::max(threshold,
@@ -154,7 +157,10 @@ G4DarkBreMModel::G4DarkBreMModel(const std::string &library_path, bool muons,
       aprime_lhe_id_{aprime_lhe_id},
       scaling_method_{scaling_method},
       xsec_method_{xsec_method},
-      library_path_{library_path} {
+      library_path_{library_path},
+      scale_APrime_{scale_APrime},
+      dist_decay_min_{dist_decay_min},
+      dist_decay_max_{dist_decay_max} {
   if (xsec_method_ == XsecMethod::Auto) {
     static const double MA = G4APrime::APrime()->GetPDGMass() / GeV;
     const double lepton_mass{(muons_ ? G4MuonMinus::MuonMinus()->GetPDGMass()
@@ -395,29 +401,54 @@ G4double G4DarkBreMModel::ComputeCrossSectionPerAtom(G4double lepton_ke,
   return cross;
 }
 
-G4ThreeVector G4DarkBreMModel::scale(double target_Z, double incident_energy,
-                                     double lepton_mass) {
+std::pair<G4ThreeVector, G4ThreeVector> G4DarkBreMModel::scale(
+        double target_Z, double incident_energy, double lepton_mass) {
   // mass A' in GeV
   static const double MA = G4APrime::APrime()->GetPDGMass() / CLHEP::GeV;
+
   OutgoingKinematics data = sample(target_Z, incident_energy);
-  double EAcc =
-      (data.lepton.e() - lepton_mass) *
-          ((incident_energy - lepton_mass - MA) / (data.E - lepton_mass - MA)) +
-      lepton_mass;
+  double energy_factor = ((incident_energy - lepton_mass - MA) /
+                       (data.E - lepton_mass - MA));
+  double EAcc = (data.lepton.e() - lepton_mass) * energy_factor + lepton_mass;
   double Pt = data.lepton.perp();
   double P = sqrt(EAcc * EAcc - lepton_mass * lepton_mass);
+
+  double APrimeE{0.0};
+  double APrimePt{0.0};
+  double APrimeP{0.0};
+
+  CLHEP::HepLorentzVector ap(data.centerMomentum.px() - data.lepton.px(),
+                             data.centerMomentum.py() - data.lepton.py(),
+                             data.centerMomentum.pz() - data.lepton.pz(),
+                             data.centerMomentum.e() - data.lepton.e());
+
   if (scaling_method_ == ScalingMethod::ForwardOnly) {
+    if (scale_APrime_) {
+      APrimeE = (ap.e() - MA) * energy_factor + MA;
+      APrimePt = ap.perp();
+      APrimeP = sqrt(APrimeE * APrimeE - MA * MA);
+    }
+
     unsigned int i = 0;
     while (Pt * Pt + lepton_mass * lepton_mass > EAcc * EAcc) {
       // Skip events until the transverse energy is less than the total energy.
       i++;
       data = sample(target_Z, incident_energy);
-      EAcc = (data.lepton.e() - lepton_mass) *
-                 ((incident_energy - lepton_mass - MA) /
-                  (data.E - lepton_mass - MA)) +
-             lepton_mass;
+      energy_factor = ((incident_energy - lepton_mass - MA) /
+                       (data.E - lepton_mass - MA));
+      EAcc = (data.lepton.e() - lepton_mass) * energy_factor + lepton_mass;
       Pt = data.lepton.perp();
       P = sqrt(EAcc * EAcc - lepton_mass * lepton_mass);
+
+      if (scale_APrime_) {
+        ap.setPx(data.centerMomentum.px() - data.lepton.px());
+        ap.setPy(data.centerMomentum.py() - data.lepton.py());
+        ap.setPz(data.centerMomentum.pz() - data.lepton.pz());
+        ap.setE(data.centerMomentum.e() - data.lepton.e());
+        APrimeE = (ap.e() - MA) * energy_factor + MA;
+        APrimePt = ap.perp();
+        APrimeP = sqrt(APrimeE * APrimeE - MA * MA);
+      }
 
       if (i > maxIterations_) {
         std::cerr
@@ -432,24 +463,40 @@ G4ThreeVector G4DarkBreMModel::scale(double target_Z, double incident_energy,
   } else if (scaling_method_ == ScalingMethod::CMScaling) {
     CLHEP::HepLorentzVector el(data.lepton.px(), data.lepton.py(),
                                data.lepton.pz(), data.lepton.e());
+
     double ediff = data.E - incident_energy;
     CLHEP::HepLorentzVector newcm(
         data.centerMomentum.px(), data.centerMomentum.py(),
         data.centerMomentum.pz() - ediff, data.centerMomentum.e() - ediff);
     el.boost(-1. * data.centerMomentum.boostVector());
     el.boost(newcm.boostVector());
-    double newE = (data.lepton.e() - lepton_mass) *
-                      ((incident_energy - lepton_mass - MA) /
-                       (data.E - lepton_mass - MA)) +
-                  lepton_mass;
+
+    double newE = (data.lepton.e() - lepton_mass) * energy_factor + lepton_mass;
     el.setE(newE);
     EAcc = el.e();
     Pt = el.perp();
     P = el.vect().mag();
+
+    if (scale_APrime_) {
+      double oldE = ap.e();
+      ap.boost(-1. * data.centerMomentum.boostVector());
+      ap.boost(newcm.boostVector());
+
+      newE = (oldE - MA) * energy_factor + MA;
+      ap.setE(newE);
+      APrimePt = ap.perp();
+      APrimeP = ap.vect().mag();
+    }
   } else if (scaling_method_ == ScalingMethod::Undefined) {
     EAcc = data.lepton.e();
     P = sqrt(EAcc * EAcc - lepton_mass * lepton_mass);
     Pt = data.lepton.perp();
+
+    if (scale_APrime_) {
+      APrimeE = ap.e();
+      APrimeP = sqrt(APrimeE * APrimeE - MA * MA);
+      APrimePt = ap.perp();
+    }
   } else {
     throw std::runtime_error(
         "Unrecognized ScalingMethod, should be set by using the enum class.");
@@ -463,7 +510,21 @@ G4ThreeVector G4DarkBreMModel::scale(double target_Z, double incident_energy,
   recoil.set(std::sin(ThetaAcc) * std::cos(PhiAcc),
              std::sin(ThetaAcc) * std::sin(PhiAcc), std::cos(ThetaAcc));
   recoil.setMag(recoilMag);
-  return recoil;
+  
+  // outgoing A' momentum
+  G4ThreeVector aprime;
+  if (scale_APrime_) {
+    // make the azimuthal (phi) angle difference the same as in the MG data
+    G4double aPrimePhi = PhiAcc + ap.phi() - data.lepton.phi();
+
+    G4double aPrimeMag = sqrt(APrimeE * APrimeE - MA * MA) * GeV;
+    double aPrimeTheta = std::asin(APrimePt / APrimeP);
+    aprime.set(std::sin(aPrimeTheta) * std::cos(aPrimePhi),
+               std::sin(aPrimeTheta) * std::sin(aPrimePhi),
+               std::cos(aPrimeTheta));
+    aprime.setMag(aPrimeMag);
+  }
+  return std::make_pair(recoil, aprime);
 }
 
 void G4DarkBreMModel::GenerateChange(G4ParticleChange &particleChange,
@@ -476,15 +537,34 @@ void G4DarkBreMModel::GenerateChange(G4ParticleChange &particleChange,
   G4double incidentEnergy =
       step.GetPostStepPoint()->GetTotalEnergy() / CLHEP::GeV;
 
-  G4ThreeVector recoilMomentum = scale(element.GetZ(), incidentEnergy, Ml);
+  std::pair<G4ThreeVector, G4ThreeVector> recoilMomenta 
+          = scale(element.GetZ(), incidentEnergy, Ml);
+  G4ThreeVector recoilMomentum = recoilMomenta.first;
   recoilMomentum.rotateUz(track.GetMomentumDirection());
 
   // create g4dynamicparticle object for the dark photon.
-  // define its 3-momentum so we conserve 3-momentum with primary and recoil
-  // lepton NOTE: does _not_ take nucleus recoil into account
-  G4ThreeVector darkPhotonMomentum = track.GetMomentum() - recoilMomentum;
+  G4ThreeVector darkPhotonMomentum = recoilMomenta.second;
+  if (!scale_APrime_) {
+    // define its 3-momentum so we conserve 3-momentum with primary and recoil
+    // lepton NOTE: does _not_ take nucleus recoil into account
+    darkPhotonMomentum = track.GetMomentum() - recoilMomentum;
+  } else {
+    darkPhotonMomentum.rotateUz(track.GetMomentumDirection());
+  }
   G4DynamicParticle *dphoton =
       new G4DynamicParticle(G4APrime::APrime(), darkPhotonMomentum);
+
+  if (G4APrime::getDecayMode() == G4APrime::DecayMode::FlatDecay) {
+    double dist_decay = G4UniformRand() * (dist_decay_max_ - dist_decay_min_) 
+                      + dist_decay_min_;
+    CLHEP::HepLorentzVector p4 = dphoton->Get4Momentum();
+    double tau_decay = dist_decay / p4.beta() / p4.gamma() / c_light;
+    dphoton->SetPreAssignedDecayProperTime(tau_decay);
+
+    dphoton->SetPreAssignedDecayProducts(
+      (new G4PhaseSpaceDecayChannel("A^1", 1.0, 2, "e-", "e+"))->
+        DecayIt(G4APrime::APrime()->G4APrime::APrime()->GetPDGMass()));
+  }
 
   // stop tracking and create new secondary instead of primary
   if (alwaysCreateNewLepton_) {
