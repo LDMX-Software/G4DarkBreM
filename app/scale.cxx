@@ -159,7 +159,7 @@ int main(int argc, char* argv[]) try {
     std::cerr << "Unable to open output file for writing." << std::endl;
     return -1;
   }
-  f << "target_Z,recoil_energy,recoil_px,recoil_py,recoil_pz,"
+  f << "target_Z,incident_energy,recoil_energy,recoil_px,recoil_py,recoil_pz,"
     << "centerMomentum_energy,centerMomentum_px,centerMomentum_py,"
     << "centerMomentum_pz\n";
 
@@ -172,8 +172,9 @@ int main(int argc, char* argv[]) try {
     double aprime_energy = sqrt(aprime.mag2() + ap_mass_squared);
 
     // convert to GeV to match MG output
-    f << target_Z << ',' << recoil_energy / GeV << ',' << recoil.x() / GeV 
-      << ',' << recoil.y() / GeV << ',' << recoil.z() / GeV << "," 
+    f << target_Z << ',' << incident_energy << ',' 
+      << recoil_energy / GeV << ',' << recoil.x() / GeV << ',' 
+      << recoil.y() / GeV << ',' << recoil.z() / GeV << "," 
       << (recoil_energy + aprime_energy) / GeV << "," 
       << (recoil.x() + aprime.x()) / GeV << "," 
       << (recoil.y() + aprime.y()) / GeV << "," 
