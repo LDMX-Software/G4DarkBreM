@@ -57,26 +57,26 @@ void G4APrime::Initialize(double mass, int id, double tau,
    * lifetime | depends on DecayMode
    * decay table | depends on DecayMode
    */
-  if (decay_mode == G4APrime::DecayMode::GeantDecay) {
-    G4DecayTable* table = new G4DecayTable();
-    G4VDecayChannel* mode = new G4PhaseSpaceDecayChannel("A^1", 1.0, 2, 
-                                                         "e-", "e+");
-    table->Insert(mode);
-    theAPrime = new G4APrime(
-      "A^1" /* short name */, mass * MeV, 0. /* mass width */,
-      0. /*electric charge */, 0 /* spin */, 0 /* parity */,
-      0 /* conjugation */, 0 /* isospine */, 0 /* isospin3 */, 0 /* G parity */,
-      "APrime" /* long name */, 0 /* lepton number */, 0 /* baryon number */,
-      id, false /* stable? */, tau /* lifetime */, table /* decay table */
-    );
-  } else {
-    theAPrime = new G4APrime(
+  
+  theAPrime = new G4APrime(
       "A^1" /* short name */, mass * MeV, 0. /* mass width */,
       0. /*electric charge */, 0 /* spin */, 0 /* parity */,
       0 /* conjugation */, 0 /* isospine */, 0 /* isospin3 */, 0 /* G parity */,
       "APrime" /* long name */, 0 /* lepton number */, 0 /* baryon number */,
       id, true /* stable? */, -1 /* lifetime */, nullptr /* decay table */
-    );
+  );
+
+  if (decay_mode != G4APrime::DecayMode::NoDecay) {
+    G4DecayTable* table = new G4DecayTable();
+    G4VDecayChannel* mode = new G4PhaseSpaceDecayChannel("A^1", 1.0, 2, 
+                                                         "e-", "e+");
+    table->Insert(mode);
+
+    theAPrime->SetPDGStable(false);
+    theAPrime->SetPDGLifeTime(tau * second);
+    if (decay_mode == G4APrime::DecayMode::FlatDecay)
+      theAPrime->SetPDGLifeTime(0.0); // decay configured in G4DarkBreMModel
+    theAPrime->SetDecayTable(table);
   }
 
   return;
