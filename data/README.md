@@ -30,7 +30,7 @@ Generate the muon library.
 ```
 dbgen run --nevents 50000 \
   --max_energy 100 \
-  --min_energy 2 \
+  --min_energy 10 \
   --apmass 1 \
   --target copper \
   --lepton muon
