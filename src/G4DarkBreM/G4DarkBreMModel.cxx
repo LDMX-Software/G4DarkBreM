@@ -523,6 +523,11 @@ std::pair<G4ThreeVector, G4ThreeVector> G4DarkBreMModel::scale(
                std::sin(aPrimeTheta) * std::sin(aPrimePhi),
                std::cos(aPrimeTheta));
     aprime.setMag(aPrimeMag);
+  } else {
+    // define A' momentum to be 3-momentum conserving with the recoil
+    double incident_momentum_mag = sqrt(incident_energy*incident_energy 
+                                        - lepton_mass*lepton_mass) * GeV;
+    aprime = G4ThreeVector(0, 0, incident_momentum_mag) - recoil;
   }
   return std::make_pair(recoil, aprime);
 }
@@ -537,20 +542,13 @@ void G4DarkBreMModel::GenerateChange(G4ParticleChange &particleChange,
   G4double incidentEnergy =
       step.GetPostStepPoint()->GetTotalEnergy() / CLHEP::GeV;
 
-  std::pair<G4ThreeVector, G4ThreeVector> recoilMomenta 
+  std::pair<G4ThreeVector, G4ThreeVector> outgoingMomenta 
           = scale(element.GetZ(), incidentEnergy, Ml);
-  G4ThreeVector recoilMomentum = recoilMomenta.first;
-  recoilMomentum.rotateUz(track.GetMomentumDirection());
+  outgoingMomenta.first.rotateUz(track.GetMomentumDirection());
+  outgoingMomenta.second.rotateUz(track.GetMomentumDirection());
+  G4ThreeVector recoilMomentum = outgoingMomenta.first;
+  G4ThreeVector darkPhotonMomentum = outgoingMomenta.second;
 
-  // create g4dynamicparticle object for the dark photon.
-  G4ThreeVector darkPhotonMomentum = recoilMomenta.second;
-  if (!scale_APrime_) {
-    // define its 3-momentum so we conserve 3-momentum with primary and recoil
-    // lepton NOTE: does _not_ take nucleus recoil into account
-    darkPhotonMomentum = track.GetMomentum() - recoilMomentum;
-  } else {
-    darkPhotonMomentum.rotateUz(track.GetMomentumDirection());
-  }
   G4DynamicParticle *dphoton =
       new G4DynamicParticle(G4APrime::APrime(), darkPhotonMomentum);
 
