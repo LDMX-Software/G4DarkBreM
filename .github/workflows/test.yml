@@ -10,6 +10,7 @@ on:
     paths-ignore:
       - 'docs/**'
       - '**.md'
+      - '.github/workflows/docs.yml'
 
 jobs:
   test:
