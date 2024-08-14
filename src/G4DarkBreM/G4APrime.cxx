@@ -32,6 +32,11 @@ void G4APrime::Initialize(double mass, int id, double tau,
     throw std::runtime_error(
         "Attempting to initialize the APrime particle more than once.");
 
+  if (decay_mode == G4APrime::DecayMode::GeantDecay && tau < 0.0)
+    throw std::runtime_error(
+      "Invalid configuration: DecayMode set to GeantDecay but tau is negative."
+    );
+
   G4APrime::decay_mode_ = decay_mode;
 
   /**
