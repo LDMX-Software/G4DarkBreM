@@ -19,10 +19,9 @@ namespace g4db {
  * Data frame to store necessary information from LHE files
  */
 struct OutgoingKinematics {
-  /// 4-momentum of lepton in center of momentum frame for electron-A'
-  /// system
+  /// 4-momentum of lepton in CoM frame
   CLHEP::HepLorentzVector lepton;
-  /// 4-vector pointing to center of momentum frame
+  /// 4-vector pointing to center of momentum of lepton and A'
   CLHEP::HepLorentzVector centerMomentum;
   /// energy of lepton before brem (used as key in mad graph data map)
   double E;
@@ -50,10 +49,10 @@ struct OutgoingKinematics {
  * 4. The x-component of the recoil momentum
  * 5. The y-component of the recoil momentum
  * 6. The z-component of the recoil momentum
- * 7. The total energy of the A'
- * 8. The x-component of the A' momentum
- * 9. The y-component of the A' momentum
- * 10. The z-component of the A' momentum
+ * 7. The total energy of the CoM frame
+ * 8. The x-component of the CoM
+ * 9. The y-component of the CoM
+ * 10. The z-component of the CoM
  *
  * ### LHE
  * The LHE files must have dark brem events in it where "dark brem event"
@@ -88,7 +87,7 @@ struct OutgoingKinematics {
  *
  * The `E` from the first line is used as the incident lepton energy.
  * The four-momentum from the middle line is the recoil lepton's four momentum,
- * and the four-momentum from the last line is used in conjuction with the
+ * and the four-momentum from the last line (A') is used in conjunction with the
  * recoil four-momentum to calculate the center of momentum vector.
  *
  * @param[in] path path to library to parse

@@ -52,6 +52,7 @@ void usage() {
          "  -M,--ap-mass          : mass of dark photon in MeV\n"
          "  --muons               : pass to set lepton to muons (otherwise "
          "electrons)\n"
+         "  --scale-APrime        : pass to scale the APrime kinematics\n"
       << std::flush;
 }
 
@@ -71,6 +72,7 @@ int main(int argc, char* argv[]) try {
   std::string db_lib;
   double ap_mass{0.1};
   bool muons{false};
+  bool scale_APrime{false};
   for (int i_arg{1}; i_arg < argc; i_arg++) {
     std::string arg{argv[i_arg]};
     if (arg == "-h" or arg == "--help") {
@@ -108,6 +110,8 @@ int main(int argc, char* argv[]) try {
         return 1;
       }
       num_events = std::stoi(argv[++i_arg]);
+    } else if (arg == "--scale-APrime") {
+      scale_APrime = true;
     } else if (not arg.empty() and arg[0] == '-') {
       std::cerr << arg << " is not a recognized option" << std::endl;
       return 1;
@@ -129,32 +133,53 @@ int main(int argc, char* argv[]) try {
   }
 
   // the process accesses the A' mass from the G4 particle
-  G4APrime::Initialize(ap_mass / GeV);
+  G4APrime::Initialize(ap_mass);
+
   // create the model, this is where the LHE file is parsed
   //    into an in-memory library to sample and scale from
   g4db::G4DarkBreMModel db_model(
       db_lib, muons,
       0.0,  // threshold
       1.0,  // epsilon
-      g4db::G4DarkBreMModel::ScalingMethod::ForwardOnly);
+      g4db::G4DarkBreMModel::ScalingMethod::ForwardOnly,
+      g4db::G4DarkBreMModel::XsecMethod::Auto,
+      50.0, // max_R_for_full
+      622, // aprime_lhe_id
+      true, // load_library
+      scale_APrime);
   db_model.PrintInfo();
-  printf("   %-16s %f\n", "Lepton Mass [MeV]:", lepton_mass);
+  printf("   %-16s %f\n", "Lepton Mass [MeV]:", lepton_mass * GeV / MeV);
   printf("   %-16s %f\n", "A' Mass [MeV]:", ap_mass / MeV);
+  
+  double lepton_mass_squared{lepton_mass * lepton_mass};
+  double ap_mass_squared{ap_mass * ap_mass};
 
   std::ofstream f{output_filename};
   if (not f.is_open()) {
     std::cerr << "Unable to open output file for writing." << std::endl;
     return -1;
   }
-  f << "recoil_energy,recoil_px,recoil_py,recoil_pz\n";
+  f << "target_Z,incident_energy,recoil_energy,recoil_px,recoil_py,recoil_pz,"
+    << "centerMomentum_energy,centerMomentum_px,centerMomentum_py,"
+    << "centerMomentum_pz\n";
 
   for (int i_event{0}; i_event < num_events; ++i_event) {
-    G4ThreeVector recoil =
+    std::pair<G4ThreeVector, G4ThreeVector> momenta = 
         db_model.scale(target_Z, incident_energy, lepton_mass);
-    double recoil_energy = sqrt(recoil.mag2() + lepton_mass * lepton_mass);
+    G4ThreeVector recoil = momenta.first;
+    double recoil_energy = sqrt(recoil.mag2() + lepton_mass_squared);
+    G4ThreeVector aprime = momenta.second;
+    double aprime_energy = sqrt(aprime.mag2() + ap_mass_squared);
 
-    f << recoil_energy << ',' << recoil.x() << ',' << recoil.y() << ','
-      << recoil.z() << '\n';
+    // convert to GeV to match MG output
+    f << target_Z << ',' << incident_energy << ',' 
+      << recoil_energy / GeV << ',' << recoil.x() / GeV << ',' 
+      << recoil.y() / GeV << ',' << recoil.z() / GeV << "," 
+      << (recoil_energy + aprime_energy) / GeV << "," 
+      << (recoil.x() + aprime.x()) / GeV << "," 
+      << (recoil.y() + aprime.y()) / GeV << "," 
+      << (recoil.z() + aprime.z() ) / GeV
+      << '\n';
   }
 
   f.close();
