@@ -42,7 +42,7 @@ class G4APrime : public G4ParticleDefinition {
     /**
      * Flat decay -- the decay proper time will be randomly sampled
      * from a uniform distribution whose maximum and minimum are set
-     * in the G4DarkBreMModel::GenerateChange() method based on parameters
+     * in the g4db::G4DarkBreMModel::GenerateChange method based on parameters
      * of that class.
      *
      * As with GeantDecay, the APrime will decay to e-/e+.
@@ -88,6 +88,7 @@ class G4APrime : public G4ParticleDefinition {
   static void Initialize(double mass, int id = 62, double tau = -1.0, 
                          DecayMode decay_mode = DecayMode::NoDecay);
 
+  /// Get the G4APrime::DecayMode that was provided to G4APrime::Initialize
   static DecayMode getDecayMode() { return decay_mode_; }
 
   private:
@@ -110,6 +111,7 @@ class G4APrime : public G4ParticleDefinition {
                              lepton, baryon, encoding, stable, lifetime,
                              decaytable) {}
 
+  /// the G4APrime::DecayMode that was provided to G4APrime::Initialize
   static DecayMode decay_mode_;
 
   /**
