@@ -416,10 +416,20 @@ class G4DarkBreMModel : public PrototypeModel {
    * 
    * The same scaling method is used as for the recoil lepton.
    * The difference between the azimuthal angle of the A' and the recoil lepton
-   * will be preserved from MadGraph.
+   * is designed to be preserved from MadGraph.
+   * The preservation of this angle and the overall scaling of the A' has only been validated for
+   * electrons with incident energies ranging from 1GeV to 10GeV and dark photon masses
+   * ranging from 1MeV to 100MeV. While the scaling is expected to be well behaved for muons
+   * and at other energy scales, users are encouraged to double-check this behavior in their
+   * situation and report issues to the repository. https://github.com/LDMX-Software/G4DarkBreM
    *
    * If false, will define the 3-momentum of the A' to conserve 3-momentum
-   * with primary and recoil lepton, not taking into account the nuclear recoil
+   * with primary and recoil lepton, not taking into account the nuclear recoil.
+   * This is the default because then the user is able to "reconstruct" the true incident lepton's
+   * momentum using the recoil lepton and produced dark photon's three-momenta.
+   * Scaling the A' momentum is only advisable if the A' momentum _itself_ is important
+   * to the search (for example, when the A' decays visibly and the decay is observed
+   * in which case the A' momentum deciding where the decay occurs is very important).
    */  
   bool scale_APrime_{false};
 
