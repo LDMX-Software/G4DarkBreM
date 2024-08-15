@@ -208,9 +208,9 @@ class G4DarkBreMModel : public PrototypeModel {
    * @param[in] scale_APrime whether to scale the A' kinematics based on the
    * library. If false, define A' momentum to conserve momentum without taking
    * nuclear recoil into account.
-   * @param[in] dist_decay_min minimum flight distance [mm] at which to 
+   * @param[in] dist_decay_min minimum flight distance [mm] at which to
    * decay the A' if G4APrime::DecayMode is set to FlatDecay
-   * @param[in] dist_decay_max maximum flight distance [mm] at which to 
+   * @param[in] dist_decay_max maximum flight distance [mm] at which to
    * decay the A' if G4APrime::DecayMode is set to FlatDecay
    */
   G4DarkBreMModel(const std::string& library_path, bool muons,
@@ -272,11 +272,12 @@ class G4DarkBreMModel : public PrototypeModel {
    * @param[in] target_Z atomic Z of target nucleus
    * @param[in] incident_energy incident total energy of the lepton [GeV]
    * @param[in] lepton_mass mass of incident lepton [GeV]
-   * @return G4ThreeVectors representing the outgoing momenta of the recoil lepton 
-   *         and the A', respectively
+   * @return G4ThreeVectors representing the outgoing momenta of the recoil
+   * lepton and the A', respectively
    */
-  std::pair<G4ThreeVector, G4ThreeVector> 
-	  scale(double target_Z, double incident_energy, double lepton_mass);
+  std::pair<G4ThreeVector, G4ThreeVector> scale(double target_Z,
+                                                double incident_energy,
+                                                double lepton_mass);
 
   /**
    * Simulates the emission of a dark photon + lepton
@@ -413,35 +414,37 @@ class G4DarkBreMModel : public PrototypeModel {
 
   /**
    * whether to scale the outgoing A' momentum based on the MadGraph library.
-   * 
+   *
    * The same scaling method is used as for the recoil lepton.
    * The difference between the azimuthal angle of the A' and the recoil lepton
    * is designed to be preserved from MadGraph.
-   * The preservation of this angle and the overall scaling of the A' has only been validated for
-   * electrons with incident energies ranging from 1GeV to 10GeV and dark photon masses
-   * ranging from 1MeV to 100MeV. While the scaling is expected to be well behaved for muons
-   * and at other energy scales, users are encouraged to double-check this behavior in their
-   * situation and report issues to the repository. https://github.com/LDMX-Software/G4DarkBreM
+   * The preservation of this angle and the overall scaling of the A' has only
+   * been validated for electrons with incident energies ranging from 1GeV to
+   * 10GeV and dark photon masses ranging from 1MeV to 100MeV. While the scaling
+   * is expected to be well behaved for muons and at other energy scales, users
+   * are encouraged to double-check this behavior in their situation and report
+   * issues to the repository. https://github.com/LDMX-Software/G4DarkBreM
    *
    * If false, will define the 3-momentum of the A' to conserve 3-momentum
    * with primary and recoil lepton, not taking into account the nuclear recoil.
-   * This is the default because then the user is able to "reconstruct" the true incident lepton's
-   * momentum using the recoil lepton and produced dark photon's three-momenta.
-   * Scaling the A' momentum is only advisable if the A' momentum _itself_ is important
-   * to the search (for example, when the A' decays visibly and the decay is observed
-   * in which case the A' momentum deciding where the decay occurs is very important).
-   */  
+   * This is the default because then the user is able to "reconstruct" the true
+   * incident lepton's momentum using the recoil lepton and produced dark
+   * photon's three-momenta. Scaling the A' momentum is only advisable if the A'
+   * momentum _itself_ is important to the search (for example, when the A'
+   * decays visibly and the decay is observed in which case the A' momentum
+   * deciding where the decay occurs is very important).
+   */
   bool scale_APrime_{false};
 
   /**
-   * Minimum flight distance [mm] at which to decay the A' 
-   * if G4APrime::DecayMode is set to FlatDecay 
+   * Minimum flight distance [mm] at which to decay the A'
+   * if G4APrime::DecayMode is set to FlatDecay
    */
   double dist_decay_min_{0.0};
 
   /**
-   * Maximum flight distance [mm] at which to decay the A' 
-   * if G4APrime::DecayMode is set to FlatDecay 
+   * Maximum flight distance [mm] at which to decay the A'
+   * if G4APrime::DecayMode is set to FlatDecay
    */
   double dist_decay_max_{1.0};
 

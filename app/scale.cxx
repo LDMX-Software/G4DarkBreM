@@ -143,14 +143,14 @@ int main(int argc, char* argv[]) try {
       1.0,  // epsilon
       g4db::G4DarkBreMModel::ScalingMethod::ForwardOnly,
       g4db::G4DarkBreMModel::XsecMethod::Auto,
-      50.0, // max_R_for_full
-      622, // aprime_lhe_id
-      true, // load_library
+      50.0,  // max_R_for_full
+      622,   // aprime_lhe_id
+      true,  // load_library
       scale_APrime);
   db_model.PrintInfo();
   printf("   %-16s %f\n", "Lepton Mass [MeV]:", lepton_mass * GeV / MeV);
   printf("   %-16s %f\n", "A' Mass [MeV]:", ap_mass / MeV);
-  
+
   double lepton_mass_squared{lepton_mass * lepton_mass};
   double ap_mass_squared{ap_mass * ap_mass};
 
@@ -164,7 +164,7 @@ int main(int argc, char* argv[]) try {
     << "centerMomentum_pz\n";
 
   for (int i_event{0}; i_event < num_events; ++i_event) {
-    std::pair<G4ThreeVector, G4ThreeVector> momenta = 
+    std::pair<G4ThreeVector, G4ThreeVector> momenta =
         db_model.scale(target_Z, incident_energy, lepton_mass);
     G4ThreeVector recoil = momenta.first;
     double recoil_energy = sqrt(recoil.mag2() + lepton_mass_squared);
@@ -172,14 +172,12 @@ int main(int argc, char* argv[]) try {
     double aprime_energy = sqrt(aprime.mag2() + ap_mass_squared);
 
     // convert to GeV to match MG output
-    f << target_Z << ',' << incident_energy << ',' 
-      << recoil_energy / GeV << ',' << recoil.x() / GeV << ',' 
-      << recoil.y() / GeV << ',' << recoil.z() / GeV << "," 
-      << (recoil_energy + aprime_energy) / GeV << "," 
-      << (recoil.x() + aprime.x()) / GeV << "," 
-      << (recoil.y() + aprime.y()) / GeV << "," 
-      << (recoil.z() + aprime.z() ) / GeV
-      << '\n';
+    f << target_Z << ',' << incident_energy << ',' << recoil_energy / GeV << ','
+      << recoil.x() / GeV << ',' << recoil.y() / GeV << ',' << recoil.z() / GeV
+      << "," << (recoil_energy + aprime_energy) / GeV << ","
+      << (recoil.x() + aprime.x()) / GeV << ","
+      << (recoil.y() + aprime.y()) / GeV << ","
+      << (recoil.z() + aprime.z()) / GeV << '\n';
   }
 
   f.close();

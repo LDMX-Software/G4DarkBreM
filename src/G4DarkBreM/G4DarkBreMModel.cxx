@@ -13,11 +13,11 @@
 #include "G4Electron.hh"
 #include "G4EventManager.hh"  //for EventID number
 #include "G4MuonMinus.hh"
+#include "G4PhaseSpaceDecayChannel.hh"
 #include "G4PhysicalConstants.hh"
 #include "G4RunManager.hh"  //for VerboseLevel
 #include "G4SystemOfUnits.hh"
 #include "Randomize.hh"
-#include "G4PhaseSpaceDecayChannel.hh"
 
 // Boost
 #include <boost/math/quadrature/gauss_kronrod.hpp>
@@ -402,13 +402,13 @@ G4double G4DarkBreMModel::ComputeCrossSectionPerAtom(G4double lepton_ke,
 }
 
 std::pair<G4ThreeVector, G4ThreeVector> G4DarkBreMModel::scale(
-        double target_Z, double incident_energy, double lepton_mass) {
+    double target_Z, double incident_energy, double lepton_mass) {
   // mass A' in GeV
   static const double MA = G4APrime::APrime()->GetPDGMass() / CLHEP::GeV;
 
   OutgoingKinematics data = sample(target_Z, incident_energy);
-  double energy_factor = ((incident_energy - lepton_mass - MA) /
-                       (data.E - lepton_mass - MA));
+  double energy_factor =
+      ((incident_energy - lepton_mass - MA) / (data.E - lepton_mass - MA));
   double EAcc = (data.lepton.e() - lepton_mass) * energy_factor + lepton_mass;
   double Pt = data.lepton.perp();
   double P = sqrt(EAcc * EAcc - lepton_mass * lepton_mass);
@@ -434,8 +434,8 @@ std::pair<G4ThreeVector, G4ThreeVector> G4DarkBreMModel::scale(
       // Skip events until the transverse energy is less than the total energy.
       i++;
       data = sample(target_Z, incident_energy);
-      energy_factor = ((incident_energy - lepton_mass - MA) /
-                       (data.E - lepton_mass - MA));
+      energy_factor =
+          ((incident_energy - lepton_mass - MA) / (data.E - lepton_mass - MA));
       EAcc = (data.lepton.e() - lepton_mass) * energy_factor + lepton_mass;
       Pt = data.lepton.perp();
       P = sqrt(EAcc * EAcc - lepton_mass * lepton_mass);
@@ -510,7 +510,7 @@ std::pair<G4ThreeVector, G4ThreeVector> G4DarkBreMModel::scale(
   recoil.set(std::sin(ThetaAcc) * std::cos(PhiAcc),
              std::sin(ThetaAcc) * std::sin(PhiAcc), std::cos(ThetaAcc));
   recoil.setMag(recoilMag);
-  
+
   // outgoing A' momentum
   G4ThreeVector aprime;
   if (scale_APrime_) {
@@ -525,8 +525,9 @@ std::pair<G4ThreeVector, G4ThreeVector> G4DarkBreMModel::scale(
     aprime.setMag(aPrimeMag);
   } else {
     // define A' momentum to be 3-momentum conserving with the recoil
-    double incident_momentum_mag = sqrt(incident_energy*incident_energy 
-                                        - lepton_mass*lepton_mass) * GeV;
+    double incident_momentum_mag =
+        sqrt(incident_energy * incident_energy - lepton_mass * lepton_mass) *
+        GeV;
     aprime = G4ThreeVector(0, 0, incident_momentum_mag) - recoil;
   }
   return std::make_pair(recoil, aprime);
@@ -542,8 +543,8 @@ void G4DarkBreMModel::GenerateChange(G4ParticleChange &particleChange,
   G4double incidentEnergy =
       step.GetPostStepPoint()->GetTotalEnergy() / CLHEP::GeV;
 
-  std::pair<G4ThreeVector, G4ThreeVector> outgoingMomenta 
-          = scale(element.GetZ(), incidentEnergy, Ml);
+  std::pair<G4ThreeVector, G4ThreeVector> outgoingMomenta =
+      scale(element.GetZ(), incidentEnergy, Ml);
   outgoingMomenta.first.rotateUz(track.GetMomentumDirection());
   outgoingMomenta.second.rotateUz(track.GetMomentumDirection());
   G4ThreeVector recoilMomentum = outgoingMomenta.first;
@@ -553,15 +554,15 @@ void G4DarkBreMModel::GenerateChange(G4ParticleChange &particleChange,
       new G4DynamicParticle(G4APrime::APrime(), darkPhotonMomentum);
 
   if (G4APrime::getDecayMode() == G4APrime::DecayMode::FlatDecay) {
-    double dist_decay = G4UniformRand() * (dist_decay_max_ - dist_decay_min_) 
-                      + dist_decay_min_;
+    double dist_decay =
+        G4UniformRand() * (dist_decay_max_ - dist_decay_min_) + dist_decay_min_;
     CLHEP::HepLorentzVector p4 = dphoton->Get4Momentum();
     double tau_decay = dist_decay / p4.beta() / p4.gamma() / c_light;
     dphoton->SetPreAssignedDecayProperTime(tau_decay);
 
     dphoton->SetPreAssignedDecayProducts(
-      (new G4PhaseSpaceDecayChannel("A^1", 1.0, 2, "e-", "e+"))->
-        DecayIt(G4APrime::APrime()->G4APrime::APrime()->GetPDGMass()));
+        (new G4PhaseSpaceDecayChannel("A^1", 1.0, 2, "e-", "e+"))
+            ->DecayIt(G4APrime::APrime()->G4APrime::APrime()->GetPDGMass()));
   }
 
   // stop tracking and create new secondary instead of primary
