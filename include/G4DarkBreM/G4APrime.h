@@ -47,15 +47,15 @@ class G4APrime : public G4ParticleDefinition {
      *
      * As with GeantDecay, the APrime will decay to e-/e+.
      */
-     FlatDecay = 2,
+    FlatDecay = 2,
 
-     /**
-      * Let Geant4 handle the decay. In this case, the lifetime
-      * must be included as a parameter of the constructor.
-      *
-      * e-/e+ is the only decay channel.
-      */
-      GeantDecay = 3
+    /**
+     * Let Geant4 handle the decay. In this case, the lifetime
+     * must be included as a parameter of the constructor.
+     *
+     * e-/e+ is the only decay channel.
+     */
+    GeantDecay = 3
   };
 
   /**
@@ -75,7 +75,7 @@ class G4APrime : public G4ParticleDefinition {
    *
    * @param[in] mass The mass of the APrime in MeV
    * @param[in] id The PDG ID number to use for the APrime particle
-   * @param[in] tau The proper lifetime 
+   * @param[in] tau The proper lifetime
    *                (only used if decay_mode is set to GeantDecay)
    * @param[in] decay_mode G4APrime::DecayMode on whether/how to decay the A'
    *
@@ -85,13 +85,13 @@ class G4APrime : public G4ParticleDefinition {
    * scheme](https://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf), avoiding the
    * already-defined "one-of-a-kind" particles using 39, 41, and 42.
    */
-  static void Initialize(double mass, int id = 62, double tau = -1.0, 
+  static void Initialize(double mass, int id = 62, double tau = -1.0,
                          DecayMode decay_mode = DecayMode::NoDecay);
 
   /// Get the G4APrime::DecayMode that was provided to G4APrime::Initialize
   static DecayMode getDecayMode() { return decay_mode_; }
 
-  private:
+ private:
   /** Reference to single particle definition of A' */
   static G4APrime* theAPrime;
 

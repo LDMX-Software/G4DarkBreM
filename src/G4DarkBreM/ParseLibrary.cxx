@@ -118,9 +118,8 @@ void lhe(
           if (ptype == aprime_lhe_id and state == 1) {
             OutgoingKinematics evnt;
             evnt.lepton = CLHEP::HepLorentzVector(e_px, e_py, e_pz, e_E);
-            evnt.centerMomentum =
-                CLHEP::HepLorentzVector(e_px + a_px, e_py + a_py, e_pz + a_pz, 
-                                        e_E + a_E);
+            evnt.centerMomentum = CLHEP::HepLorentzVector(
+                e_px + a_px, e_py + a_py, e_pz + a_pz, e_E + a_E);
             evnt.E = incident_energy;
             if (target_Z < 0) {
               throw std::runtime_error(
@@ -185,8 +184,8 @@ void csv(
     int target_Z = vals[0];  // implicit drop of any decimal points
     ok.E = vals[1];
     ok.lepton = CLHEP::HepLorentzVector(vals[3], vals[4], vals[5], vals[2]);
-    ok.centerMomentum 
-        = CLHEP::HepLorentzVector(vals[7], vals[8], vals[9], vals[6]);
+    ok.centerMomentum =
+        CLHEP::HepLorentzVector(vals[7], vals[8], vals[9], vals[6]);
     lib[target_Z][ok.E].push_back(ok);
   }
 }
@@ -195,7 +194,7 @@ void csv(
 
 void parseLibrary(
     const std::string& path, int aprime_lhe_id,
-    std::map<int, std::map<double, std::vector<OutgoingKinematics>>>& lib) {  
+    std::map<int, std::map<double, std::vector<OutgoingKinematics>>>& lib) {
   if (hasEnding(path, ".csv") or hasEnding(path, ".csv.gz") or
       hasEnding(path, ".lhe") or hasEnding(path, ".lhe.gz")) {
     /**
