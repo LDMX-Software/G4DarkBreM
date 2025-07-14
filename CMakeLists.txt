@@ -9,6 +9,9 @@ project(G4DarkBreM
 find_package(Geant4 10.2.3 REQUIRED)
 find_package(Boost 1.68 REQUIRED COMPONENTS iostreams)
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 include(${Geant4_USE_FILE})
 
 add_library(G4DarkBreM SHARED
