@@ -71,11 +71,14 @@ static double integrate(IntegrandFunction F, double low, double high) {
  *
  * The form factors are copied from Appendix A (Eq A18 and A19) of
  * https://journals.aps.org/prd/pdf/10.1103/PhysRevD.80.075018
+ * and then corrected by Appendix B (Eq B.2 and B.3) of
+ * https://arxiv.org/pdf/2401.06843
+ * (note that \f$t=Q^2\f$).
  *
  * Here, the equations are listed for reference.
  * \f{equation}{
  * \chi(x,\theta) = \int^{t_{max}}_{t_{min}} dt \left(
- * \frac{Z^2a^4t^2}{(1+a^2t)^2(1+t/d)^2}+\frac{Za_p^4t^2}{(1+a_p^2t)^2(1+t/0.71)^8}\left(1+\frac{t(\mu_p^2-1)}{4m_p^2}\right)^2\right)\frac{t-t_{min}}{t^2}
+ * \frac{Z^2a^4t^2}{(1+a^2t)^2(1+t/d)^2}+\frac{Za_p^4t^2}{(1+a_p^2t)^2(1+t/0.71)^4}\left(1+\frac{t(\mu_p^2-1)}{4m_p^2}\right)\right)\frac{t-t_{min}}{t^2}
  * \f}
  * where
  * \f{equation}{
