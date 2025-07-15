@@ -11,66 +11,21 @@ on:
       - 'docs/**'
       - '**.md'
       - '.github/workflows/docs.yml'
+  workflow_dispatch:
 
   workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        boost: [1.80.0, 1.71.0, 1.68.0]
-        geant4: [11.0.3, 10.7.4, 10.2.3]
-    env:
-      INSTALL_PREFIX: ${{github.workspace}}/deps
+    container:
+      image: ldmx/dev:latest
     steps:
       -
         name: checkout source
         uses: actions/checkout@v4
       -
-        name: cache dependencies
-        id: cache-deps
-        uses: actions/cache@v4
-        with:
-          path: ${{env.INSTALL_PREFIX}}
-          key: new-boost-${{matrix.boost}}-geant4-${{matrix.geant4}}
-      -
-        name: install boost
-        if: ${{ steps.cache-deps.outputs.cache-hit != 'true' }}
-        run: |
-          mkdir dep-src
-          boost_version=${{matrix.boost}}
-          wget -q -O - https://archives.boost.io/release/${boost_version}/source/boost_${boost_version//./_}.tar.gz |\
-            tar -xz --strip-components=1 --directory dep-src
-          cd dep-src
-          ./bootstrap.sh --with-libraries=iostreams,math,regex
-          ./b2 install --prefix=${INSTALL_PREFIX}
-          cd ..
-          rm -rf dep-src
-      -
-        name: install geant4
-        if: ${{ steps.cache-deps.outputs.cache-hit != 'true' }}
-        run: |
-          python3 -m pip install cmake==3.22
-          cmake --version
-          mkdir dep-src
-          wget -q -O - https://github.com/geant4/geant4/archive/refs/tags/v${{matrix.geant4}}.tar.gz |\
-            tar -xz --strip-components=1 --directory dep-src
-          # old versions of Geant4 clash with newer GCC 11 compiler
-          #   luckily the fix is only in one file and is internal to Geant4
-          sed -i 's|fsqrt|g4fsqrt|g' dep-src/source/persistency/ascii/src/G4tgrEvaluator.cc
-          cmake \
-            -DGEANT4_INSTALL_EXAMPLES=OFF \
-            -DCMAKE_INSTALL_PREFIX=${INSTALL_PREFIX} \
-            -B dep-src/build \
-            -S dep-src
-          cmake --build dep-src/build --target install
-          rm -rf dep-src 
-      -
         name: test compile
         run: |
-          source ${INSTALL_PREFIX}/bin/geant4.sh
-          export CMAKE_PREFIX_PATH=${INSTALL_PREFIX}
           cmake -B build -S . 
           cmake --build build
-
