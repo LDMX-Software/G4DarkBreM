@@ -135,12 +135,12 @@ static double flux_factor_chi_numerical(G4double A, G4double Z, double tmin,
            ain_factor = 1. / (ain_inv2 + t), din_factor = 1. / (1 + t / din),
            nucl = (1 + t * bin);
 
-    // (ael_factor * del_factor * Z)^2 
+    // (ael_factor * del_factor * Z)^2
     // + Z * ain_factor^2 * nucl * din_factor^4 * (t - tmin) * t
     // Following https://arxiv.org/pdf/2401.06843
     return ((ael_factor * del_factor * Z * ael_factor * del_factor * Z) +
-            Z * ain_factor * ain_factor * nucl * din_factor * din_factor * din_factor *
-                        din_factor) *
+            Z * ain_factor * ain_factor * nucl * din_factor * din_factor *
+                din_factor * din_factor) *
            (t - tmin) * t;
   };
 
