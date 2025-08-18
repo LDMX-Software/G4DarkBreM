@@ -50,6 +50,36 @@ Getting started can be done by looking at [the configuration](docs/configuration
 and the g4db::example namespace which holds a fully functional (though primitive) Geant4
 simulation example.
 
+### Dark Brem Event Libraries
+This simulation relies on using reference event libraries generated before running.
+The development and usage of this simulation within LDMX uses event libraries generated with
+[LDMX-Software/dark-brem-lib-gen](https://github.com/LDMX-Software/dark-brem-lib-gen)
+For the paper published in Computer Physics Communications specifically, `v4.3` of this repository was used
+(_note:_ the interaction method with this repository in v4.3 was different than the current method).
+
+Follow the [Quick Start](https://github.com/LDMX-Software/dark-brem-lib-gen#quick-start) in that repository
+if you wish to use it for generating libraries.
+
+The directories created by runs of `dark-brem-lib-gen` can already be provided as a dark brem event library;
+however, if you wish to shrink the size of the files you are carrying around, you can use
+`g4db-extract-library` and `gzip` to save disk space.
+
+First, pull out the library into a CSV file.
+```
+g4db-extract-library <path-to-db-lib>
+```
+This already saves a factor of ~10 in disk space since the scaling method doesn't use all
+of the kinematic information output by MadGraph/MadEvent. Without explicitly providing
+an output file, it will simply call the CSV file the same name as the directory of the 
+LHE files with the `.csv` extension added. This CSV file can also be loaded by provided
+as a dark brem event library.
+
+If you wish to save another factor of ~4 in disk space, you can also compress the CSV.
+```
+gzip <path-to-db-lib-csv>
+```
+This `gzip`-compressed CSV file can also be provided as a dark brem event library.
+
 ## Validation
 Analysis and validation of G4DarkBreM has been studied in another repository 
 [tomeichlersmith/ldmx-sim-technique](https://github.com/tomeichlersmith/ldmx-sim-technique).
