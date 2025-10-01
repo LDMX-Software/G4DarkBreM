@@ -10,9 +10,44 @@ G4double ElementXsecCache::get(G4double energy, G4double A, G4double Z) {
           "ElementXsecCache not given a model to calculate cross "
           "sections with.");
     }
+
     the_cache_[key] = model_->ComputeCrossSectionPerAtom(energy, A, Z);
   }
   return the_cache_.at(key);
+}
+
+void ElementXsecCache::stream(std::istream& i) {
+  // Buffer for each line
+  std::string buffer{};
+  // Buffer for ',' characters. Char type so that the stream only extracts one
+  // character.
+  char comma{};
+  // Skip the header
+  std::getline(i, buffer);
+  while (std::getline(i, buffer)) {
+    // Skip empty lines (avoid parsing as 0s)
+    if (buffer == "") {
+      continue;
+    }
+    std::stringstream ss{buffer};
+    ss >> std::setprecision(std::numeric_limits<double>::digits10 + 1);
+    double E{};
+    double A{};
+    double Z{};
+    double xsec{};
+    // Manually parsing CSV sure is fun and not bugprone at all
+    ss >> A >> comma;
+    ss >> Z >> comma;
+    ss >> E >> comma;
+    ss >> xsec;
+
+    key_t key{computeKey(E, A, Z)};
+    the_cache_[key] = xsec * CLHEP::picobarn;
+    if (!ss.eof() || ss.fail()) {
+      throw std::runtime_error(
+          "[G4DarkBreM]: Bad line encountered in CSV file: " + buffer);
+    }
+  }
 }
 
 void ElementXsecCache::stream(std::ostream& o) const {
