@@ -6,6 +6,27 @@
 
 #include "G4DarkBreM/ParseLibrary.h"
 #include "G4DarkBreM/PrototypeModel.h"
+#include "G4DarkBreM/G4APrime.h"
+#include "G4DarkBreM/G4FractionallyCharged.h"
+#include "G4DarkBreM/ParseLibrary.h"
+
+// Geant4
+#include "G4Electron.hh"
+#include "G4EventManager.hh"  //for EventID number
+#include "G4MuonMinus.hh"
+#include "G4PhaseSpaceDecayChannel.hh"
+#include "G4PhysicalConstants.hh"
+#include "G4RunManager.hh"  //for VerboseLevel
+#include "G4SystemOfUnits.hh"
+#include "Randomize.hh"
+
+// Boost
+#include <boost/math/quadrature/gauss_kronrod.hpp>
+
+// STL
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 namespace g4db {
 
@@ -212,6 +233,8 @@ class G4DarkBreMModel : public PrototypeModel {
    * decay the A' if G4APrime::DecayMode is set to FlatDecay
    * @param[in] dist_decay_max maximum flight distance [mm] at which to
    * decay the A' if G4APrime::DecayMode is set to FlatDecay
+   * @param[in] decay_particle_id PDG ID of the particle that we decay to
+   *           (11 for e+e-, 17 for fcp+fcp-)
    */
   G4DarkBreMModel(const std::string& library_path, bool muons,
                   double threshold = 0.0, double epsilon = 1.0,
@@ -219,7 +242,8 @@ class G4DarkBreMModel : public PrototypeModel {
                   XsecMethod xm = XsecMethod::Auto,
                   double max_R_for_full = 50.0, int aprime_lhe_id = 622,
                   bool load_library = true, bool scale_APrime = false,
-                  double dist_decay_min = 0.0, double dist_decay_max = 1.0);
+                  double dist_decay_min = 0.0, double dist_decay_max = 1.0, 
+                  int decay_particle_id = 11);
 
   /**
    * Destructor
@@ -468,6 +492,14 @@ class G4DarkBreMModel : public PrototypeModel {
    * the sampling energy that is closest above the actual incoming energy.
    */
   std::map<int, std::map<double, unsigned int>> currentDataPoints_;
+
+  /**
+   * PDG ID of the particle to decay to if G4APrime::DecayMode is set to
+   * FlatDecay
+   *
+   * Currently only supports 11 (e-) and 17 (fcp-)
+   */
+  int decay_particle_id_{11};
 };
 
 }  // namespace g4db

@@ -6,27 +6,6 @@
 
 #include "G4DarkBreM/G4DarkBreMModel.h"
 
-#include "G4DarkBreM/G4APrime.h"
-#include "G4DarkBreM/ParseLibrary.h"
-
-// Geant4
-#include "G4Electron.hh"
-#include "G4EventManager.hh"  //for EventID number
-#include "G4MuonMinus.hh"
-#include "G4PhaseSpaceDecayChannel.hh"
-#include "G4PhysicalConstants.hh"
-#include "G4RunManager.hh"  //for VerboseLevel
-#include "G4SystemOfUnits.hh"
-#include "Randomize.hh"
-
-// Boost
-#include <boost/math/quadrature/gauss_kronrod.hpp>
-
-// STL
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-
 namespace g4db {
 
 /**
@@ -155,7 +134,7 @@ G4DarkBreMModel::G4DarkBreMModel(const std::string &library_path, bool muons,
                                  XsecMethod xsec_method, double max_R_for_full,
                                  int aprime_lhe_id, bool load_library,
                                  bool scale_APrime, double dist_decay_min,
-                                 double dist_decay_max)
+                                 double dist_decay_max, int decay_particle_id)
     : PrototypeModel(muons),
       maxIterations_{10000},
       threshold_{std::max(threshold,
@@ -167,7 +146,8 @@ G4DarkBreMModel::G4DarkBreMModel(const std::string &library_path, bool muons,
       library_path_{library_path},
       scale_APrime_{scale_APrime},
       dist_decay_min_{dist_decay_min},
-      dist_decay_max_{dist_decay_max} {
+      dist_decay_max_{dist_decay_max},
+      decay_particle_id_{decay_particle_id} {
   if (xsec_method_ == XsecMethod::Auto) {
     static const double MA = G4APrime::APrime()->GetPDGMass() / GeV;
     const double lepton_mass{(muons_ ? G4MuonMinus::MuonMinus()->GetPDGMass()
@@ -538,7 +518,7 @@ std::pair<G4ThreeVector, G4ThreeVector> G4DarkBreMModel::scale(
     aprime = G4ThreeVector(0, 0, incident_momentum_mag) - recoil;
   }
   return std::make_pair(recoil, aprime);
-}
+} // end of scale
 
 void G4DarkBreMModel::GenerateChange(G4ParticleChange &particleChange,
                                      const G4Track &track, const G4Step &step,
@@ -567,10 +547,20 @@ void G4DarkBreMModel::GenerateChange(G4ParticleChange &particleChange,
     double tau_decay = dist_decay / p4.beta() / p4.gamma() / c_light;
     dphoton->SetPreAssignedDecayProperTime(tau_decay);
 
-    dphoton->SetPreAssignedDecayProducts(
+    // set decay products if any
+    if (decay_particle_id_ == 17) {
+      dphoton->SetPreAssignedDecayProducts(
+        (new G4PhaseSpaceDecayChannel("A^1", 1.0, 2, "fcp-", "fcp+"))
+            ->DecayIt(G4APrime::APrime()->G4APrime::APrime()->GetPDGMass()));
+    } else if (decay_particle_id_ == 11) {
+      dphoton->SetPreAssignedDecayProducts(
         (new G4PhaseSpaceDecayChannel("A^1", 1.0, 2, "e-", "e+"))
             ->DecayIt(G4APrime::APrime()->G4APrime::APrime()->GetPDGMass()));
-  }
+    } else {
+      throw std::runtime_error(
+          "Unrecognized decay particle ID for flat decay mode.");
+    }
+  } // end of flat decay mode
 
   // stop tracking and create new secondary instead of primary
   if (alwaysCreateNewLepton_) {
@@ -599,7 +589,7 @@ void G4DarkBreMModel::GenerateChange(G4ParticleChange &particleChange,
     G4double finalKE = recoil_energy - Ml;
     particleChange.ProposeEnergy(finalKE);
   }
-}
+} // end of GenerateChange
 
 void G4DarkBreMModel::SetMadGraphDataLibrary(const std::string &path) {
   /*
