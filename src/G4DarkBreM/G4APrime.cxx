@@ -1,10 +1,5 @@
-/**
- * @file G4APrime.cxx
- * @brief Class creating the A' particle in Geant.
- * @author Michael Revering, University of Minnesota
- */
-
 #include "G4DarkBreM/G4APrime.h"
+#include "G4DarkBreM/G4FractionallyCharged.h"
 
 #include "G4DecayTable.hh"
 #include "G4ParticleTable.hh"
@@ -15,6 +10,8 @@
 G4APrime* G4APrime::theAPrime = 0;
 
 G4APrime::DecayMode G4APrime::decay_mode_ = G4APrime::DecayMode::NoDecay;
+
+int G4APrime::decay_id_ = 11;
 
 G4APrime* G4APrime::APrime() {
   if (!theAPrime) {
@@ -27,7 +24,7 @@ G4APrime* G4APrime::APrime() {
 }
 
 void G4APrime::Initialize(double mass, int id, double tau,
-                          G4APrime::DecayMode decay_mode) {
+                          G4APrime::DecayMode decay_mode, int decay_id) {
   if (theAPrime)
     throw std::runtime_error(
         "Attempting to initialize the APrime particle more than once.");
@@ -38,6 +35,7 @@ void G4APrime::Initialize(double mass, int id, double tau,
         "negative.");
 
   G4APrime::decay_mode_ = decay_mode;
+  G4APrime::decay_id_ = decay_id;
 
   /**
    * Here are the properties of the formal Geant4 dark photon we define.
@@ -73,8 +71,16 @@ void G4APrime::Initialize(double mass, int id, double tau,
 
   if (decay_mode != G4APrime::DecayMode::NoDecay) {
     G4DecayTable* table = new G4DecayTable();
-    G4VDecayChannel* mode =
-        new G4PhaseSpaceDecayChannel("A^1", 1.0, 2, "e-", "e+");
+    G4VDecayChannel* mode = nullptr;
+
+    if (decay_id == 11) {
+        mode = new G4PhaseSpaceDecayChannel("A^1", 1.0, 2, "e-", "e+");
+    } else if (decay_id == 17) {
+        mode = new G4PhaseSpaceDecayChannel("A^1", 1.0, 2, "fcp-", "fcp+");
+    } else {
+        throw std::runtime_error(
+            "Invalid configuration: Decay ID not supported for APrime decay.");
+    }
     table->Insert(mode);
 
     theAPrime->SetPDGStable(false);
@@ -85,4 +91,4 @@ void G4APrime::Initialize(double mass, int id, double tau,
   }
 
   return;
-}
+} // end of Initialize

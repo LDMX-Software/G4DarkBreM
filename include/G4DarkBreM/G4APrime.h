@@ -1,7 +1,9 @@
 /**
  * @file G4APrime.h
  * @brief Class creating the A' particle in Geant.
+ *        2025: now it can handle decays to e+e- or fcp+fcp-.
  * @author Michael Revering, University of Minnesota
+ * @author Tamas Almos Vami, UCSB
  */
 
 #ifndef SIMCORE_DARKBREM_G4APRIME_H_
@@ -58,6 +60,8 @@ class G4APrime : public G4ParticleDefinition {
     GeantDecay = 3
   };
 
+
+
   /**
    * Accessor for APrime definition
    *
@@ -86,7 +90,7 @@ class G4APrime : public G4ParticleDefinition {
    * already-defined "one-of-a-kind" particles using 39, 41, and 42.
    */
   static void Initialize(double mass, int id = 62, double tau = -1.0,
-                         DecayMode decay_mode = DecayMode::NoDecay);
+                         DecayMode decay_mode = DecayMode::NoDecay, int decay_id = 17);
 
   /// Get the G4APrime::DecayMode that was provided to G4APrime::Initialize
   static DecayMode getDecayMode() { return decay_mode_; }
@@ -113,6 +117,9 @@ class G4APrime : public G4ParticleDefinition {
 
   /// the G4APrime::DecayMode that was provided to G4APrime::Initialize
   static DecayMode decay_mode_;
+
+  /// Decay product PDG ID (only used for decaying A' mode)
+  static int decay_id_;
 
   /**
    * Destructor
