@@ -7,6 +7,7 @@ project(G4DarkBreM
 
 # Search for Geant4 and load its settings
 cmake_policy(SET CMP0167 NEW)
+set(CMAKE_CXX_STANDARD 20)
 find_package(Geant4 10.2.3 REQUIRED)
 find_package(Boost 1.68 REQUIRED COMPONENTS iostreams)
 
